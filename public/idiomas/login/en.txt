@@ -1,0 +1,9 @@
+COMPANY
+Login
+User
+Password
+Login
+Settings
+Settings
+Change language
+Close

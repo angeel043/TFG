@@ -1,0 +1,7 @@
+EMPRESA
+Bienvenido a la empresa
+Este es el frontend con Bootstrap.
+Ajustes
+Ajustes
+Cambiar idioma
+Cerrar

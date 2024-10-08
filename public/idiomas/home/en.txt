@@ -1,0 +1,7 @@
+COMPANY
+Welcome to the company
+This is the Bootstrap frontend.
+Settings
+Settings
+Change language
+Close
