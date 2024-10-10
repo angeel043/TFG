@@ -5,3 +5,8 @@ Settings
 Settings
 Change language
 Close
+Logout
+Confirm logout
+Are you sure you want to log out?
+Yes
+No

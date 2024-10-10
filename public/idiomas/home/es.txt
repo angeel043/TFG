@@ -5,3 +5,8 @@ Ajustes
 Ajustes
 Cambiar idioma
 Cerrar
+Cerrar sesión
+Confirmar cierre de sesión
+¿Está seguro de que desea cerrar sesión?
+Sí
+No

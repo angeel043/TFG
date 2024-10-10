@@ -1,9 +1,9 @@
 EMPRESA
 Iniciar sesión
-Usuarios
+Usuario
 Contraseña
-Iniciar Sesión
+Iniciar sesión
 Ajustes
 Ajustes
-Cambiar idioma
+Seleccionar idioma
 Cerrar

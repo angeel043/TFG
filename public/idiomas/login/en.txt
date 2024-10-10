@@ -5,5 +5,5 @@ Password
 Login
 Settings
 Settings
-Change language
+Select language
 Close
