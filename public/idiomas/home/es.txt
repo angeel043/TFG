@@ -1,12 +1,15 @@
 EMPRESA
-Bienvenido a la empresa
-Este es el frontend con Bootstrap.
+No se encontraron clientes asociados.
 Ajustes
 Ajustes
-Cambiar idioma
+Seleccionar idioma:
 Cerrar
 Cerrar sesión
 Confirmar cierre de sesión
 ¿Está seguro de que desea cerrar sesión?
 Sí
 No
+Clientes asociados
+Nombre
+Correo
+Teléfono

@@ -1,4 +1,5 @@
 <?php
+session_start(); // Iniciar la sesión
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -23,17 +24,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    // Consulta SQL para verificar si el usuario existe
-    $sql = "SELECT * FROM usuarios WHERE nombre_usuario='$user' AND password='$pass'";
-    $result = $conn->query($sql);
+    // Usamos sentencias preparadas para evitar SQL injection
+    $stmt = $conn->prepare("SELECT id, password FROM usuarios WHERE nombre_usuario = ?");
+    $stmt->bind_param("s", $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Si se encuentra un resultado, iniciar sesión
+    // Si el usuario existe
     if ($result->num_rows > 0) {
-        // Redirigir a la página de inicio
-        header("Location: ../public/home.html");
-        exit();
+        $usuario = $result->fetch_assoc();
+        $id_usuario = $usuario['id'];
+        $hash_almacenado = $usuario['password'];
+
+        // Verificar si la contraseña es correcta
+        if (password_verify($pass, $hash_almacenado)) {
+            // Guardar el id del usuario en la sesión
+            $_SESSION['id_usuario'] = $id_usuario;
+            
+            // Redirigir a la página de inicio (home.php)
+            header("Location: ../src/home.php");
+            exit();
+        } else {
+            // Contraseña incorrecta
+            header("Location: ../public/index.html?error=true");
+            exit();
+        }
     } else {
-        // Redirigir a la página de inicio de sesión con error
+        // Usuario no encontrado
         header("Location: ../public/index.html?error=true");
         exit();
     }

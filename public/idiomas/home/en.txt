@@ -1,6 +1,5 @@
 COMPANY
-Welcome to the company
-This is the Bootstrap frontend.
+No associated clients found
 Settings
 Settings
 Change language
@@ -10,3 +9,7 @@ Confirm logout
 Are you sure you want to log out?
 Yes
 No
+Associated clients
+Name
+Mail
+Telephone
