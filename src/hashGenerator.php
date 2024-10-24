@@ -1,5 +1,5 @@
 <?php
-$password = 'angel';  // Reemplaza con la contraseña que quieras hashear
+$password = 'natalia';  // Reemplaza con la contraseña que quieras hashear
 
 // Genera el hash de la contraseña
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

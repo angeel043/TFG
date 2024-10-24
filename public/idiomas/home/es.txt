@@ -1,4 +1,4 @@
-EMPRESA
+SINOVA - Página principal
 No se encontraron clientes asociados.
 Ajustes
 Ajustes
@@ -13,3 +13,5 @@ Clientes asociados
 Nombre
 Correo
 Teléfono
+Completado
+Información extra

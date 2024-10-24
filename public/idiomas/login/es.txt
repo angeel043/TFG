@@ -1,4 +1,4 @@
-EMPRESA
+SINOVA - Inicio de sesión
 Iniciar sesión
 Usuario
 Contraseña

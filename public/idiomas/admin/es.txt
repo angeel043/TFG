@@ -1,0 +1,14 @@
+SINOVA - Panel de administración
+Ajustes
+Ajustes
+Seleccionar idioma
+Cerrar
+Usuario o contraseña incorrectos.
+Opciones de usuarios
+Crear usuario
+Modificar usuario
+Borrar usuario
+Opciones de clientes
+Crear cliente
+Modificar cliente
+Borrar cliente

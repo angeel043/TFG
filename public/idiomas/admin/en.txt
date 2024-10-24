@@ -1,8 +1,4 @@
-SINOVA - Login
-Login
-User
-Password
-Login
+SINOVA - Administration panel
 Settings
 Settings
 Select language

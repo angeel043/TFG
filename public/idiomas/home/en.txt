@@ -1,4 +1,4 @@
-COMPANY
+SINOVA - Main page
 No associated clients found
 Settings
 Settings
@@ -13,3 +13,5 @@ Associated clients
 Name
 Mail
 Telephone
+Completed
+Extra information

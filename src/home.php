@@ -16,7 +16,7 @@ $conn = Database::getConnection();
 $id_usuario = $_SESSION['id_usuario'];
 
 // Consulta para obtener los clientes asociados al usuario
-$stmt = $conn->prepare("SELECT nombre, email, telefono FROM clientes WHERE idUser = ?");
+$stmt = $conn->prepare("SELECT id, nombre, email, telefono, completado, extrainfo FROM clientes WHERE idUser = ? and completado = 0");
 $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -27,7 +27,7 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">EMPRESA</title>
+    <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -63,7 +63,7 @@ $result = $stmt->get_result();
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#" id="navTitle">EMPRESA</a>
+            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Página principal</a>
             <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
                 <span id="settingsButton">Ajustes</span>
             </button>
@@ -72,30 +72,36 @@ $result = $stmt->get_result();
 
     <div class="container mt-5">
         <h2 id="clientsTitle">Clientes asociados</h2>
-        <table class="table table-dark table-striped">
-            <thead>
-                <tr>
-                    <th id="nameColumn">Nombre</th>
-                    <th id="mailColumn">Correo</th>
-                    <th id="phoneColumn">Teléfono</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($cliente = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($cliente['nombre']) . "</td>"; 
-                        echo "<td>" . htmlspecialchars($cliente['email']) . "</td>";
-                        echo "<td>" . htmlspecialchars($cliente['telefono']) . "</td>";
-                        echo "</tr>";
+        <form id="clientsForm" method="post" action="logout.php">
+            <table class="table table-dark table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th id="nameColumn" style="width: 20%;">Nombre</th>
+                        <th id="mailColumn" style="width: 20%;">Correo</th>
+                        <th id="phoneColumn" style="width: 15%;">Teléfono</th>
+                        <th id="completedColumn" style="width: 10%;">Completado</th>
+                        <th id="extraInfoColumn" style="width: 35%;">Información extra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($cliente = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($cliente['nombre']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($cliente['email']) . "</td>";
+                            echo "<td>" . htmlspecialchars($cliente['telefono']) . "</td>";
+                            echo "<td><input type='checkbox' class='form-check-input' name='completado[]' value='" . $cliente['id'] . "' /></td>";
+                            echo "<td><textarea name='extrainfo[" . $cliente['id'] . "]' style='width: 100%; height: 75px; resize: none; word-wrap: break-word;'>" . htmlspecialchars($cliente['extrainfo']) . "</textarea></td>"; // Aquí se ajusta la forma de enviar el extrainfo
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5' id='noClients'>No se encontraron clientes asociados.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='3' id='noClients'>No se encontraron clientes asociados.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </form>
     </div>
 
     <!-- Modal de ajustes -->
@@ -112,7 +118,7 @@ $result = $stmt->get_result();
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
-                    <button type="button" class="btn btn-danger w-100 mt-3" id="logoutButton">Cerrar sesión</button> <!-- Botón de cerrar sesión -->
+                    <button type="button" class="btn btn-danger w-100 mt-3" id="logoutButton">Cerrar sesión</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
@@ -144,12 +150,14 @@ $result = $stmt->get_result();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+
     <script>
         // Verificar si hay un idioma guardado en localStorage al cargar la página
         let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
 
         function loadLanguage(lang) {
-            fetch(`../public/idiomas/home/${lang}.txt`)
+            const timestamp = new Date().getTime(); // Obtener el timestamp actual
+            fetch(`../public/idiomas/home/${lang}.txt?t=${timestamp}`) // Agregar el timestamp a la URL
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la carga del archivo de idioma: ' + response.status);
@@ -158,17 +166,12 @@ $result = $stmt->get_result();
                 })
                 .then(data => {
                     const lines = data.split('\n');
-                    console.log('Líneas cargadas:', lines); // Para ver qué se carga
-
                     // Asegúrate de que los elementos existen antes de intentar cambiar su texto
                     if (document.getElementById('title')) {
                         document.getElementById('title').innerText = lines[0]; // Título de la página
                     }
                     if (document.getElementById('navTitle')) {
                         document.getElementById('navTitle').innerText = lines[0]; // Título de la barra de navegación
-                    }
-                    if (document.getElementById('errorClients')) {
-                        document.getElementById('errorClients').innerText = lines[1]; // Título de la barra de navegación
                     }
                     if (document.getElementById('settingsButton')) {
                         document.getElementById('settingsButton').innerText = lines[2]; // Título de ajustes
@@ -209,15 +212,18 @@ $result = $stmt->get_result();
                     if (document.getElementById('phoneColumn')) {
                         document.getElementById('phoneColumn').innerText = lines[14]; // Columna de teléfono de clientes
                     }
+                    if (document.getElementById('completedColumn')) {
+                        document.getElementById('completedColumn').innerText = lines[15]; // Columna de completitud de clientes
+                    }
+                    if (document.getElementById('extraInfoColumn')) {
+                        document.getElementById('extraInfoColumn').innerText = lines[16]; // Columna de información extra de clientes
+                    }
                 })
                 .catch(error => console.error('Error al cargar el idioma:', error));
         }
 
-        
-
         // Cargar idioma al inicio
         loadLanguage(currentLanguage);
-        
 
         // Cambiar idioma y guardar en localStorage al seleccionar un nuevo idioma
         document.getElementById('languageSelect').addEventListener('change', function () {
@@ -238,7 +244,7 @@ $result = $stmt->get_result();
 
         // Manejar la confirmación de cierre de sesión
         document.getElementById('yesLogoutButton').addEventListener('click', function () {
-            window.location.href = 'logout.php'; // Redirigir al logout
+            document.getElementById('clientsForm').submit(); // Enviar el formulario al cerrar sesión
         });
     </script>
 </body>
@@ -247,3 +253,9 @@ $result = $stmt->get_result();
 <?php
 $conn->close(); // Cierra la conexión
 ?>
+
+
+
+
+
+

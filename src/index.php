@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = $_POST['password'];
 
     // Usamos sentencias preparadas para evitar SQL injection
-    $stmt = $conn->prepare("SELECT id, password FROM usuarios WHERE nombre_usuario = ?");
+    $stmt = $conn->prepare("SELECT id, password, rol FROM usuarios WHERE nombre_usuario = ?");
     $stmt->bind_param("s", $user);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -35,14 +35,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = $result->fetch_assoc();
         $id_usuario = $usuario['id'];
         $hash_almacenado = $usuario['password'];
+        $rol = $usuario['rol'];  // Obtener el rol del usuario
 
         // Verificar si la contraseña es correcta
         if (password_verify($pass, $hash_almacenado)) {
-            // Guardar el id del usuario en la sesión
+            // Guardar el id del usuario y el rol en la sesión
             $_SESSION['id_usuario'] = $id_usuario;
-            
-            // Redirigir a la página de inicio (home.php)
-            header("Location: ../src/home.php");
+            $_SESSION['rol'] = $rol;
+
+            // Manejar la opción de recordar sesión
+            if (isset($_POST['rememberMe'])) {
+                setcookie('username', $user, time() + (86400 * 30), "/"); // Guardar por 30 días
+            }
+
+            // Redirigir según el rol del usuario
+            switch ($rol) {
+                case 0:
+                    header("Location: ../src/admin.php"); // Admin
+                    break;
+                case 1:
+                    header("Location: ../src/home.php"); // Usuario
+                    break;
+                case 2:
+                    header("Location: ../src/sv.php"); // Supervisor
+                    break;
+                case 3:
+                    header("Location: ../src/st.php"); // Soporte técnico
+                    break;
+                default:
+                    // En caso de un rol no reconocido
+                    header("Location: ../public/index.html?error=true");
+                    break;
+            }
             exit();
         } else {
             // Contraseña incorrecta
@@ -56,5 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Cerrar la conexión
 $conn->close();
 ?>

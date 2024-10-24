@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">EMPRESA</title>
+    <title id="title">Sinova Call Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -56,7 +56,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" id="navTitle">EMPRESA</a>
+            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Inicio de sesión</a>
             <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
                 <span id="settingsButton">Ajustes</span>
             </button>
@@ -108,9 +108,29 @@
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
+                    <button type="button" class="btn btn-danger w-100 mt-3" id="logoutButton">Cerrar sesión</button> <!-- Botón de cerrar sesión -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación de cierre de sesión -->
+    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmLogoutTitle">Confirmar cierre de sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmLogoutLabel">
+                    ¿Está seguro de que desea cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="yesLogoutButton">Sí</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="noLogoutButton">No</button>
                 </div>
             </div>
         </div>
@@ -134,7 +154,6 @@
                 })
                 .then(data => {
                     const lines = data.split('\n');
-                    document.getElementById('title').innerText = lines[0];
                     document.getElementById('navTitle').innerText = lines[0];
                     document.getElementById('loginTitle').innerText = lines[1];
                     document.getElementById('usernameLabel').innerText = lines[2];
@@ -177,6 +196,22 @@
                 const newUrl = window.location.pathname + '?' + urlParams.toString();
                 window.history.replaceState({}, document.title, newUrl); // Actualizar la URL
             });
+        });
+
+        // Manejar el cierre de sesión
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            $('#confirmLogoutModal').modal('show');
+        });
+
+        // Confirmar cierre de sesión
+        document.getElementById('yesLogoutButton').addEventListener('click', function() {
+            // Redirigir al script de logout para cerrar sesión
+            window.location.href = '../src/logout.php'; // Asegúrate que esta URL sea correcta
+        });
+
+        // Cerrar modal sin hacer nada
+        document.getElementById('noLogoutButton').addEventListener('click', function() {
+            $('#confirmLogoutModal').modal('hide');
         });
     </script>
 </body>
