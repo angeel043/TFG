@@ -4,3 +4,23 @@ Settings
 Select language
 Close
 Incorrect username or password.
+User options
+Create user
+Modify user
+Delete user
+Clients options
+Create client
+Modify client
+Delete client
+Create user
+Username
+Mail
+Password
+Select role
+Select role
+Administrator
+User
+Supervisor
+IT
+Cancel
+Create user

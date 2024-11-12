@@ -12,3 +12,15 @@ Opciones de clientes
 Crear cliente
 Modificar cliente
 Borrar cliente
+Crear usuario
+Nombre de usuario
+Correo electrónico
+Contraseña
+Seleccionar rol
+Selecciona un rol
+Administrador
+Usuario
+Supervisor
+Soporte técnico
+Cancelar
+Crear usuario
