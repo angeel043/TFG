@@ -54,7 +54,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de administración</a>
-            <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
+            <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#settingsModal">
                 <span id="settingsButton">Ajustes</span>
             </button>
         </div>
@@ -70,16 +70,16 @@
             <div class="row mb-3 justify-content-center">
                 <!-- Primer y segundo botón en la primera fila -->
                 <div class="col-4 text-center">
-                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal" id="createUserButton">Crear usuario</button>
+                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#createUserModal" id="createUserBtn">Crear usuario</button>
                 </div>
                 <div class="col-4 text-center">
-                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#modificarUsuarioModal" id="modifyUserButton">Modificar usuario</button>
+                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#editUserModal" id="editUserBtn">Modificar usuario</button>
                 </div>
             </div>
             <div class="row">
                 <!-- Tercer botón en la segunda fila -->
                 <div class="col-12 text-center">
-                    <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#borrarUsuarioModal" id="deleteUserButton">Borrar usuario</button>
+                    <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteUserModal" id="deleteUserBtn">Borrar usuario</button>
                 </div>
             </div>
         </div>
@@ -94,16 +94,16 @@
             <div class="row mb-3 justify-content-center">
                 <!-- Primer y segundo botón en la primera fila -->
                 <div class="col-4 text-center">
-                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#crearClienteModal" id="createClientButton">Crear cliente</button>
+                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#createClientModal" id="createClientBtn">Crear cliente</button>
                 </div>
                 <div class="col-4 text-center">
-                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#modificarClienteModal" id="modifyClientButton">Modificar cliente</button>
+                    <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#editClientModal" id="editClientBtn">Modificar cliente</button>
                 </div>
             </div>
             <div class="row">
                 <!-- Tercer botón en la segunda fila -->
                 <div class="col-12 text-center">
-                    <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#borrarClienteModal" id="deleteClientButton">Borrar cliente</button>
+                    <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteClientModal" id="deleteClientBtn">Borrar cliente</button>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
 
     <!-- Modales para las acciones -->
     <!-- Modal Crear Usuario -->
-    <div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="crearUsuarioModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +121,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="crearUsuarioForm">
+                    <form id="createUserForm">
                         <div class="mb-3">
                             <label for="usernameCreate" class="form-label" id="createUserUsernameLabel">Nombre de usuario</label>
                             <input type="text" class="form-control" id="usernameCreate" required>
@@ -138,32 +138,32 @@
                             <label for="roleUserCreate" class="form-label" id="createUserRoleLabel">Seleccionar rol</label>
                             <select class="form-select" id="roleUserCreate" required>
                                 <option value="" disabled selected id="createUserRoleSelect">Selecciona un rol</option>
-                                <option value="admin" id="createUserRoleAdmin">Administrador</option>
-                                <option value="moderator" id="createUserRoleUser">Usuario</option>
-                                <option value="agent" id="createUserRoleSuervisor">Supervisor</option>
-                                <option value="client" id="createUserRoleIT">Soporte técnico</option>
+                                <option value="0" id="createUserRoleAdmin">Administrador</option>
+                                <option value="1" id="createUserRoleUser">Usuario</option>
+                                <option value="2" id="createUserRoleSupervisor">Supervisor</option>
+                                <option value="3" id="createUserRoleIT">Soporte técnico</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createUserCancelButton">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="createUsersubmitButton">Guardar usuario</button>
+                    <button type="button" class="btn btn-primary" id="createUserSubmitButton">Guardar usuario</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Crear Cliente -->
-    <div class="modal fade" id="crearClienteModal" tabindex="-1" aria-labelledby="crearClienteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Crear Cliente</h5>
+                    <h5 class="modal-title">Crear cliente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="crearClienteForm">
+                    <form id="createClientForm">
                         <div class="mb-3">
                             <label for="nameClientCreate" class="form-label">Nombre completo</label>
                             <input type="text" class="form-control" id="nameClientCreate" required>
@@ -173,126 +173,167 @@
                             <input type="email" class="form-control" id="mailClientCreate" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phoneClientCreate" class="form-label">Telefono</label>
-                            <input type="email" class="form-control" id="phoneClientCreate" required>
-                        </div>                    
+                            <label for="phoneClientCreate" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="phoneClientCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userIdClientCreate" class="form-label">Id de usuario asociado</label>
+                            <input type="text" class="form-control" id="userIdClientCreate" required>
+                        </div>                      
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="guardarClienteBtn">Guardar cliente</button>
+                    <button type="button" class="btn btn-primary" id="saveClientBtn">Guardar cliente</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Modificar Usuario -->
-    <div class="modal fade" id="modificarUsuarioModal" tabindex="-1" aria-labelledby="modificarUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modificar Usuario</h5>
+                    <h5 class="modal-title" id="editUserModalTitle">Modificar usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select id="usuarioSelect" class="form-select mb-3">
-                        <!-- Los usuarios se cargarán aquí dinámicamente -->
-                    </select>
-                    <form id="modificarUsuarioForm" style="display:none;">
-                        <div class="mb-3">
-                            <label for="modificarUsuarioNombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="modificarUsuarioNombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modificarUsuarioEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="modificarUsuarioEmail" required>
-                        </div>
-                        <!-- Agrega más campos según tus necesidades -->
-                    </form>
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th id="editUserIdColumn">ID</th>
+                                <th id="editUserNameColumn">Nombre</th>
+                                <th id="editUserMailColumn">Correo electrónico</th>
+                                <th id="editUserRoleColumn">Rol</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editUserTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="modificarUsuarioBtn">Modificar Usuario</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="editUserCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="editUserSaveBtn">Guardar cambios</button>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <!-- Modal Modificar Cliente -->
-    <div class="modal fade" id="modificarClienteModal" tabindex="-1" aria-labelledby="modificarClienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modificar Cliente</h5>
+                    <h5 class="modal-title">Modificar cliente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select id="clienteSelect" class="form-select mb-3">
-                        <!-- Los clientes se cargarán aquí dinámicamente -->
-                    </select>
-                    <form id="modificarClienteForm" style="display:none;">
-                        <div class="mb-3">
-                            <label for="modificarClienteNombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="modificarClienteNombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modificarClienteEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="modificarClienteEmail" required>
-                        </div>
-                        <!-- Agrega más campos según tus necesidades -->
-                    </form>
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Completado</th>
+                                <th>Extra Info</th>
+                                <th>ID Usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editClientTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="modificarClienteBtn">Modificar Cliente</button>
+                    <button type="button" class="btn btn-primary" id="saveClientChangesBtn">Guardar cambios</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
     <!-- Modal Borrar Usuario -->
-    <div class="modal fade" id="borrarUsuarioModal" tabindex="-1" aria-labelledby="borrarUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Borrar Usuario</h5>
+                    <h5 class="modal-title" id="deleteUserModalTitle">Borrar usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select id="usuarioBorrarSelect" class="form-select mb-3">
-                        <!-- Los usuarios se cargarán aquí dinámicamente -->
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="borrarUsuarioBtn">Borrar Usuario</button>
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th id="deleteUserNameColumn">Nombre</th>
+                                <th id="deleteUserMailColumn">Correo electrónico</th>
+                                <th id="deleteUserRoleColumn">Rol</th>
+                                <th id="deleteUserActionColumn">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Borrar Cliente -->
-    <div class="modal fade" id="borrarClienteModal" tabindex="-1" aria-labelledby="borrarClienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Borrar Cliente</h5>
+                    <h5 class="modal-title">Borrar cliente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select id="clienteBorrarSelect" class="form-select mb-3">
-                        <!-- Los clientes se cargarán aquí dinámicamente -->
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="borrarClienteBtn">Borrar Cliente</button>
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Completado</th>
+                                <th>Usuario responsable</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
+    <!-- Modal Confirmación de Borrado -->
+    <div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="confirmDeletionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar borrado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmDeletionText">¿Estás seguro de que deseas borrar este elemento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmDeletionBtn">Sí, borrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -340,39 +381,44 @@
         let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
 
         function loadLanguage(lang) {
-    const timestamp = new Date().getTime();
-    fetch(`../public/idiomas/admin/${lang}.txt?t=${timestamp}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la carga del archivo de idioma: ' + response.status);
-            }
-            return response.text();
-        })
-        .then(data => {
-            const lines = data.split('\n');
-            const elements = [
-                'navTitle', 'settingsButton', 'settingsTitle', 'selectLanguageLabel', 
-                'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel', 
-                'createUserButton', 'modifyUserButton', 'deleteUserButton', 
-                'clientOptionsLabel', 'createClientButton', 'modifyClientButton', 
-                'deleteClientButton', 'createUserTitle', 'createUserUsernameLabel', 
-                'createUserEmailLabel', 'createUserPasswordLabel', 'createUserRoleLabel', 
-                'createUserRoleSelect', 'createUserRoleAdmin', 'createUserRoleUser', 
-                'createUserRoleSupervisor', 'createUserRoleIT', 'createUserCancelButton', 
-                'createUserSubmitButton'
-            ];
+            const timestamp = new Date().getTime();
+            fetch(`../public/idiomas/admin/${lang}.txt?t=${timestamp}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la carga del archivo de idioma: ' + response.status);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const lines = data.split('\n');
+                    const elements = [
+                        'navTitle', 'settingsButton', 'settingsTitle', 'selectLanguageLabel', 
+                        'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel', 
+                        'createUserBtn', 'editUserBtn', 'deleteUserBtn', 
+                        'clientOptionsLabel', 'createClientBtn', 'editClientBtn', 
+                        'deleteClientBtn', 'createUserTitle', 'createUserUsernameLabel', 
+                        'createUserEmailLabel', 'createUserPasswordLabel', 'createUserRoleLabel', 
+                        'createUserRoleSelect', 'createUserRoleAdmin', 'createUserRoleUser', 
+                        'createUserRoleSupervisor', 'createUserRoleIT', 'createUserCancelButton', 
+                        'createUserSubmitButton', 'editUserModalTitle', 'editUserNameColumn', 
+                        'editUserMailColumn', 'editUserRoleColumn', 'editUserAdminRole', 
+                        'editUserUserRole', 'editUserSupervisorRole', 'editUserITRole',
+                         'editUserCancelBtn', 'editUserSaveBtn', 'deleteUserModalTitle', 
+                         'deleteUserNameColumn', 'deleteUserMailColumn', 'deleteUserRoleColumn', 'deleteUserActionColumn',
+                    ];
 
-            elements.forEach((id, index) => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.innerText = lines[index] || "";  // Asigna el texto solo si existe la línea
-                } else {
-                    console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
-                }
-            });
-        })
-        .catch(error => console.error('Error al cargar el idioma:', error));
-}
+                    elements.forEach((id, index) => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.innerText = lines[index] || ""; // Asigna texto si existe
+                        } else {
+                            console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al cargar el idioma:', error));
+        }
+
 
         // Cargar idioma al inicio
         loadLanguage(currentLanguage);
@@ -385,7 +431,7 @@
         });
 
         // Actualizar el idioma seleccionado en el menú desplegable al abrir el modal
-        $('#ajustesModal').on('show.bs.modal', function () {
+        $('#settingsModal').on('show.bs.modal', function () {
             document.getElementById('languageSelect').value = currentLanguage;
         });
 
@@ -407,57 +453,64 @@
         
         
 
-        document.getElementById("createUserSubmitButton").addEventListener("click", function() {
-            const username = document.getElementById("usernameCreate").value;
-            const email = document.getElementById("mailUserCreate").value;
-            const password = document.getElementById("passwordUserCreate").value;
-            const role = document.getElementById("roleUserCreate").value;
+        const submitButton = document.getElementById("createUserSubmitButton");
+        if (submitButton) {
+            submitButton.addEventListener("click", function() {
+                const username = document.getElementById("usernameCreate").value;
+                const email = document.getElementById("mailUserCreate").value;
+                const password = document.getElementById("passwordUserCreate").value;
+                const role = document.getElementById("roleUserCreate").value;
 
-            if (username && email && password && role) {
-                fetch("crear_usuario.php", {  
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username, email, password, role }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Usuario creado exitosamente");
-                        document.getElementById("crearUsuarioForm").reset();
-                        new bootstrap.Modal(document.getElementById("crearUsuarioModal")).hide();
-                    } else {
-                        alert("Error al crear usuario");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-            } else {
-                alert("Por favor completa todos los campos.");
-            }
-        });
+                if (username && email && password && role) {
+                    fetch("create_user.php", {  
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ username, email, password, role }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Usuario creado exitosamente");
+                            document.getElementById("createUserForm").reset();
+                            new bootstrap.Modal(document.getElementById("createUserModal")).hide();
+                        } else {
+                            alert("Error al crear usuario");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                } else {
+                    alert("Por favor completa todos los campos.");
+                }
+            });
+        } else {
+            console.warn("Elemento con ID 'createUserSubmitButton' no encontrado.");
+        }
 
-        document.getElementById("guardarClienteBtn").addEventListener("click", function() {
+        document.getElementById("saveClientBtn").addEventListener("click", function() {
             const fullName = document.getElementById("nameClientCreate").value;
             const email = document.getElementById("mailClientCreate").value;
             const phone = document.getElementById("phoneClientCreate").value;
+            const userId = document.getElementById("userIdClientCreate").value;
 
-            if (fullName && email && phone) {
-                fetch("crear_cliente.php", {  
+
+            if (fullName && email && phone && userId) {
+                fetch("create_client.php", {  
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ fullName, email, phone }),
+                    body: JSON.stringify({ fullName, email, phone, userId: userId }), // Cambiado a "userId"
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         alert("Cliente creado exitosamente");
-                        document.getElementById("crearClienteForm").reset();
-                        new bootstrap.Modal(document.getElementById("crearClienteModal")).hide();
+                        document.getElementById("createClientForm").reset();
+                        new bootstrap.Modal(document.getElementById("createClientModal")).hide();
                     } else {
-                        alert("Error al crear cliente");
+                        alert("Error al crear cliente: " + (data.error || "Error desconocido"));
                     }
                 })
                 .catch(error => console.error("Error:", error));
@@ -465,6 +518,244 @@
                 alert("Por favor completa todos los campos.");
             }
         });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userTableBody = document.getElementById('userTableBody');
+            const clientTableBody = document.getElementById('clientTableBody');
+            let toDelete = null;
+
+            // Función para cargar users en la tabla
+            function loadUsers() {
+                fetch('get_users.php')
+                    .then(response => response.json())
+                    .then(users => {
+                        userTableBody.innerHTML = '';
+                        users.forEach(user => {
+                            const fila = document.createElement('tr');
+                            fila.innerHTML = `
+                                <td>${user.nombre_user}</td>
+                                <td>${user.email}</td>
+                                <td>${['Admin', 'Usuario', 'Supervisor', 'Equipo Técnico'][user.rol] || 'Desconocido'}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm borrar-user-btn" data-id="${user.id}">Borrar</button>
+                                </td>
+                            `;
+                            userTableBody.appendChild(fila);
+                        });
+
+                        // Agregar eventos a los botones de borrar
+                        document.querySelectorAll('.borrar-user-btn').forEach(boton => {
+                            boton.addEventListener('click', function () {
+                                toDelete = {
+                                    tipo: 'user',
+                                    id: this.dataset.id
+                                };
+                                document.getElementById('confirmDeletionText').innerText = `¿Estás seguro de que deseas borrar al usuario ${this.closest('tr').children[0].innerText}?`;
+                                new bootstrap.Modal(document.getElementById('confirmDeletionModal')).show();
+                            });
+                        });
+                    });
+            }
+
+            // Función para cargar clients en la tabla
+            function loadClients() {
+                fetch('get_clients.php')
+                    .then(response => response.json())
+                    .then(clients => {
+                        const clientTableBody = document.getElementById('clientTableBody');
+                        clientTableBody.innerHTML = '';
+                        clients.forEach(client => {
+                            const fila = document.createElement('tr');
+                            fila.innerHTML = `
+                                <td>${client.nombre}</td>
+                                <td>${client.email}</td>
+                                <td>${client.phone}</td>
+                                <td><input type="checkbox" disabled ${client.completed ? 'checked' : ''}></td>
+                                <td>${client.user_responsable}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm borrar-client-btn" data-id="${client.id}">Borrar</button>
+                                </td>
+                            `;
+                            clientTableBody.appendChild(fila);
+                        });
+
+
+                        // Agregar eventos a los botones de borrar
+                        document.querySelectorAll('.borrar-client-btn').forEach(boton => {
+                            boton.addEventListener('click', function () {
+                                const toDelete = {
+                                    tipo: 'client',
+                                    id: this.dataset.id
+                                };
+                                document.getElementById('confirmDeletionText').innerText = `¿Estás seguro de que deseas borrar al cliente ${this.closest('tr').children[0].innerText}?`;
+                                new bootstrap.Modal(document.getElementById('confirmDeletionModal')).show();
+                            });
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar clientes:', error));
+            }
+
+
+            // Confirmar borrado
+            document.getElementById('confirmDeletionBtn').addEventListener('click', function () {
+                if (toDelete) {
+                    fetch(`borrar_${toDelete.tipo}.php`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: toDelete.id })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(`${toDelete.tipo === 'user' ? 'Usuario' : 'Cliente'} borrado con éxito.`);
+                                if (toDelete.tipo === 'user') {
+                                    loadUsers();
+                                } else {
+                                    loadClients();
+                                }
+                            } else {
+                                alert(`Error al borrar el ${toDelete.tipo}.`);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+
+            // Cargar datos al abrir los modales
+            document.getElementById('deleteUserBtn').addEventListener('click', loadUsers);
+            document.getElementById('deleteClientBtn').addEventListener('click', loadClients);
+
+
+            function loadUsersEdit() {
+                fetch('get_users.php')
+                    .then(response => response.json())
+                    .then(users => {
+                        const userTableBody = document.getElementById('editUserTableBody');
+                        userTableBody.innerHTML = '';
+                        users.forEach(user => {
+                            const roles = ['Admin', 'Usuario', 'Supervisor', 'Equipo Técnico'];
+                            const fila = document.createElement('tr');
+                            fila.innerHTML = `
+                                <td>${user.id}</td>
+                                <td><input type="text" class="form-control" value="${user.nombre_user}" data-id="${user.id}" data-field="nombre"></td>
+                                <td><input type="email" class="form-control" value="${user.email}" data-id="${user.id}" data-field="email"></td>
+                                <td>
+                                    <select class="form-select" data-id="${user.id}" data-field="rol">
+                                        ${roles.map((rol, index) => `
+                                            <option value="${index}" ${index === user.rol ? 'selected' : ''}>${rol}</option>
+                                        `).join('')}
+                                    </select>
+                                </td>
+                            `;
+                            userTableBody.appendChild(fila);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar usuarios:', error);
+                        alert('Error al cargar la lista de usuarios. Por favor, inténtalo de nuevo.');
+                    });
+            }
+
+
+            function loadClientsEdit() {
+                fetch('get_clients.php')
+                    .then(response => response.json())
+                    .then(clients => {
+                        const clientTableBody = document.getElementById('editClientTableBody');
+                        clientTableBody.innerHTML = '';
+                        clients.forEach(client => {
+                            const fila = document.createElement('tr');
+                            fila.innerHTML = `
+                                <td><input type="text" class="form-control" value="${client.nombre}" data-id="${client.id}" data-field="nombre"></td>
+                                <td><input type="email" class="form-control" value="${client.email}" data-id="${client.id}" data-field="email"></td>
+                                <td><input type="text" class="form-control" value="${client.phone}" data-id="${client.id}" data-field="phone"></td>
+                                <td><input type="checkbox" ${client.completed ? 'checked' : ''} data-id="${client.id}" data-field="completed"></td>
+                                <td><input type="text" class="form-control" value="${client.extra_info}" data-id="${client.id}" data-field="extra_info"></td>
+                                <td><input type="text" class="form-control" value="${client.idUser}" data-id="${client.id}" data-field="idUser"></td>
+                            `;
+                            clientTableBody.appendChild(fila);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar clientes:', error);
+                        alert('Error al cargar la lista de clientes. Por favor, inténtalo de nuevo.');
+                    });
+            }
+
+
+
+
+                document.getElementById('editUserSaveBtn').addEventListener('click', function () {
+                    const inputs = document.querySelectorAll('#editUserTableBody input, #editUserTableBody select');
+                    const cambios = Array.from(inputs).reduce((acc, input) => {
+                        const id = input.dataset.id; // Obtiene el ID del user
+                        const field = input.dataset.field; // Obtiene el nombre del campo
+                        if (!acc[id]) acc[id] = { id }; // Asegura que el ID está inicializado
+                        acc[id][field] = input.value; // Asigna el valor al campo
+                        return acc;
+                    }, {});
+
+                    // Convierte los cambios en un array y envía la solicitud
+                    fetch('modify_user.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.values(cambios)) // Convierte a un array para enviarlo al backend
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Usuarios modificados correctamente');
+                            } else {
+                                alert(`Error al modificar usuarios: ${data.error || 'Error desconocido'}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al guardar cambios:', error);
+                            alert('Ocurrió un error al intentar guardar los cambios. Por favor, inténtalo de nuevo.');
+                        });
+                });
+
+
+                document.getElementById('saveClientChangesBtn').addEventListener('click', function () {
+                    // Selecciona todos los inputs y selects del cuerpo de la tabla
+                    const inputs = document.querySelectorAll('#editClientTableBody input, #editClientTableBody select');
+                    
+                    // Agrupa los datos por ID de client
+                    const cambios = Array.from(inputs).reduce((acc, input) => {
+                        const id = input.dataset.id; // ID del client
+                        const field = input.dataset.field; // Campo del client
+                        if (!acc[id]) acc[id] = { id }; // Inicializa el objeto si no existe
+                        acc[id][field] = input.type === 'checkbox' ? input.checked : input.value; // Asigna el valor
+                        return acc;
+                    }, {});
+
+                    // Enviar los datos al backend
+                    fetch('modify_client.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.values(cambios)) // Convierte a un array para enviar
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Clientes modificados correctamente');
+                            } else {
+                                alert(`Error al modificar clientes: ${data.error || 'Error desconocido'}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al guardar cambios:', error);
+                            alert('Ocurrió un error al intentar guardar los cambios. Por favor, inténtalo de nuevo.');
+                        });
+                });
+
+                document.getElementById('editUserBtn').addEventListener('click', loadUsersEdit);
+                document.getElementById('editClientBtn').addEventListener('click', loadClientsEdit);
+
+            });
 
     </script>
 </body>

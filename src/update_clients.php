@@ -17,8 +17,8 @@ $conn = Database::getConnection();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Actualizar los clientes como completados
     if (!empty($_POST['completado'])) {
-        $completados = $_POST['completado'];
-        foreach ($completados as $id_cliente) {
+        $completeds = $_POST['completado'];
+        foreach ($completeds as $id_cliente) {
             $stmt = $conn->prepare("UPDATE clientes SET completado = 1 WHERE id = ?");
             $stmt->bind_param("i", $id_cliente);
             $stmt->execute();

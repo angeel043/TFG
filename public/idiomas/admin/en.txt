@@ -6,11 +6,11 @@ Close
 Incorrect username or password.
 User options
 Create user
-Modify user
+Edit user
 Delete user
 Clients options
 Create client
-Modify client
+Edit client
 Delete client
 Create user
 Username
@@ -24,3 +24,18 @@ Supervisor
 IT
 Cancel
 Create user
+Edit user
+Name
+Email
+Role
+Admin
+User
+Supervisor
+IT
+Cancel
+Save changes
+Delete user
+Name
+Email
+Role
+Action

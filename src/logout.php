@@ -15,7 +15,7 @@ $id_usuario = $_SESSION['id_usuario'];
 
 // Recoge los datos enviados desde el formulario (checkbox de completado y extrainfo)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['extrainfo'])) {
-    $completados = isset($_POST['completado']) ? $_POST['completado'] : []; // Array de IDs de clientes completados
+    $completeds = isset($_POST['completado']) ? $_POST['completado'] : []; // Array de IDs de clientes completados
     $extrainfo = $_POST['extrainfo'];    // Array con extrainfo (ID => extrainfo)
 
     // Recorre todos los clientes que tiene asignados el usuario
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['extrainfo'])) {
         $cliente_id = $row['id'];
 
         // Verifica si este cliente está marcado como completado
-        $completado = in_array($cliente_id, $completados) ? 1 : 0;
+        $completed = in_array($cliente_id, $completeds) ? 1 : 0;
 
         // Obtener el texto de extraInfo para este cliente
         $extraInfoTexto = isset($extrainfo[$cliente_id]) ? $extrainfo[$cliente_id] : '';
 
         // Actualizar la base de datos con los valores
         $update_stmt = $conn->prepare("UPDATE clientes SET completado = ?, extrainfo = ? WHERE id = ?");
-        $update_stmt->bind_param("isi", $completado, $extraInfoTexto, $cliente_id);
+        $update_stmt->bind_param("isi", $completed, $extraInfoTexto, $cliente_id);
 
         if (!$update_stmt->execute()) {
             // Manejar el error si ocurre durante la ejecución

@@ -32,16 +32,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Si el usuario existe
     if ($result->num_rows > 0) {
-        $usuario = $result->fetch_assoc();
-        $id_usuario = $usuario['id'];
-        $hash_almacenado = $usuario['password'];
-        $rol = $usuario['rol'];  // Obtener el rol del usuario
+        $user = $result->fetch_assoc();
+        $id_usuario = $user['id'];
+        $hash_almacenado = $user['password'];
+        $role = $user['rol'];  // Obtener el rol del usuario
 
         // Verificar si la contraseña es correcta
         if (password_verify($pass, $hash_almacenado)) {
             // Guardar el id del usuario y el rol en la sesión
             $_SESSION['id_usuario'] = $id_usuario;
-            $_SESSION['rol'] = $rol;
+            $_SESSION['rol'] = $role;
 
             // Manejar la opción de recordar sesión
             if (isset($_POST['rememberMe'])) {
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Redirigir según el rol del usuario
-            switch ($rol) {
+            switch ($role) {
                 case 0:
                     header("Location: ../src/admin.php"); // Admin
                     break;

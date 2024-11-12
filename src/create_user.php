@@ -4,18 +4,18 @@ require_once 'database.php';
 
 $input = json_decode(file_get_contents("php://input"), true);
 
-if (isset($input['username'], $input['email'], $input['password'], $input['role'])) {
+if (isset($input['username'], $input['email'], $input['password'], $input['rolee'])) {
     $username = $input['username'];
     $email = $input['email'];
     $password = password_hash($input['password'], PASSWORD_BCRYPT);
-    $role = $input['role'];
+    $roleee = $input['rolee'];
 
     // Obtener conexión a través de la clase Database
     $conn = Database::getConnection();
 
-    // Preparar e insertar el usuario en la base de datos
+    // Preparar e insertar el user en la base de datos
     $stmt = $conn->prepare("INSERT INTO usuarios (nombre_usuario, email, password, rol) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $username, $email, $password, $role);
+    $stmt->bind_param("ssss", $username, $email, $password, $roleee);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);

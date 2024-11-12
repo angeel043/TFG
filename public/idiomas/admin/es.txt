@@ -24,3 +24,18 @@ Supervisor
 Soporte técnico
 Cancelar
 Crear usuario
+Modificar usuario
+Nombre
+Correo electrónico
+Rol
+Admin
+Usuario
+Supervisor
+Equipo Técnico
+Cancelar
+Guardar cambios
+Borrar usuario
+Nombre
+Correo electrónico
+Rol
+Acción
