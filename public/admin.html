@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Sinova Call Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/admin.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de administración</a>
+            <button type="button" id="settingsButton" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                <span >Ajustes</span>
+            </button>
+            <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
+                <i class="bi bi-person-circle"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="row mt-5 justify-content-center">
+        <!-- Opciones de Usuarios -->
+        <div class="col-md-6">
+            <div class="container bg-dark p-4 rounded custom-container" id="userOptionsModal">
+                <h2 id="userOptionsLabel" class="mb-5 text-center">Opciones de usuarios</h2>
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-4 text-center">
+                        <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#createUserModal" id="createUserBtn">Crear usuario</button>
+                    </div>
+                    <div class="col-4 text-center">
+                        <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#editUserModal" id="editUserBtn">Modificar usuario</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteUserModal" id="deleteUserBtn">Borrar usuario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Opciones de Clientes -->
+        <div class="col-md-6">
+            <div class="container bg-dark p-4 rounded custom-container" id="clientOptionsModal">
+                <h2 id="clientOptionsLabel" class="mb-5 text-center">Opciones de clientes</h2>
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-4 text-center">
+                        <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#createClientModal" id="createClientBtn">Crear cliente</button>
+                    </div>
+                    <div class="col-4 text-center">
+                        <button class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#editClientModal" id="editClientBtn">Modificar cliente</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteClientModal" id="deleteClientBtn">Borrar cliente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Modal Crear Usuario -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserTitle">Crear usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createUserForm">
+                        <div class="mb-3">
+                            <label for="usernameCreate" class="form-label" id="createUserUsernameLabel">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="usernameCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailCreate" class="form-label" id="createUserMailLabel">Correo electrónico</label>
+                            <input type="email" class="form-control" id="emailCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordCreate" class="form-label" id="createUserPasswordLabel">Contraseña</label>
+                            <input type="password" class="form-control" id="passwordCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roleCreate" class="form-label" id="createUserRoleLabel">Rol</label>
+                            <select class="form-select" id="roleCreate" required>
+                                <option value="" disabled selected id="createUserRoleSelect">Selecciona un rol</option>
+                                <option value="admin" id="createUserRoleAdmin">Administrador</option>
+                                <option value="user" id="createUserRoleUser">Usuario</option>
+                                <option value="supervisor" id="createUserRoleSupervisor">Supervisor</option>
+                                <option value="it" id="createUserRoleIT">Equipo Técnico</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createUserCancelButton">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="createUserSubmitButton">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Crear Cliente -->
+    <div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createClientTitle">Crear cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createClientForm">
+                        <div class="mb-3">
+                            <label for="clientNameCreate" class="form-label" id="createClientNameColumn">Nombre completo</label>
+                            <input type="text" class="form-control" id="clientNameCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientEmailCreate" class="form-label" id="createClientMailColumn">Correo electrónico</label>
+                            <input type="email" class="form-control" id="clientEmailCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientPhoneCreate" class="form-label" id="createClientPhoneColumn">Teléfono</label>
+                            <input type="text" class="form-control" id="clientPhoneCreate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientUserIdCreate" class="form-label" id="createClientUserIdColumn">ID del usuario responsable</label>
+                            <input type="text" class="form-control" id="clientUserIdCreate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createClientCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="createClientSubmitBtn">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modificar Usuario -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalTitle">Modificar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped" id="editUserTable">
+                        <thead>
+                            <tr>
+                                <th id="editUserIdColumn">ID</th>
+                                <th id="editUserNameColumn">Nombre</th>
+                                <th id="editUserMailColumn">Correo electrónico</th>
+                                <th id="editUserRoleColumn">Rol</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editUserTableBody">
+                            <!-- Las filas se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="editUserCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="editUserSaveBtn">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Modal Modificar Cliente -->
+    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editClientTitle">Modificar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped" id="editClientTable">
+                        <thead>
+                            <tr>
+                                <th id="editClientIdColumn">ID</th>
+                                <th id="editClientNameColumn">Nombre</th>
+                                <th id="editClientMailColumn">Correo</th>
+                                <th id="editClientPhoneColumn">Teléfono</th>
+                                <th id="editClientCompletedColumn">Completado</th>
+                                <th id="editClientExtraInfoColumn">Información adicional</th>
+                                <th id="editClientUserIdColumn">ID usuario responsable</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editClientTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="editClientCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveClientChangesBtn">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Borrar Usuario -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalTitle">Borrar usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped" id="deleteUserTable">
+                        <thead>
+                            <tr>
+                                <th id="deleteUserIdColumn">ID</th>
+                                <th id="deleteUserNameColumn">Nombre</th>
+                                <th id="deleteUserMailColumn">Correo electrónico</th>
+                                <th id="deleteUserRoleColumn">Rol</th>
+                                <th id="deleteUserActionColumn">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deleteUserTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Borrar Cliente -->
+    <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteClientModalTitle">Borrar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped" id="deleteClientTable">
+                        <thead>
+                            <tr>
+                                <th id="deleteClientIdColumn">ID</th>
+                                <th id="deleteClientNameColumn">Nombre</th>
+                                <th id="deleteClientMailColumn">Correo</th>
+                                <th id="deleteClientPhoneColumn">Teléfono</th>
+                                <th id="deleteClientCompletedColumn">Completado</th>
+                                <th id="deleteClientExtraInfoColumn">Información adicional</th>
+                                <th id="deleteClientUserIdColumn">ID usuario responsable</th>
+                                <th id="deleteClientActionColumn">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deleteClientTableBody">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmación de Borrado -->
+    <div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="confirmDeletionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCLientConfirmationTitle">Confirmar borrado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="deleteClientConfirmationText">¿Estás seguro de que deseas borrar este elemento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="deleteClientConfirmationYesBtn">Sí, borrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="deleteClientConfirmationCancelBtn">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal con información del usuario -->
+    <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userProfileModalLabel">Información del usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="user-info-item"><strong>ID:</strong> <span id="userIDPlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoName">Nombre:</strong> <span id="userNamePlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoMail">Correo:</strong> <span id="userEmailPlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoRole">Rol:</strong> <span id="userRolePlaceholder"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Botón de cerrar sesión -->
+                    <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsTitle">Ajustes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="languageSelect" class="form-label" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    <select id="languageSelect" class="form-select">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                    <div class="form-group mt-3">
+                        <label class="form-label d-block" id="themeLabel">Tema:</label>
+                        <div class="d-flex align-items-center">
+                            <span class="me-2" id="darkThemeLabel">Oscuro</span>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmLogoutTitle">Confirmar cierre de sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmLogoutLabel">
+                    ¿Está seguro de que desea cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="yesLogoutButton">Sí</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="noLogoutButton">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
+
+        function loadLanguage(lang) {
+            const timestamp = new Date().getTime();
+            fetch(`idiomas/admin/${lang}.txt?t=${timestamp}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la carga del archivo de idioma: ' + response.status);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const lines = data.split('\n');
+                    const ids = [
+                        'navTitle', 'settingsButton', 'settingsTitle', 'selectLanguageLabel',
+                        'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel',
+                        'createUserBtn', 'editUserBtn', 'deleteUserBtn',
+                        'clientOptionsLabel', 'createClientBtn', 'editClientBtn',
+                        'deleteClientBtn', 'createUserTitle', 'createUserUsernameLabel',
+                        'createUserMailLabel', 'createUserPasswordLabel', 'createUserRoleLabel',
+                        'createUserRoleSelect', 'createUserRoleAdmin', 'createUserRoleUser',
+                        'createUserRoleSupervisor', 'createUserRoleIT', 'createUserCancelButton',
+                        'createUserSubmitButton', 'editUserModalTitle', 'editUserNameColumn',
+                        'editUserMailColumn', 'editUserRoleColumn', 'editUserCancelBtn',
+                        'editUserSaveBtn', 'deleteUserModalTitle', 'deleteUserNameColumn',
+                        'deleteUserMailColumn', 'deleteUserRoleColumn', 'deleteUserActionColumn',
+                        'logoutButton', 'confirmLogoutTitle', 'yesLogoutButton', 'noLogoutButton',
+                        'createClientTitle', 'createClientNameColumn', 'createClientMailColumn',
+                        'createClientPhoneColumn', 'createClientUserIdColumn', 'createClientCancelBtn',
+                        'createClientSubmitBtn', 'editClientTitle', 'editClientIdColumn',
+                        'editClientNameColumn', 'editClientMailColumn', 'editClientPhoneColumn',
+                        'editClientCompletedColumn', 'editClientExtraInfoColumn', 'editClientUserIdColumn', 
+                        'editClientCancelBtn', 'saveClientChangesBtn', 'deleteClientModalTitle',
+                        'deleteClientIdColumn', 'deleteClientNameColumn', 'deleteClientMailColumn',
+                        'deleteClientPhoneColumn', 'deleteClientCompletedColumn',
+                        'deleteClientExtraInfoColumn', 'deleteClientUserIdColumn', 'deleteClientActionColumn',
+                        'deleteCLientConfirmationTitle', 'deleteClientConfirmationText', 'deleteClientConfirmationYesBtn',
+                        'deleteClientConfirmationCancelBtn', 'userProfileModalLabel', 'userInfoName', 'userInfoMail', 
+                        'userInfoRole', 'userInfoClose', 'themeLabel', 'darkThemeLabel'
+                    ];
+
+                    ids.forEach((id, index) => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.innerText = lines[index] || ""; // Asigna texto si existe
+                        } else {
+                            console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
+                        }
+                    });
+
+                    // Actualizar las opciones del menú desplegable de idiomas
+                    const languageSelect = document.getElementById('languageSelect');
+                    if (lang === 'es') {
+                        languageSelect.innerHTML = `
+                            <option value="es" ${lang === 'es' ? 'selected' : ''}>Español</option>
+                            <option value="en">English</option>
+                        `;
+                    } else if (lang === 'en') {
+                        languageSelect.innerHTML = `
+                            <option value="es">Spanish</option>
+                            <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                        `;
+                    }
+                })
+                .catch(error => console.error('Error al cargar el idioma:', error));
+        }
+        
+
+        // Cambiar idioma y recargar la página
+        document.getElementById('languageSelect').addEventListener('change', function () {
+            const selectedLanguage = this.value;
+
+            // Guardar el idioma seleccionado en localStorage
+            localStorage.setItem('language', selectedLanguage);
+
+            // Recargar la página solo si el idioma cambia
+            if (selectedLanguage !== currentLanguage) {
+                location.reload(); // Recargar la página para aplicar el idioma seleccionado
+            }
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentLanguage = localStorage.getItem('language') || 'es';
+            const darkModeToggle = document.getElementById("darkModeToggle");
+            const userOptionsModal = document.getElementById("userOptionsModal");
+            const createUserForm = document.getElementById("createUserForm");
+            const editUserTable = document.getElementById("editUserTable");
+            const deleteUserTable = document.getElementById("deleteUserTable");
+            const clientOptionsModal = document.getElementById("clientOptionsModal");
+            const createClientForm = document.getElementById("createClientForm");
+            const editClientTable = document.getElementById("editClientTable"); 
+            const deleteClientTable = document.getElementById("deleteClientTable");
+
+
+            if (!darkModeToggle) {
+                console.error("No se encontró el switch de modo oscuro en el DOM.");
+                return;
+            }
+
+            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            document.body.classList.toggle("light-mode", !isDarkMode);
+            userOptionsModal.classList.toggle("bg-dark", isDarkMode);
+            createUserForm.classList.toggle("table-dark", isDarkMode);
+            editUserTable.classList.toggle("table-dark", isDarkMode);
+            deleteUserTable.classList.toggle("table-dark", isDarkMode);
+            clientOptionsModal.classList.toggle("bg-dark", isDarkMode);
+            createClientForm.classList.toggle("table-dark", isDarkMode);
+            editClientTable.classList.toggle("table-dark", isDarkMode);
+            deleteClientTable.classList.toggle("table-dark", isDarkMode);
+            darkModeToggle.checked = isDarkMode;
+
+            darkModeToggle.addEventListener("change", function () {
+                const enableDarkMode = this.checked;
+                document.body.classList.toggle("light-mode", !enableDarkMode);
+                userOptionsModal.classList.toggle("bg-dark", enableDarkMode);
+                createUserForm.classList.toggle("table-dark", enableDarkMode);
+                editUserTable.classList.toggle("table-dark", enableDarkMode);
+                deleteUserTable.classList.toggle("table-dark", enableDarkMode);
+                clientOptionsModal.classList.toggle("bg-dark", enableDarkMode);
+                createClientForm.classList.toggle("table-dark", enableDarkMode);
+                editClientTable.classList.toggle("table-dark", enableDarkMode);
+                deleteClientTable.classList.toggle("table-dark", enableDarkMode);
+                localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
+            });
+
+
+            // Si el idioma en localStorage es diferente al actual del HTML, recargar
+            if (document.documentElement.lang !== currentLanguage) {
+                document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
+                loadLanguage(currentLanguage); // Cargar el idioma
+                return;
+            }
+            loadLanguage(currentLanguage); // Cargar idioma según localStorage
+
+
+            fetch('../src/admin.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fetchUserInfo: true }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error al obtener la información del usuario:', data.error);
+                    return;
+                }
+
+                        document.getElementById('userIDPlaceholder').innerText = data.id;
+                        document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
+                        document.getElementById('userEmailPlaceholder').innerText = data.email;
+                        // Mostrar el rol basado en el idioma seleccionado
+                    let roleText = '';
+                    if (currentLanguage === 'es') {
+                        switch (data.rol) {
+                            case 0: roleText = "Administrador"; break;
+                            case 1: roleText = "Usuario"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            default: roleText = "Desconocido";
+                        }
+                    } else if (currentLanguage === 'en') {
+                        switch (data.rol) {
+                            case 0: roleText = "Admin"; break;
+                            case 1: roleText = "User"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            default: roleText = "Unknown";
+                        }
+                    }
+                        document.getElementById('userRolePlaceholder').innerText = roleText;
+                    })
+                    .catch(error => console.error('Error al obtener la información del usuario:', error));
+
+
+            document.getElementById('createUserSubmitButton').addEventListener('click', function () {
+                // Recoge los valores de los campos del formulario
+                const username = document.getElementById('usernameCreate').value.trim();
+                const email = document.getElementById('emailCreate').value.trim();
+                const password = document.getElementById('passwordCreate').value.trim();
+                const role = document.getElementById('roleCreate').value;
+
+                // Validar que todos los campos estén completos
+                if (!username || !email || !password || !role) {
+                    alert('Por favor, completa todos los campos.');
+                    return;
+                } 
+
+                // Enviar datos al backend
+                fetch('../src/admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'create_user',
+                        username,
+                        email,
+                        password,
+                        role,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Usuario creado correctamente');
+                            // Cierra el modal después de crear el usuario
+                            const createUserModal = document.getElementById('createUserModal');
+                            const modalInstance = bootstrap.Modal.getInstance(createUserModal);
+                            if (modalInstance) {
+                                modalInstance.hide();
+                            }
+                            // Opcional: Limpiar el formulario
+                            document.getElementById('createUserForm').reset();
+                        } else {
+                            alert('Error al crear usuario: ' + (data.error || 'Error desconocido'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al crear usuario:', error);
+                        alert('Error al crear usuario. Inténtalo nuevamente.');
+                    });
+            });
+            
+
+
+            document.getElementById('createClientSubmitBtn').addEventListener('click', function () {
+                // Recoger valores del formulario
+                const nombre = document.getElementById('clientNameCreate').value.trim();
+                const email = document.getElementById('clientEmailCreate').value.trim();
+                const telefono = document.getElementById('clientPhoneCreate').value.trim();
+                const idUser = document.getElementById('clientUserIdCreate').value.trim();
+
+                // Validar campos obligatorios
+                if (!nombre || !email || !telefono || !idUser) {
+                    alert('Por favor, completa todos los campos obligatorios.');
+                    return;
+                }
+
+                // Enviar datos al servidor
+                fetch('../src/admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'create_client',
+                        nombre,
+                        email,
+                        telefono,
+                        idUser,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Cliente creado correctamente');
+                            // Cerrar el modal después de guardar
+                            const createClientModal = document.getElementById('createClientModal');
+                            const modalInstance = bootstrap.Modal.getInstance(createClientModal);
+                            if (modalInstance) {
+                                modalInstance.hide();
+                            }
+                            // Limpiar el formulario
+                            document.getElementById('createClientForm').reset();
+                        } else {
+                            alert('Error al crear cliente: ' + (data.error || 'Error desconocido'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al crear cliente:', error);
+                        alert('Error al crear cliente. Inténtalo nuevamente.');
+                    });
+            });
+
+
+            document.getElementById('editUserBtn').addEventListener('click', () => {
+                fetch('../src/admin.php?type=users', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error:', data.error);
+                            alert('Error al cargar usuarios: ' + data.error);
+                            return;
+                        }
+
+                        const tableBody = document.getElementById('editUserTableBody');
+                        tableBody.innerHTML = ''; // Limpia la tabla
+
+                        // Obtener idioma seleccionado desde el localStorage
+                        let currentLanguage = localStorage.getItem('language') || 'es';
+
+                        // Definir los roles según el idioma seleccionado
+                        let roles;
+                        if (currentLanguage === 'es') {
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico'];
+                        } else if (currentLanguage === 'en') {
+                            roles = ['Admin', 'User', 'Supervisor', 'IT Support'];
+                        } else {
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico']; // Fallback en español
+                        }
+
+                        data.forEach(user => {
+                            const row = `
+                                <tr>
+                                    <td>${user.id}</td>
+                                    <td><input type="text" class="form-control" value="${user.nombre_usuario}" data-id="${user.id}" data-field="nombre_usuario"></td>
+                                    <td><input type="email" class="form-control" value="${user.email}" data-id="${user.id}" data-field="email"></td>
+                                    <td>
+                                        <select class="form-select" data-id="${user.id}" data-field="rol">
+                                            ${roles.map((rol, index) => `
+                                                <option value="${index}" ${user.rol === index ? 'selected' : ''}>${rol}</option>
+                                            `).join('')}
+                                        </select>
+                                    </td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar los usuarios:', error);
+                        alert('Error al cargar los usuarios.');
+                    });
+
+            });
+
+            document.getElementById('editUserSaveBtn').addEventListener('click', function () {
+                const inputs = document.querySelectorAll('#editUserTableBody input, #editUserTableBody select');
+
+                // Agrupar los datos por ID de usuario
+                const updates = Array.from(inputs).reduce((acc, input) => {
+                    const id = input.dataset.id;
+                    const field = input.dataset.field;
+
+                    if (!acc[id]) acc[id] = { id };
+
+                    // Asignar valores correctamente
+                    acc[id][field] = input.type === 'select-one' ? parseInt(input.value) : input.value;
+
+                    return acc;
+                }, {});
+
+                const updateArray = Object.values(updates);
+
+                // Enviar los datos al servidor
+                fetch('../src/admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'edit_user',
+                        users: updateArray,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Usuarios actualizados correctamente');
+                            const editUserModal = document.getElementById('editUserModal');
+                            const modalInstance = bootstrap.Modal.getInstance(editUserModal);
+                            if (modalInstance) {
+                                modalInstance.hide();
+                            }
+                        } else {
+                            alert('Error al actualizar usuarios: ' + (data.error || 'Error desconocido'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al guardar los cambios:', error);
+                        alert('Error al guardar los cambios. Intente nuevamente.');
+                    });
+            });
+
+            // Cargar clientes en el modal al abrirlo
+            document.getElementById('editClientBtn').addEventListener('click', () => {
+                fetch('../src/admin.php?type=clients', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error:', data.error);
+                            alert('Error al cargar clientes: ' + data.error);
+                            return;
+                        }
+
+                        const tableBody = document.getElementById('editClientTableBody');
+                        tableBody.innerHTML = ''; // Limpia la tabla
+
+                        data.forEach(client => {
+                            const row = `
+                                <tr>
+                                    <td>${client.id}</td>
+                                    <td><input type="text" class="form-control" value="${client.nombre}" data-id="${client.id}" data-field="nombre"></td>
+                                    <td><input type="email" class="form-control" value="${client.email}" data-id="${client.id}" data-field="email"></td>
+                                    <td><input type="text" class="form-control" value="${client.telefono}" data-id="${client.id}" data-field="telefono"></td>
+                                    <td><input type="checkbox" class="form-check-input" ${client.completado == 1 ? 'checked' : ''} data-id="${client.id}" data-field="completado"></td>
+                                    <td><textarea rows="1" class="form-control" data-id="${client.id}" data-field="extraInfo">${client.extraInfo || ''}</textarea></td>
+                                    <td><input type="number" class="form-control" value="${client.idUser}" data-id="${client.id}" data-field="idUser"></td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar los clientes:', error);
+                        alert('Error al cargar los clientes.');
+                    });
+            });
+
+
+            // Guardar cambios de clientes
+            document.getElementById('saveClientChangesBtn').addEventListener('click', function () {
+                const inputs = document.querySelectorAll('#editClientTableBody input, #editClientTableBody textarea');
+
+                // Agrupar los datos por ID de cliente
+                const updates = Array.from(inputs).reduce((acc, input) => {
+                    const id = input.dataset.id;
+                    const field = input.dataset.field;
+
+                    if (!acc[id]) acc[id] = { id };
+
+                    // Asignar valores correctamente
+                    if (input.type === 'checkbox') {
+                        acc[id][field] = input.checked ? 1 : 0; // Convertir checkbox a 1 o 0
+                    } else {
+                        acc[id][field] = input.value;
+                    }
+
+                    return acc;
+                }, {});
+
+                const updateArray = Object.values(updates);
+
+
+                // Enviar los datos al servidor
+                fetch('../src/admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'edit_client',
+                        clients: updateArray,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Clientes actualizados correctamente');
+                            const editClientModal = document.getElementById('editClientModal');
+                            const modalInstance = bootstrap.Modal.getInstance(editClientModal);
+                            if (modalInstance) {
+                                modalInstance.hide();
+                            }
+                        } else {
+                            alert('Error al actualizar clientes: ' + (data.error || 'Error desconocido'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al guardar los cambios:', error);
+                        alert('Error al guardar los cambios. Intente nuevamente.');
+                    });
+            });
+
+            document.getElementById('deleteUserBtn').addEventListener('click', function () {
+                fetch('../src/admin.php?type=users', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Verifica los datos que llegan
+                        const tableBody = document.getElementById('deleteUserTableBody');
+                        tableBody.innerHTML = '';
+                        // Obtener idioma seleccionado desde el localStorage
+                        let currentLanguage = localStorage.getItem('language') || 'es';
+
+                        // Definir los roles según el idioma seleccionado
+                        let roles;
+                        if (currentLanguage === 'es') {
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico'];
+                        } else if (currentLanguage === 'en') {
+                            roles = ['Admin', 'User', 'Supervisor', 'IT Support'];
+                        }
+
+                        data.forEach(user => {
+                            const row = `
+                                <tr>
+                                    <td>${user.id}</td>
+                                    <td>${user.nombre_usuario}</td>
+                                    <td>${user.email}</td>
+                                    <td>${roles[user.rol] || (currentLanguage === 'es' ? 'Desconocido' : 'Unknown')}</td>
+                                    <td>
+                                        <button class="btn btn-danger" onclick="confirmDeletion('user', ${user.id})">Borrar</button>
+                                    </td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar los usuarios:', error));
+                });
+
+
+            // Cargar clientes en el modal de borrar
+            document.getElementById('deleteClientBtn').addEventListener('click', function () {
+                fetch('../src/admin.php?type=clients', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.getElementById('deleteClientTableBody');
+                        tableBody.innerHTML = '';
+
+                        data.forEach(client => {
+                            const row = `
+                                <tr>
+                                    <td>${client.id}</td>
+                                    <td>${client.nombre}</td>
+                                    <td>${client.email}</td>
+                                    <td>${client.telefono}</td>
+                                    <td>
+                                        <input type="checkbox" ${client.completado == 1 ? 'checked' : ''} disabled>
+                                    </td>
+                                    <td>${client.extraInfo || ''}</td>
+                                    <td>${client.idUser}</td>
+                                    <td>
+                                        <button class="btn btn-danger" onclick="confirmDeletion('client', ${client.id})">Borrar</button>
+                                    </td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar los clientes:', error));
+            });
+
+            // Confirmar borrado
+            window.confirmDeletion = function (type, id) {
+                const confirmDeletionModal = new bootstrap.Modal(document.getElementById('confirmDeletionModal'));
+                document.getElementById('deleteClientConfirmationYesBtn').onclick = function () {
+                    fetch('../src/admin.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: type === 'user' ? 'delete_user' : 'delete_client',
+                            id,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(`${type === 'user' ? 'Usuario' : 'Cliente'} borrado correctamente.`);
+                                confirmDeletionModal.hide();
+                                // Recargar los datos del modal correspondiente
+                                if (type === 'user') {
+                                    document.getElementById('deleteUserBtn').click();
+                                } else {
+                                    document.getElementById('deleteClientBtn').click();
+                                }
+                            } else {
+                                alert('Error al borrar: ' + (data.error || 'Error desconocido.'));
+                            }
+                        })
+                        .catch(error => console.error('Error al borrar:', error));
+                };
+                confirmDeletionModal.show();
+            };
+
+
+            
+
+            document.getElementById('logoutButton').addEventListener('click', function () {
+                const confirmLogoutModal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
+                confirmLogoutModal.show(); // Abre el modal de confirmación de cierre de sesión
+            });
+
+
+            document.getElementById('yesLogoutButton').addEventListener('click', function () {
+                fetch('../src/logout.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirigir al usuario a la página de inicio de sesión
+                            window.location.href = 'index.html';
+                        } else {
+                            alert('Error al cerrar sesión. Intenta nuevamente.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al cerrar sesión:', error);
+                        alert('Error al cerrar sesión. Intenta nuevamente.');
+                    });
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

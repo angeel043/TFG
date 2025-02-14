@@ -51,16 +51,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirigir según el rol del usuario
             switch ($role) {
                 case 0:
-                    header("Location: ../src/admin.php"); // Admin
+                    header("Location: ../public/admin.html"); // Admin
                     break;
                 case 1:
-                    header("Location: ../src/home.php"); // Usuario
+                    header("Location: ../public/home.html"); // Usuario
                     break;
                 case 2:
-                    header("Location: ../src/sv.php"); // Supervisor
+                    header("Location: ../public/supervisor.html"); // Supervisor
                     break;
                 case 3:
-                    header("Location: ../src/st.php"); // Soporte técnico
+                    header("Location: ../public/it.html"); // Soporte técnico
                     break;
                 default:
                     // En caso de un rol no reconocido

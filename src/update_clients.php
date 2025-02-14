@@ -1,42 +1,36 @@
 <?php
 session_start();
 
-// Verifica si hay una sesión activa
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: index.html");
+    header("Location: ../public/index.html");
     exit();
 }
 
-// Incluye el archivo de conexión a la base de datos
-include '../src/database.php'; 
-
-// Obtener la conexión
+include 'database.php';
 $conn = Database::getConnection();
+$id_usuario = $_SESSION['id_usuario'];
 
-// Manejar el checkbox de completado y los cambios en extra info
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Actualizar los clientes como completados
+// Verificar si la solicitud es POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Registrar todos los datos recibidos en el servidor
+
     if (!empty($_POST['completado'])) {
-        $completeds = $_POST['completado'];
-        foreach ($completeds as $id_cliente) {
-            $stmt = $conn->prepare("UPDATE clientes SET completado = 1 WHERE id = ?");
-            $stmt->bind_param("i", $id_cliente);
+        foreach ($_POST['completado'] as $id_cliente) {
+            $stmt = $conn->prepare("UPDATE clientes SET completado = 1 WHERE id = ? AND idUser = ?");
+            $stmt->bind_param("ii", $id_cliente, $id_usuario);
             $stmt->execute();
         }
     }
 
-    // Actualizar los campos de extra info
     if (!empty($_POST['extrainfo'])) {
         foreach ($_POST['extrainfo'] as $id_cliente => $info) {
-            $stmt = $conn->prepare("UPDATE clientes SET extrainfo = ? WHERE id = ?");
-            $stmt->bind_param("si", $info, $id_cliente);
+            $stmt = $conn->prepare("UPDATE clientes SET extrainfo = ? WHERE id = ? AND idUser = ?");
+            $stmt->bind_param("sii", $info, $id_cliente, $id_usuario);
             $stmt->execute();
         }
     }
-
-    // Redirigir de nuevo al listado de clientes
-    header("Location: home.php");
 }
 
 $conn->close();
+exit();
 ?>

@@ -3,7 +3,7 @@ Ajustes
 Ajustes
 Seleccionar idioma
 Cerrar
-Usuario o contraseña incorrectos.
+¿Está seguro de que desea cerrar sesión?
 Opciones de usuarios
 Crear usuario
 Modificar usuario
@@ -28,10 +28,6 @@ Modificar usuario
 Nombre
 Correo electrónico
 Rol
-Admin
-Usuario
-Supervisor
-Equipo Técnico
 Cancelar
 Guardar cambios
 Borrar usuario
@@ -39,3 +35,44 @@ Nombre
 Correo electrónico
 Rol
 Acción
+Cerrar sesión
+Confirmar cierre de sesión
+Sí
+No
+Crear cliente
+Nombre completo
+Correo electrónico
+Teléfono
+ID del usuario responsable
+Cancelar
+Guardar
+Modificar cliente
+ID
+Nombre
+Correo
+Teléfono
+Completado
+Información adicional
+ID del usuario responsable
+Cancelar
+Guardar cambios
+Borrar cliente
+ID
+Nombre
+Correo
+Teléfono
+Completado
+Información adicional
+ID del usuario responsable
+Acción
+Confirmar borrado
+¿Estás seguro de que deseas borrar este elemento?
+Sí, borrar
+Cancelar
+Información del usuario
+Nombre:
+Correo:
+Rol:
+Cerrar
+Tema:
+Oscuro

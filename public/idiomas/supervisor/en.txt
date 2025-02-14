@@ -1,19 +1,22 @@
-SINOVA - Main page
+SINOVA
+SINOVA - Supervision panel
 Settings
 Settings
-Change language
+Select language
 Close
 Logout
 Confirm logout
 Are you sure you want to log out?
 Yes
 No
-Associated clients
-Name
-Mail
+Completed Clients
+Client ID
+Fullname
+Email
 Telephone
-Completed
-Extra information
+Aditional information
+Responsible ID
+Responsible email 
 User information
 Name:
 Mail:
@@ -23,7 +26,9 @@ Theme:
 Dark
 Filters
 Filter by:
+Client ID
 Fullname
 Mail
 Telephone number
+Responsible user ID
 Apply filters

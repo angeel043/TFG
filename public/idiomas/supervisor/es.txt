@@ -1,19 +1,22 @@
-SINOVA - Página principal
+SINOVA
+SINOVA - Panel de supervisión
 Ajustes
 Ajustes
-Seleccionar idioma:
+Seleccionar idioma
 Cerrar
 Cerrar sesión
-Confirmar cierre de sesión
+Confirmar cerrar sesión
 ¿Está seguro de que desea cerrar sesión?
 Sí
 No
-Clientes asociados
-Nombre
-Correo
+Clientes completados
+ID cliente
+Nombre Completo
+Correo electrónico
 Teléfono
-Completado
-Información extra
+Información adicional
+ID responsable
+Correo responsable 
 Información del usuario
 Nombre:
 Correo:
@@ -23,7 +26,9 @@ Tema:
 Oscuro
 Filtros
 Filtrar por:
+ID Cliente
 Nombre
 Correo electrónico
 Número de teléfono
+ID Usuario responsable
 Aplicar filtros

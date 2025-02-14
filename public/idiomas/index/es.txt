@@ -8,3 +8,5 @@ Ajustes
 Seleccionar idioma
 Cerrar
 Usuario o contraseña incorrectos.
+Tema:
+Oscuro
