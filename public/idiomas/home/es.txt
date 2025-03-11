@@ -27,3 +27,18 @@ Nombre
 Correo electrónico
 Número de teléfono
 Aplicar filtros
+Empresa
+Salario menor que
+Salario mayor que
+Empresa
+Sede
+Salario (bruto/anual)
+Horas semanales
+Estadísticas de clientes
+Crear ticket
+Crear ticket
+Título
+Descripción
+Cancelar
+Enviar ticket
+Restablecer filtros

@@ -32,3 +32,20 @@ Correo electrónico
 Número de teléfono
 ID Usuario responsable
 Aplicar filtros
+Empresa
+Salario menor que
+Salario mayor que
+Empresa
+Sede
+Salario (bruto/anual)
+Horas semanales
+Crear ticket
+Crear ticket
+Título
+Descripción
+Cancelar
+Enviar ticket
+Restablecer filtros
+Exportar datos
+Exportar clientes (.xlsx)
+Exportar clientes (.pdf)

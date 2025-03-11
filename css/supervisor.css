@@ -7,6 +7,10 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 🔥 Evita que el contenido expanda */
 }
 .navbar {
     background-color: #23272a;
@@ -124,4 +128,67 @@ color: #ffffff !important;
 .light-mode .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f8f9fa !important;
 }
+
+#filtersPanel {
+    height: 300px; /* Altura fija */
+    max-height: 300px;
+    overflow: hidden; /* Evita que el contenido lo haga crecer */
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#filterForm {
+    flex-grow: 1; /* Asegura que el contenido no empuje el contenedor */
+    display: flex;
+    flex-direction: column;
+}
+
+#applyFiltersButton, #clearFiltersButton {
+    width: 100%; /* Que los botones ocupen todo el ancho */
+}
+
+/* 🔹 Evita que el panel de filtros se estire por la tabla */
+.container-fluid {
+    display: flex;
+    align-items: flex-start; /* Asegura que los paneles se alineen arriba */
+}
+
+/* 🔹 Si sigue creciendo, limita la altura máxima */
+.container {
+    min-height: 100px; /* Ajusta según lo que necesites */
+    max-height: 100vh; /* Que no crezca más que la pantalla */
+    overflow: hidden; /* Que no se desborde */
+}
+
+/* Ajustar tamaño y posición de los iconos dentro de los botones */
+.btn-icon {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    object-fit: contain !important;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.settings-icon {
+    width: 24px !important;
+    height: 24px !important;
+    max-width: 24px !important;
+    max-height: 24px !important;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.light-mode #exportOptionsPanel {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ddd !important;
+}
+
+
 

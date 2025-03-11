@@ -143,3 +143,22 @@ h1 {
 .light-mode .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f8f9fa !important;
 }
+
+/* Ajustar tamaño y posición de los iconos dentro de los botones */
+.btn-icon, .settings-icon {
+    width: 18px; /* Tamaño adecuado */
+    height: 18px;
+    margin-right: 6px; /* Espacio entre el icono y el texto */
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* Asegurar que los botones no se deformen */
+#settingsButton, #createTicketButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Espacio entre icono y texto */
+    padding: 6px 12px; /* Ajustar el padding */
+    min-width: 120px; /* Evitar que el botón se encoja demasiado */
+}

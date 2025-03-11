@@ -6,40 +6,68 @@
     <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" id="navtitle">SINOVA - Página principal</a>
-            <button type="button" id="settingsButton" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
-                <span >Ajustes</span>
-            </button>
-            <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
-                <i class="bi bi-person-circle"></i>
-            </button>
-        </div> 
+            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de supervisión</a>
+            <div class="d-flex align-items-center">
+                <!-- Botón Crear Ticket con icono -->
+                <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                    <img src="../src/img/ticket.png" alt="Ticket" class="btn-icon"> 
+                    <span id="createTicketText">Crear ticket</span>
+                </button>
+
+                <!-- Botón Ajustes con icono -->
+                <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
+                    <img src="../src/img/settings.png" alt="Ajustes" class="btn-icon"> 
+                    <span id="settingsText">Ajustes</span>
+                </button>
+                    
+                <!-- Botón Perfil Usuario -->
+                <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
+                    <i class="bi bi-person-circle"></i>
+                </button>
+            </div>
+        </div>
     </nav>
 
     <div class="container-fluid mt-5 d-flex justify-content-center" style="max-width: 1600px;">
-        <div class="container" id="filtersPanel" style="width: 30%; max-width: 300px;">
-            <h5 class="text-center" id="filtersTitle">Filtros</h5>
-            <form id="filterForm" method="GET">
-                <div class="mb-3">
-                    <label for="filterBy" class="form-label" id="filterByLabel">Filtrar por:</label>
-                    <select class="form-select" id="filterBy" name="filterBy">
-                        <option value="name" id="nameFilterOption">Nombre</option>
-                        <option value="mail" id="mailFilterOption">Correo electrónico</option>
-                        <option value="phone" id="phoneFilterOption">Número de teléfono</option>
-                    </select>
-                    <br>
-                    <input type="text" class="form-control" id="filterValue" name="filterValue">
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="applyFiltersButton">Aplicar Filtros</button>
-            </form>
+        <!-- Contenedor para Filtros y Exportación -->
+        <div class="d-flex flex-column align-items-center" style="width: 20%; max-width: 220px;">
+            <!-- Panel de Filtros -->
+            <div class="container" id="filtersPanel">
+                <h5 class="text-center" id="filtersTitle">Filtros</h5>
+                <form id="filterForm" method="GET">
+                    <div class="mb-3">
+                        <label for="filterBy" class="form-label" id="filterByLabel">Filtrar por:</label>
+                        <select class="form-select" id="filterBy" name="filterBy">
+                            <option value="name" id="nameFilterOption">Nombre</option>
+                            <option value="mail" id="mailFilterOption">Correo electrónico</option>
+                            <option value="phone" id="phoneFilterOption">Número de teléfono</option>
+                            <option value="company" id="companyFilterOption">Empresa</option>
+                            <option value="salaryLess" id="salaryLessFilterOption">Salario menor que</option>
+                            <option value="salaryMore" id="salaryMoreFilterOption">Salario mayor que</option>
+                        </select>
+                        <br>
+                        <input type="text" class="form-control" id="filterValue" name="filterValue">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" id="applyFiltersButton">Aplicar Filtros</button>
+                    <button type="button" class="btn btn-secondary w-100 mt-2" id="clearFiltersButton">Restablecer filtros</button>
+                </form>
+            </div>
+    
+            <!-- Panel de Exportación -->
+            <div class="container bg p-4 rounded mt-3" id="exportOptionsPanel">
+                <h5 id="exportOptionsLabel" class="mb-3 text-center">Exportar gráficas</h5>
+                <button class="btn btn-primary w-100 mb-2 export-button" data-type="clientes" data-format="pdf" id="exportChart1">Horas semanales promedio por empresa</button>
+                <button class="btn btn-primary w-100 export-button" data-type="clientes" data-format="pdf" id="exportChart2">Salario promedio por sede</button>
+            </div>
         </div>
     
-
-        <div class="container" style="width: 90%; max-width: 850px;">
+        <!-- Contenedor de Clientes -->
+        <div class="container" style="width: 100%; max-width: 1250px;">
             <h2 id="clientsTitle">Clientes asociados</h2>
             <form id="clientsForm">
                 <table class="table table-dark table-striped" id="clientsTable">
@@ -48,6 +76,10 @@
                             <th id="nameColumn">Nombre</th>
                             <th id="mailColumn">Correo</th>
                             <th id="phoneColumn">Teléfono</th>
+                            <th id="companyColumn">Empresa</th>
+                            <th id="baseColumn">Sede</th>
+                            <th id="salaryColumn">Salario (bruto/anual)</th>
+                            <th id="hoursColumn">Horas semanales</th>
                             <th id="completedColumn">Completado</th>
                             <th id="extraInfoColumn">Información extra</th>
                         </tr>
@@ -57,7 +89,30 @@
                     </tbody>
                 </table>
             </form>
-        </div> 
+        </div>
+    </div>
+    
+
+        <!-- Contenedor de Gráficas (Siempre Visible) -->
+        <div class="container mt-5" id="statsContainer">
+            <h2 class="text-center" id="statsTitle">Estadísticas de clientes</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-3 d-flex justify-content-center">
+                    <canvas id="chartEmpresa" style="max-width: 250px;"></canvas>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center">
+                    <canvas id="chartHoras"></canvas>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center">
+                    <canvas id="chartSede" style="max-width: 250px;"></canvas>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center">
+                    <canvas id="chartSalario"></canvas>
+                </div>
+            </div>
+        </div>
+
+
 
         <!-- Modal con información del usuario -->
         <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
@@ -91,13 +146,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <label for="languageSelect" class="form-label" id="selectLanguageLabel">Seleccionar idioma:</label>
+                        <!-- Selección de idioma con icono -->
+                        <div class="d-flex align-items-center">
+                            <img id="languageIcon" src="../src/img/darkLanguage.png" alt="Idioma" class="settings-icon">
+                            <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
+                        </div>
                         <select id="languageSelect" class="form-select">
                             <option value="es">Español</option>
                             <option value="en">English</option>
                         </select>
+
+                        <!-- Tema con icono -->
                         <div class="form-group mt-3">
-                            <label class="form-label d-block" id="themeLabel">Tema:</label>
+                            <div class="d-flex align-items-center">
+                                <img id="themeIcon" src="../src/img/darkTheme.png" alt="Tema" class="settings-icon">
+                                <label class="form-label ms-2" id="themeLabel">Tema:</label>
+                            </div>
                             <div class="d-flex align-items-center">
                                 <span class="me-2" id="darkThemeLabel">Oscuro</span>
                                 <div class="form-check form-switch">
@@ -114,20 +178,30 @@
         </div>
 
 
-        <!-- Modal para enviar mensaje a soporte técnico -->
-        <div class="modal fade" id="supportMessageModal" tabindex="-1" aria-labelledby="supportMessageModalLabel" aria-hidden="true">
+
+        <!-- Modal para crear ticket -->
+        <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="supportMessageModalLabel">Enviar mensaje a soporte técnico</h5>
+                        <h5 class="modal-title" id="ticketModalLabel">Crear ticket</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <textarea class="form-control" id="supportMessageText" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        <form id="ticketForm">
+                            <div class="mb-3">
+                                <label for="ticketTitle" class="form-label" id="ticketTitleLabel">Título</label>
+                                <input type="text" class="form-control" id="ticketTitle" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
+                                <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="sendMessageButton">Enviar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTicketModal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="submitTicket">Enviar ticket</button>
                     </div>
                 </div>
             </div>
@@ -154,6 +228,8 @@
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
 
@@ -165,6 +241,8 @@
             const filterForm = document.getElementById("filterForm");
             const filterBySelect = document.getElementById("filterBy");
             const filterInput = document.getElementById("filterValue");
+            const languageIcon = document.getElementById("languageIcon");
+            const themeIcon = document.getElementById("themeIcon");
 
             function loadLanguage(lang) {
                 const timestamp = new Date().getTime();
@@ -176,7 +254,7 @@
                     .then(data => {
                         const lines = data.split("\n");
                         const ids = [
-                            "navtitle", "settingsButton", "settingsTitle", "selectLanguageLabel",
+                            "navtitle", "settingsText", "settingsTitle", "selectLanguageLabel",
                             "closeSettingsButton", "logoutButton", "confirmLogoutLabel",
                             "confirmLogoutTitle", "yesLogoutButton", "noLogoutButton",
                             "clientsTitle", "nameColumn", "mailColumn", "phoneColumn",
@@ -184,7 +262,11 @@
                             "userInfoName", "userInfoMail", "userInfoRole", "userInfoClose",
                             "themeLabel", "darkThemeLabel", "filterTitle", "filterByLabel",
                             "nameFilterOption", "mailFilterOption", "phoneFilterOption",
-                            "applyFiltersButton"
+                            "applyFiltersButton", "companyFilterOption", "salaryLessFilterOption",
+                            "salaryMoreFilterOption","companyColumn", "baseColumn", "salaryColumn", 
+                            "hoursColumn", "statsTitle", "createTicketText", "ticketModalLabel", 
+                            "ticketTitleLabel", "ticketDescriptionLabel", "closeTicketModal", "submitTicket",
+                            "clearFiltersButton"
                         ];
 
                         ids.forEach((id, index) => {
@@ -195,7 +277,7 @@
                         const languageSelect = document.getElementById("languageSelect");
                         languageSelect.innerHTML = lang === "es" ?
                             '<option value="es" selected>Español</option><option value="en">English</option>' :
-                            '<option value="es">Spanish</option><option value="en" selected>English</option>';
+                            '<option value="es">Español</option><option value="en" selected>English</option>';
                     })
                     .catch(error => console.error("Error al cargar el idioma:", error));
             }
@@ -221,6 +303,8 @@
                 document.body.classList.toggle("light-mode", !enableDarkMode);
                 table.classList.toggle("table-dark", enableDarkMode);
                 localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
+                updateIcons();
+                location.reload();
             });
 
             document.getElementById("languageSelect").addEventListener("change", function () {
@@ -263,15 +347,21 @@
                                     <td>${client.nombre}</td>
                                     <td>${client.email}</td> 
                                     <td>${client.telefono}</td>
+                                    <td>${client.empresa}</td>
+                                    <td>${client.sede}</td>
+                                    <td>${client.salario}</td>
+                                    <td>${client.horasSemanales}</td>
                                     <td><input type="checkbox" class="client-completed" name="completado[]" value="${client.id}" data-id="${client.id}"${client.completado ? "checked" : ""}></td>
                                     <td><textarea class="client-extrainfo" name="extrainfo[${client.id}]" data-id="${client.id}" rows="2" cols="50">${client.extrainfo}</textarea></td>
                                 </tr>`;
                         });
+                            generarGraficas(); 
                     } else {
                         tableBody.innerHTML = "<tr><td colspan='5'>No se encontraron clientes asociados.</td></tr>";
                     }
                 })
                 .catch(error => console.error("Error al cargar los clientes:", error));
+
             }
 
 
@@ -293,33 +383,52 @@
 
             // Función para actualizar la base de datos con los campos completado y extrainfo
             function updateClientData(callback) {
-                const clientData = [];
-
-                document.querySelectorAll(".client-completed").forEach(checkbox => {
-                    const id = checkbox.dataset.id;
-                    const extrainfo = document.querySelector(`.client-extrainfo[data-id="${id}"]`).value.trim();
-                    clientData.push({
-                        id,
-                        completado: checkbox.checked ? 1 : 0,
-                        extrainfo: extrainfo
-                    });
+                const completedClients = [];
+                document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
+                    const clientId = checkbox.dataset.id; // ID del cliente
+                    if (clientId) {
+                        completedClients.push({
+                            id: parseInt(clientId), // Convertir a número
+                            completado: checkbox.checked ? 1 : 0 // 1 si está marcado, 0 si no
+                        });
+                    }
                 });
 
-                fetch("../src/update_clients.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ clients: clientData })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Clientes actualizados correctamente");
-                        if (callback) callback();
-                    } else {
-                        console.error("Error al actualizar clientes:", data.error);
+                // Recoger información adicional (extraInfo) de los clientes
+                const extrainfoUpdates = [];
+                document.querySelectorAll(".client-extrainfo").forEach(textarea => {
+                    const clientId = textarea.dataset.id;
+                    if (clientId) {
+                        extrainfoUpdates.push({
+                            id: parseInt(clientId),
+                            extrainfo: textarea.value.trim()
+                        });
                     }
-                })
-                .catch(error => console.error("Error al actualizar los clientes:", error));
+                });
+
+
+                // Enviar la solicitud al backend solo si hay cambios
+                if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
+
+                    fetch("../src/home.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            action: "update_clients",
+                            clients: completedClients,
+                            extrainfo: extrainfoUpdates
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (callback) callback();
+                        } else {
+                            console.error("Error al actualizar clientes:", data.error);
+                        }
+                    })
+                    .catch(error => console.error("Error al actualizar los clientes:", error));
+                }
             }
 
             // Aplicar filtros y actualizar clientes antes de recargar
@@ -356,20 +465,67 @@
             });
 
             document.getElementById("yesLogoutButton").addEventListener("click", function () {
-                const form = document.getElementById("clientsForm");
-                const formData = new FormData(form);
+                const completedClients = [];
+                document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
+                    const clientId = checkbox.dataset.id; // ID del cliente
+                    if (clientId) {
+                        completedClients.push({
+                            id: parseInt(clientId), // Convertir a número
+                            completado: checkbox.checked ? 1 : 0 // 1 si está marcado, 0 si no
+                        });
+                    }
+                });
 
-                fetch("../src/update_clients.php", { method: "POST", body: formData })
-                    .then(response => {
-                        if (response.ok) return fetch("../src/logout.php", { method: "POST" });
-                        throw new Error("Error al actualizar los clientes.");
+                // Recoger información adicional (extraInfo) de los clientes
+                const extrainfoUpdates = [];
+                document.querySelectorAll(".client-extrainfo").forEach(textarea => {
+                    const clientId = textarea.dataset.id;
+                    if (clientId) {
+                        extrainfoUpdates.push({
+                            id: parseInt(clientId),
+                            extrainfo: textarea.value.trim()
+                        });
+                    }
+                });
+
+                // Enviar la solicitud al backend solo si hay cambios
+                if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
+                    fetch("../src/home.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            action: "update_clients",
+                            clients: completedClients,
+                            extrainfo: extrainfoUpdates
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirigir al logout después de la actualización
+                            return fetch("../src/logout.php", { method: "POST" });
+                        } else {
+                            console.error("Error al actualizar clientes:", data.error);
+                            return Promise.reject("Error al actualizar clientes");
+                        }
                     })
                     .then(response => {
                         if (response.ok) window.location.href = "index.html";
                         else throw new Error("Error al cerrar sesión.");
                     })
                     .catch(error => console.error("Error:", error));
+                } else {
+                    // Si no hay cambios en la BBDD, ir directamente al logout
+                    fetch("../src/logout.php", { method: "POST" })
+                    .then(response => {
+                        if (response.ok) window.location.href = "index.html";
+                        else throw new Error("Error al cerrar sesión.");
+                    })
+                    .catch(error => console.error("Error al cerrar sesión:", error));
+                }
             });
+
+
 
 
             document.getElementById("applyFiltersButton").addEventListener("click", function (event) {
@@ -380,22 +536,346 @@
                 const formData = new FormData(form);
 
 
+                const completedClients = [];
+                document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
+                    const clientId = checkbox.dataset.id; // ID del cliente
+                    if (clientId) {
+                        completedClients.push({
+                            id: parseInt(clientId), // Convertir a número
+                            completado: checkbox.checked ? 1 : 0 // 1 si está marcado, 0 si no
+                        });
+                    }
+                });
 
-                fetch("../src/update_clients.php", { method: "POST", body: formData })
-                    .then(response => {
-                        if (response.ok) {
+                // Recoger información adicional (extraInfo) de los clientes
+                const extrainfoUpdates = [];
+                document.querySelectorAll(".client-extrainfo").forEach(textarea => {
+                    const clientId = textarea.dataset.id;
+                    if (clientId) {
+                        extrainfoUpdates.push({
+                            id: parseInt(clientId),
+                            extrainfo: textarea.value.trim()
+                        });
+                    }
+                });
+
+                // Enviar la solicitud al backend solo si hay cambios
+                if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
+
+                    fetch("../src/home.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            action: "update_clients",
+                            clients: completedClients,
+                            extrainfo: extrainfoUpdates
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
                             // Obtener los valores del filtro para mantenerlos en la URL
                             const filterBy = document.getElementById("filterBy").value;
                             const filterValue = document.getElementById("filterValue").value.trim();
                             window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
                         } else {
-                            throw new Error("Error al actualizar los clientes.");
+                            console.error("Error al actualizar clientes:", data.error);
                         }
                     })
                     .catch(error => console.error("Error al actualizar los clientes:", error));
+                }
+
+
+
+
+
+
             });
 
+            function getFilteredData() {
+                let clientes = [];
+                document.querySelectorAll("#clientsTable tbody tr").forEach(row => {
+                    if (row.style.display !== "none") { 
+                        let data = {
+                            nombre: row.cells[0].innerText,
+                            correo: row.cells[1].innerText,
+                            telefono: row.cells[2].innerText,
+                            empresa: row.cells[3].innerText,
+                            sede: row.cells[4].innerText,
+                            salario: parseInt(row.cells[5].innerText) || 0,
+                            horas: parseInt(row.cells[6].innerText) || 0,
+                            completado: row.cells[7].querySelector("input").checked ? 1 : 0
+                        };
+                        clientes.push(data);
+                    }
+                });
+                return clientes;
+            }
 
+
+            const chartTitles = {
+                es: {
+                    chart1: "Clientes por sede",
+                    chart2: "Clientes por empresa",
+                    chart3: "Salario promedio por sede",
+                    chart4: "Horas semanales promedio por empresa"
+                },
+                en: {
+                    chart1: "Clients by base",
+                    chart2: "Clients by company",
+                    chart3: "Average salary by base",
+                    chart4: "Average weekly hours by company"
+                }
+            };
+
+
+            // Función para generar las gráficas dinámicas
+            function generarGraficas() {
+                let clientes = getFilteredData();
+
+                if (clientes.length === 0) return;
+
+                // Obtener valores únicos de sedes y empresas
+                let sedesUnicas = [...new Set(clientes.map(c => c.sede))];
+                let empresasUnicas = [...new Set(clientes.map(c => c.empresa))];
+
+                // 📊 1. Clientes por sede (GRÁFICO CIRCULAR)
+                let sedes = {};
+                clientes.forEach(c => sedes[c.sede] = (sedes[c.sede] || 0) + 1);
+                renderizarGrafico("chartSede", chartTitles[currentLanguage].chart1, sedes, "doughnut", "sede");
+
+                // 📊 2. Clientes por empresa (GRÁFICO CIRCULAR)
+                let empresas = {};
+                clientes.forEach(c => empresas[c.empresa] = (empresas[c.empresa] || 0) + 1);
+                renderizarGrafico("chartEmpresa", chartTitles[currentLanguage].chart2, empresas, "doughnut", "empresa");
+
+                // 📊 3. Salario promedio por sede (GRÁFICO DE BARRAS)
+                let salarioPorSede = {}, cantidadPorSede = {};
+                clientes.forEach(c => {
+                    salarioPorSede[c.sede] = (salarioPorSede[c.sede] || 0) + c.salario;
+                    cantidadPorSede[c.sede] = (cantidadPorSede[c.sede] || 0) + 1;
+                });
+                let salarioPromedio = {};
+                Object.keys(salarioPorSede).forEach(sede => {
+                    salarioPromedio[sede] = salarioPorSede[sede] / cantidadPorSede[sede];
+                });
+                renderizarGrafico("chartSalario", chartTitles[currentLanguage].chart3, salarioPromedio, "bar", "sede");
+
+                // 📊 4. Horas semanales promedio por empresa (GRÁFICO DE BARRAS)
+                let horasPorEmpresa = {}, cantidadPorEmpresa = {};
+                clientes.forEach(c => {
+                    horasPorEmpresa[c.empresa] = (horasPorEmpresa[c.empresa] || 0) + c.horas;
+                    cantidadPorEmpresa[c.empresa] = (cantidadPorEmpresa[c.empresa] || 0) + 1;
+                });
+                let horasPromedio = {};
+                Object.keys(horasPorEmpresa).forEach(empresa => {
+                    horasPromedio[empresa] = horasPorEmpresa[empresa] / cantidadPorEmpresa[empresa];
+                });
+                renderizarGrafico("chartHoras", chartTitles[currentLanguage].chart4, horasPromedio, "bar", "empresa");
+            }
+            
+            // Paletas de colores predefinidas
+            const coloresSedesBase = ["#6A5ACD", "#20B2AA", "#FF8C00", "#DC143C", "#008000"];
+            const coloresEmpresasBase = ["#FF4500", "#32CD32", "#1E90FF", "#FFD700", "#8A2BE2"];
+
+            // Mapeos dinámicos
+            let coloresSedes = {};
+            let coloresEmpresas = {};
+
+            // Función para asignar colores dinámicamente
+            function obtenerColores(labels, tipo) {
+                if (tipo === "sede") {
+                    return labels.map((sede, i) => {
+                        if (!coloresSedes[sede]) {
+                            coloresSedes[sede] = coloresSedesBase[Object.keys(coloresSedes).length % coloresSedesBase.length];
+                        }
+                        return coloresSedes[sede];
+                    });
+                }
+                if (tipo === "empresa") {
+                    return labels.map((empresa, i) => {
+                        if (!coloresEmpresas[empresa]) {
+                            coloresEmpresas[empresa] = coloresEmpresasBase[Object.keys(coloresEmpresas).length % coloresEmpresasBase.length];
+                        }
+                        return coloresEmpresas[empresa];
+                    });
+                }
+            }
+
+
+            function getTextColor() {
+                if (isDarkMode){
+                    return "#ffffff";
+                } else
+                    return "#000000";
+            }
+
+            // Función para renderizar gráficos
+            function renderizarGrafico(id, titulo, datos, tipo = "bar", categoria = "") {
+                let ctx = document.getElementById(id)?.getContext("2d");
+                if (!ctx) return;
+
+                if (window[id] && typeof window[id].destroy === "function") {
+                    window[id].destroy();
+                }
+
+                let backgroundColors = obtenerColores(Object.keys(datos), categoria);
+                let textColor = getTextColor(); // Detectar color correcto
+
+
+                window[id] = new Chart(ctx, {
+                    type: tipo,
+                    data: {
+                        labels: Object.keys(datos),
+                        datasets: [{
+                            label: "",
+                            data: Object.values(datos),
+                            backgroundColor: backgroundColors,
+                            borderColor: textColor ,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: tipo === "doughnut",
+                                labels: {
+                                    color: textColor,
+                                    usePointStyle: true
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: titulo,
+                                color: textColor,
+                                font: { size: 16 }
+                            }
+                        },
+                        scales: tipo === "bar" ? {
+                            y: { beginAtZero: true, ticks: { color: textColor } },
+                            x: { ticks: { color: textColor } }
+                        } : {}
+                    }
+                });
+            }
+            
+            document.getElementById("submitTicket").addEventListener("click", function () {
+                const titulo = document.getElementById("ticketTitle").value.trim();
+                const descripcion = document.getElementById("ticketDescription").value.trim();
+
+                if (!titulo || !descripcion) {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+
+                fetch('../src/home.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'crear_ticket',
+                        titulo: titulo,
+                        descripcion: descripcion
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Ticket enviado correctamente.");
+                        location.reload();
+                    } else {
+                        alert("Error al enviar el ticket: " + (data.error || "Desconocido"));
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+
+            window.addEventListener("beforeunload", function (event) {
+                updateClientData();
+            });
+
+            document.getElementById("clearFiltersButton").addEventListener("click", function () {
+                // Recarga la página con los valores predeterminados (filterBy=name y filterValue vacío)
+                window.location.href = "?filterBy=name&filterValue=";
+            });
+
+            function updateIcons() {
+                const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+                themeIcon.src = isDarkMode ? "../src/img/darkTheme.png" : "../src/img/lightTheme.png";
+                languageIcon.src = isDarkMode ? "../src/img/darkLanguage.png" : "../src/img/lightLanguage.png";
+            }
+
+            // Aplicar los iconos correctos al cargar la página
+            updateIcons();
+
+            document.getElementById("exportChart1").addEventListener("click", function () {
+                exportarGrafico("chartHoras");
+            });
+
+            document.getElementById("exportChart2").addEventListener("click", function () {
+                exportarGrafico("chartSalario");
+            });
+
+            function exportarGrafico(idCanvas) {
+                // Obtener el contexto del canvas
+                const chartCanvas = document.getElementById(idCanvas);
+                const chartInstance = Chart.getChart(chartCanvas); // Obtener la instancia del gráfico
+
+                if (!chartInstance) {
+                    console.error("No se encontró el gráfico con el ID especificado.");
+                    return;
+                }
+
+                // Guardar los estilos originales
+                const originalOptions = JSON.parse(JSON.stringify(chartInstance.options));
+
+                // Aplicar estilos de modo claro para exportación
+                chartInstance.options.plugins.title.color = "#000";  // Título en negro
+                chartInstance.options.scales.x.ticks.color = "#000"; // Ejes en negro
+                chartInstance.options.scales.y.ticks.color = "#000";
+                chartInstance.options.scales.x.grid.color = "rgba(0,0,0,0.1)"; // Grid gris claro
+                chartInstance.options.scales.y.grid.color = "rgba(0,0,0,0.1)";
+                
+                // Cambiar fondo del canvas temporalmente
+                chartCanvas.style.backgroundColor = "#ffffff";
+
+                // Actualizar el gráfico para aplicar los cambios
+                chartInstance.update();
+
+                // Crear imagen desde el canvas
+                setTimeout(() => {
+                    const imageURL = chartCanvas.toDataURL("image/png");
+
+                    // Restaurar los estilos originales después de generar la imagen
+                    chartCanvas.style.backgroundColor = "";
+                    chartInstance.options = originalOptions;
+                    chartInstance.update();
+
+                    // Descargar la imagen como PDF
+                    generarPDF(imageURL);
+                }, 1); // Esperar un momento para que se renderice el cambio
+            }
+
+            // Función para generar el PDF
+            function generarPDF(imageURL) {
+                const { jsPDF } = window.jspdf; // Importar jsPDF correctamente
+
+                const pdfSize = 150; // Tamaño del PDF cuadrado (en mm)
+                const imgSize = 110; // Tamaño de la imagen dentro del PDF (en mm)
+
+                const posX = (pdfSize - imgSize) / 2; // Calcular posición X centrada
+                const posY = (pdfSize - imgSize) / 2; // Calcular posición Y centrada
+
+                // Crear PDF cuadrado
+                const pdf = new jsPDF({
+                    orientation: "portrait",
+                    unit: "mm",
+                    format: [pdfSize, pdfSize] // Hace el PDF cuadrado
+                });
+                pdf.addImage(imageURL, "PNG", posX, posY, imgSize, imgSize);
+                pdf.save("grafico.pdf"); // Guardar PDF
+            }
         });
 
 

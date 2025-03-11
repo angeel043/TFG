@@ -1,0 +1,25 @@
+SINOVA - IT panel
+Settings
+Settings
+Change language
+Close
+Logout
+Confirm logout
+Are you sure you want to log out?
+Yes
+No
+User information
+Name:
+Mail:
+Role:
+Close
+Theme:
+Dark
+Pending tickets
+Ticket ID
+User ID
+User mail
+Title
+Description
+Creation date
+Completed

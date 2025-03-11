@@ -76,3 +76,28 @@ Rol:
 Cerrar
 Tema:
 Oscuro
+Empresa
+Sede
+Salario(bruto/anual)
+Horas semanales
+Empresa
+Sede
+Salario(bruto/anual)
+Horas semanales
+Empresa
+Sede
+Salario(bruto/anual)
+Horas semanales
+Crear ticket
+Crear ticket
+Título
+Descripción
+Cancelar
+Enviar ticket
+Exportar datos
+Usuarios
+Clientes
+Exportar usuarios (.xlsx)
+Exportar usuarios (.pdf)
+Exportar clientes (.xlsx)
+Exportar clientes (.pdf)

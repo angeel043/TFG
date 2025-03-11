@@ -1,0 +1,25 @@
+SINOVA - Panel de Soporte Técnico
+Ajustes
+Ajustes
+Seleccionar idioma:
+Cerrar
+Cerrar sesión
+Confirmar cierre de sesión
+¿Está seguro de que desea cerrar sesión?
+Sí
+No
+Información del usuario
+Nombre:
+Correo:
+Rol:
+Cerrar
+Tema:
+Oscuro
+Tickets pendientes
+ID ticket
+ID usuario
+Correo usuario
+Título
+Descripción
+Fecha de creación
+Completado

@@ -32,3 +32,20 @@ Mail
 Telephone number
 Responsible user ID
 Apply filters
+Company
+Salary less than
+Salary greater than
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Create ticket
+Create ticket
+Title
+Description
+Cancel
+Submit ticket
+Clear filters
+Export data
+Export clients (.xlsx)
+Export clients (.pdf)

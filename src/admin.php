@@ -100,20 +100,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre = $data['nombre'] ?? null;
                 $email = $data['email'] ?? null;
                 $telefono = $data['telefono'] ?? null;
+                $company = $data['empresa'] ?? null;
+                $base = $data['sede'] ?? null;
+                $salary = $data['salario'] ?? null;
+                $hours = $data['horas'] ?? null;
                 $idUser = isset($data['idUser']) ? intval($data['idUser']) : null;
                 
-                if (!$nombre || !$email || !$telefono || $idUser === null) {
-                    echo json_encode(['success' => false, 'error' => 'Todos los campos obligatorios deben completarse']);
-                    exit();
-                }
                 
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     echo json_encode(['success' => false, 'error' => 'Correo electrónico inválido']);
                     exit();
                 }
             
-                $stmt = $conn->prepare("INSERT INTO clientes (nombre, email, telefono, idUser) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("sssi", $nombre, $email, $telefono, $idUser);
+                $stmt = $conn->prepare("INSERT INTO clientes (nombre, email, telefono, idUser, empresa, sede, salario, horasSemanales) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssissii", $nombre, $email, $telefono, $idUser, $company, $base, $salary, $hours);
             
                 if ($stmt->execute()) {
                     echo json_encode(['success' => true]);
@@ -124,38 +124,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
 
             case 'edit_client':
-                $clients = $data['clients']; // Accede al valor de 'clients'
+            $clients = $data['clients']; // Accede al valor de 'clients'
 
-                if (isset($clients) && is_array($clients)) {
-                    foreach ($clients as $client) {
-                        if (isset($client['id'], $client['nombre'], $client['email'], $client['telefono'], $client['completado'], $client['extraInfo'], $client['idUser'])) {
-                            $stmt = $conn->prepare("UPDATE clientes SET nombre = ?, email = ?, telefono = ?, completado = ?, extraInfo = ?, idUser = ? WHERE id = ?");
-                            $stmt->bind_param(
-                                "sssisii",
-                                $client['nombre'],
-                                $client['email'],
-                                $client['telefono'],
-                                $client['completado'],
-                                $client['extraInfo'],
-                                $client['idUser'],
-                                $client['id']
-                            );
+            if (isset($clients) && is_array($clients)) {
+                foreach ($clients as $client) {
+                    if (isset($client['id'], $client['nombre'], $client['email'], $client['telefono'], $client['completado'], $client['extraInfo'], $client['idUser'], $client['salario'], $client['horasSemanales'], $client['empresa'], $client['sede'])) {
+                        $stmt = $conn->prepare("UPDATE clientes SET nombre = ?, email = ?, telefono = ?, completado = ?, extraInfo = ?, idUser = ?, salario = ?, horasSemanales = ?, empresa = ?, sede = ? WHERE id = ?");
+                        $stmt->bind_param(
+                            "sssisiiissi", // 📌 Cambié el orden del formato de datos
+                            $client['nombre'],
+                            $client['email'],
+                            $client['telefono'],
+                            $client['completado'],
+                            $client['extraInfo'],
+                            $client['idUser'],
+                            $client['salario'],
+                            $client['horasSemanales'],
+                            $client['empresa'],
+                            $client['sede'],
+                            $client['id'] // 📌 Se coloca el ID al final, ya que es la condición WHERE
+                        );
 
-                            if (!$stmt->execute()) {
-                                echo json_encode(['success' => false, 'error' => $stmt->error]);
-                                exit;
-                            }
-                        } else {
-                            echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+                        if (!$stmt->execute()) {
+                            echo json_encode(['success' => false, 'error' => $stmt->error]);
                             exit;
                         }
+                    } else {
+                        echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+                        exit;
                     }
-
-                    echo json_encode(['success' => true]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Datos de clientes no enviados']);
                 }
-                break;
+
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Datos de clientes no enviados']);
+            }
+            break;
+
 
 
         case 'delete_user':
@@ -178,6 +183,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 echo json_encode(['success' => false, 'error' => 'Error al borrar cliente: ' . $stmt->error]);
             }
+            break;
+
+        case 'create_ticket': 
+            $data = json_decode(file_get_contents("php://input"), true);
+                if (!$data) {
+                    error_log("🔴 ERROR: No se recibió JSON o está mal formado.");
+                    echo json_encode(['error' => 'Solicitud inválida - JSON mal formado']);
+                    exit();
+                }
+        
+                error_log("🟢 REQUEST DATA: " . print_r($data, true));
+        
+            if (isset($data['action']) && $data['action'] === 'crear_ticket') {
+                $idUsuario = $_SESSION['id_usuario'];
+                $stmtUser = $conn->prepare("SELECT email FROM usuarios WHERE id = ?");
+                $stmtUser->bind_param("i", $idUsuario);
+                $stmtUser->execute();
+                $resultUser = $stmtUser->get_result();
+                $usuario = $resultUser->fetch_assoc();
+                $stmtUser->close();
+        
+                $correoUsuario = $usuario['email'];
+                $titulo = $data['titulo'];
+                $descripcion = $data['descripcion'];
+                $fecha = date("Y-m-d H:i:s");
+        
+                // Buscar usuarios con rol IT
+                $stmtIT = $conn->prepare("SELECT id FROM usuarios WHERE rol = 3");
+                $stmtIT->execute();
+                $resultIT = $stmtIT->get_result();
+                $usuariosIT = [];
+        
+                while ($row = $resultIT->fetch_assoc()) {
+                    $usuariosIT[$row['id']] = 0; // Inicializamos contador en 0. clave valor para ver que usuario tiene menos tickets
+                }
+                $stmtIT->close();
+        
+                if (empty($usuariosIT)) {
+                    echo json_encode(['success' => false, 'error' => 'No hay usuarios IT disponibles']);
+                    exit();
+                }
+        
+                // Contar tickets no completados por usuario IT
+                $stmtTickets = $conn->prepare("SELECT idIT, COUNT(*) AS cantidad FROM mensajes WHERE completado = 0 GROUP BY idIT");
+                $stmtTickets->execute();
+                $resultTickets = $stmtTickets->get_result();
+        
+                while ($row = $resultTickets->fetch_assoc()) {
+                    if (isset($usuariosIT[$row['idIT']])) {
+                        $usuariosIT[$row['idIT']] = $row['cantidad'];
+                    }
+                }
+                $stmtTickets->close();
+        
+                // Seleccionar usuario IT con menos tickets activos
+                asort($usuariosIT);
+                $idITSeleccionado = array_key_first($usuariosIT);
+    
+                // Insertar el ticket en la base de datos
+                $stmtInsert = $conn->prepare("INSERT INTO mensajes (idIT, idUsuario, correoUsuario, titulo, descripcion, fecha, completado) VALUES (?, ?, ?, ?, ?, ?, 0)");
+                $stmtInsert->bind_param("iissss", $idITSeleccionado, $idUsuario, $correoUsuario, $titulo, $descripcion, $fecha);
+        
+                if ($stmtInsert->execute()) {
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => $stmtInsert->error]);
+                }
+        
+                $stmtInsert->close();
+                exit();
+            } 
             break;
 
 
@@ -204,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode($usuarios);
         exit();       
     } elseif ($type === 'clients') {
-        $stmt = $conn->prepare("SELECT id, nombre, email, telefono, completado, extraInfo, idUser FROM clientes");
+        $stmt = $conn->prepare("SELECT id, nombre, email, telefono, completado, extraInfo, empresa, sede, salario, horasSemanales, idUser FROM clientes");
         $stmt->execute();
         $result = $stmt->get_result();
 

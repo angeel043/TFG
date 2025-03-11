@@ -6,20 +6,62 @@
     <title id="title">Sinova Call Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/admin.css">
+    
 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de administración</a>
-            <button type="button" id="settingsButton" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                <span >Ajustes</span>
-            </button>
-            <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
-                <i class="bi bi-person-circle"></i>
-            </button>
+            <div class="d-flex align-items-center">
+                <!-- Botón Crear Ticket con icono -->
+                <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                    <img src="../src/img/ticket.png" alt="Ticket" class="btn-icon">
+                    <span id="createTicketText">Crear ticket</span>
+                </button>
+
+                <!-- Botón Ajustes con icono -->
+                <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
+                    <img src="../src/img/settings.png" alt="Ajustes" class="btn-icon">
+                    <span id="settingsText">Ajustes</span>
+                </button>                
+
+    
+                <!-- Botón Perfil Usuario -->
+                <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
+                    <i class="bi bi-person-circle"></i>
+                </button>
+            </div>
         </div>
     </nav>
+
+    <!-- Modal para crear ticket -->
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel">Crear ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ticketForm">
+                        <div class="mb-3">
+                            <label for="ticketTitle" class="form-label" id="ticketTitleLabel">Título</label>
+                            <input type="text" class="form-control" id="ticketTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
+                            <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTicketModal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="submitTicket">Enviar ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row mt-5 justify-content-center">
         <!-- Opciones de Usuarios -->
@@ -61,11 +103,30 @@
                 </div>
             </div>
         </div>
+
+        <!-- Opciones de exportacion -->
+        <div class="container mt-5 bg-dark p-4 rounded custom-container" id="exportOptionsModal">
+            <h2 id="exportOptionsLabel" class="mb-5 text-center">Exportar datos</h2>
+            <div class="row justify-content-center">              
+                <div class="col-md-6">
+                    <h4 class="text-center text-light" id="exportUsersLabel">Usuarios</h4>
+                    <button class="btn btn-primary w-100 mb-2 export-button" data-type="usuarios" data-format="excel" id="exportUsersExcel">Exportar usuarios (.xlsx)</button>
+                    <button class="btn btn-primary w-100 export-button" data-type="usuarios" data-format="pdf" id="exportUsersPDF">Exportar usuarios (.pdf)</button>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-center text-light" id="exportClientsLabel">Clientes</h4>
+                    <button class="btn btn-primary w-100 mb-2 export-button" data-type="clientes" data-format="excel", id="exportClientsExcel">Exportar clientes (.xlsx)</button>
+                    <button class="btn btn-primary w-100 mb-4 export-button" data-type="clientes" data-format="pdf" id="exportClientsPDF">Exportar clientes (.pdf)</button>
+                </div>
+            </div>
+        </div>
+        
+        
     </div>
     
 
     <!-- Modal Crear Usuario -->
-    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -90,10 +151,10 @@
                             <label for="roleCreate" class="form-label" id="createUserRoleLabel">Rol</label>
                             <select class="form-select" id="roleCreate" required>
                                 <option value="" disabled selected id="createUserRoleSelect">Selecciona un rol</option>
-                                <option value="admin" id="createUserRoleAdmin">Administrador</option>
-                                <option value="user" id="createUserRoleUser">Usuario</option>
-                                <option value="supervisor" id="createUserRoleSupervisor">Supervisor</option>
-                                <option value="it" id="createUserRoleIT">Equipo Técnico</option>
+                                <option value="0" id="createUserRoleAdmin">Administrador</option>
+                                <option value="1" id="createUserRoleUser">Usuario</option>
+                                <option value="2" id="createUserRoleSupervisor">Supervisor</option>
+                                <option value="3" id="createUserRoleIT">Equipo Técnico</option>
                             </select>
                         </div>
                     </form>
@@ -106,44 +167,63 @@
         </div>
     </div>
 
-    <!-- Modal Crear Cliente -->
-    <div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createClientTitle">Crear cliente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createClientForm">
-                        <div class="mb-3">
+<!-- Modal Crear Cliente -->
+<div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createClientTitle">Crear cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createClientForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label for="clientNameCreate" class="form-label" id="createClientNameColumn">Nombre completo</label>
                             <input type="text" class="form-control" id="clientNameCreate" required>
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="clientEmailCreate" class="form-label" id="createClientMailColumn">Correo electrónico</label>
                             <input type="email" class="form-control" id="clientEmailCreate" required>
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="clientPhoneCreate" class="form-label" id="createClientPhoneColumn">Teléfono</label>
                             <input type="text" class="form-control" id="clientPhoneCreate" required>
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="clientCompanyCreate" class="form-label" id="createClientCompanyColumn">Empresa</label>
+                            <input type="text" class="form-control" id="clientCompanyCreate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="clientBaseCreate" class="form-label" id="createClientBaseColumn">Sede</label>
+                            <input type="text" class="form-control" id="clientBaseCreate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="clientSalaryCreate" class="form-label" id="createClientSalaryColumn">Salario (bruto/anual)</label>
+                            <input type="text" class="form-control" id="clientSalaryCreate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="clientHoursCreate" class="form-label" id="createClientHoursColumn">Horas semanales</label>
+                            <input type="text" class="form-control" id="clientHoursCreate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="clientUserIdCreate" class="form-label" id="createClientUserIdColumn">ID del usuario responsable</label>
                             <input type="text" class="form-control" id="clientUserIdCreate" required>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createClientCancelBtn">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="createClientSubmitBtn">Guardar</button>
-                </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createClientCancelBtn">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="createClientSubmitBtn">Guardar</button>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Modal Modificar Usuario -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -175,8 +255,8 @@
 
     
     <!-- Modal Modificar Cliente -->
-    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" >
+        <div class="modal-dialog modal-xl" style="max-width: 1400px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editClientTitle">Modificar cliente</h5>
@@ -190,6 +270,10 @@
                                 <th id="editClientNameColumn">Nombre</th>
                                 <th id="editClientMailColumn">Correo</th>
                                 <th id="editClientPhoneColumn">Teléfono</th>
+                                <th id="editClientCompanyColumn">Empresa</th>
+                                <th id="editClientBaseColumn">Sede</th>
+                                <th id="editClientSalaryColumn">Salario (bruto/anual)</th>
+                                <th id="editClientHoursColumn">Horas semanales</th>
                                 <th id="editClientCompletedColumn">Completado</th>
                                 <th id="editClientExtraInfoColumn">Información adicional</th>
                                 <th id="editClientUserIdColumn">ID usuario responsable</th>
@@ -211,7 +295,7 @@
 
 
     <!-- Modal Borrar Usuario -->
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -239,8 +323,8 @@
     </div>
 
     <!-- Modal Borrar Cliente -->
-    <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" >
+        <div class="modal-dialog modal-xl" style="max-width: 1400px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteClientModalTitle">Borrar cliente</h5>
@@ -254,6 +338,10 @@
                                 <th id="deleteClientNameColumn">Nombre</th>
                                 <th id="deleteClientMailColumn">Correo</th>
                                 <th id="deleteClientPhoneColumn">Teléfono</th>
+                                <th id="deleteClientCompanyColumn">Empresa</th>
+                                <th id="deleteClientBaseColumn">Sede</th>
+                                <th id="deleteClientSalaryColumn">Salario (bruto/anual)</th>
+                                <th id="deleteClientHoursColumn">Horas semanales</th>
                                 <th id="deleteClientCompletedColumn">Completado</th>
                                 <th id="deleteClientExtraInfoColumn">Información adicional</th>
                                 <th id="deleteClientUserIdColumn">ID usuario responsable</th>
@@ -270,7 +358,7 @@
     </div>
 
     <!-- Modal Confirmación de Borrado -->
-    <div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="confirmDeletionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="confirmDeletionModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -289,7 +377,7 @@
     </div>
 
     <!-- Modal con información del usuario -->
-    <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -311,7 +399,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -319,20 +407,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label for="languageSelect" class="form-label" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    <!-- Selección de idioma con icono -->
+                    <div class="d-flex align-items-center">
+                        <img id="languageIcon" src="../src/img/darkLanguage.png" alt="Idioma" class="settings-icon">
+                        <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    </div>
                     <select id="languageSelect" class="form-select">
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
                     <div class="form-group mt-3">
-                        <label class="form-label d-block" id="themeLabel">Tema:</label>
+                        <div class="d-flex align-items-center">
+                            <img id="themeIcon" src="../src/img/darkTheme.png" alt="Tema" class="settings-icon">
+                            <label class="form-label ms-2" id="themeLabel">Tema:</label>
+                        </div>
                         <div class="d-flex align-items-center">
                             <span class="me-2" id="darkThemeLabel">Oscuro</span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="darkModeToggle">
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
@@ -340,8 +435,9 @@
             </div>
         </div>
     </div>
+    
 
-    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -363,6 +459,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
+        
 
         function loadLanguage(lang) {
             const timestamp = new Date().getTime();
@@ -376,7 +473,7 @@
                 .then(data => {
                     const lines = data.split('\n');
                     const ids = [
-                        'navTitle', 'settingsButton', 'settingsTitle', 'selectLanguageLabel',
+                        'navTitle', 'settingsText', 'settingsTitle', 'selectLanguageLabel',
                         'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel',
                         'createUserBtn', 'editUserBtn', 'deleteUserBtn',
                         'clientOptionsLabel', 'createClientBtn', 'editClientBtn',
@@ -400,7 +497,14 @@
                         'deleteClientExtraInfoColumn', 'deleteClientUserIdColumn', 'deleteClientActionColumn',
                         'deleteCLientConfirmationTitle', 'deleteClientConfirmationText', 'deleteClientConfirmationYesBtn',
                         'deleteClientConfirmationCancelBtn', 'userProfileModalLabel', 'userInfoName', 'userInfoMail', 
-                        'userInfoRole', 'userInfoClose', 'themeLabel', 'darkThemeLabel'
+                        'userInfoRole', 'userInfoClose', 'themeLabel', 'darkThemeLabel', "createClientCompanyColumn",
+                        "createClientBaseColumn", "createClientSalaryColumn", "createClientHoursColumn",
+                        "editClientCompanyColumn", "editClientBaseColumn", "editClientSalaryColumn", "editClientHoursColumn",
+                        "deleteClientCompanyColumn", "deleteClientBaseColumn", "deleteClientSalaryColumn",
+                        "deleteClientHoursColumn", "createTicketText", "ticketModalLabel", "ticketTitleLabel", 
+                        "ticketDescriptionLabel", "closeTicketModal", "submitTicket", "exportOptionsLabel",
+                        "exportUsersLabel", "exportClientsLabel", "exportUsersExcel", "exportUsersPDF", "exportClientsExcel",
+                        "exportClientsPDF"
                     ];
 
                     ids.forEach((id, index) => {
@@ -421,7 +525,7 @@
                         `;
                     } else if (lang === 'en') {
                         languageSelect.innerHTML = `
-                            <option value="es">Spanish</option>
+                            <option value="es">Español</option>
                             <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
                         `;
                     }
@@ -446,7 +550,18 @@
 
 
         document.addEventListener('DOMContentLoaded', function () {
-            let currentLanguage = localStorage.getItem('language') || 'es';
+            document.addEventListener("show.bs.modal", function () {
+                document.activeElement.blur();
+            });
+
+            document.addEventListener("hidden.bs.modal", function () {
+                setTimeout(() => {
+                    document.activeElement.blur();
+                }, 10);
+            });
+
+
+
             const darkModeToggle = document.getElementById("darkModeToggle");
             const userOptionsModal = document.getElementById("userOptionsModal");
             const createUserForm = document.getElementById("createUserForm");
@@ -456,6 +571,8 @@
             const createClientForm = document.getElementById("createClientForm");
             const editClientTable = document.getElementById("editClientTable"); 
             const deleteClientTable = document.getElementById("deleteClientTable");
+            const themeIcon = document.getElementById("themeIcon");
+
 
 
             if (!darkModeToggle) {
@@ -473,6 +590,7 @@
             createClientForm.classList.toggle("table-dark", isDarkMode);
             editClientTable.classList.toggle("table-dark", isDarkMode);
             deleteClientTable.classList.toggle("table-dark", isDarkMode);
+            exportOptionsModal.classList.toggle("bg-dark", isDarkMode);
             darkModeToggle.checked = isDarkMode;
 
             darkModeToggle.addEventListener("change", function () {
@@ -486,7 +604,10 @@
                 createClientForm.classList.toggle("table-dark", enableDarkMode);
                 editClientTable.classList.toggle("table-dark", enableDarkMode);
                 deleteClientTable.classList.toggle("table-dark", enableDarkMode);
+                exportOptionsModal.classList.toggle("bg-dark", enableDarkMode);
                 localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
+                updateIcons();
+                location.reload();
             });
 
 
@@ -494,7 +615,6 @@
             if (document.documentElement.lang !== currentLanguage) {
                 document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
                 loadLanguage(currentLanguage); // Cargar el idioma
-                return;
             }
             loadLanguage(currentLanguage); // Cargar idioma según localStorage
 
@@ -521,6 +641,7 @@
                             case 0: roleText = "Administrador"; break;
                             case 1: roleText = "Usuario"; break;
                             case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "Equipo técnico"; break;
                             default: roleText = "Desconocido";
                         }
                     } else if (currentLanguage === 'en') {
@@ -528,6 +649,7 @@
                             case 0: roleText = "Admin"; break;
                             case 1: roleText = "User"; break;
                             case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "IT"; break;
                             default: roleText = "Unknown";
                         }
                     }
@@ -593,9 +715,13 @@
                 const email = document.getElementById('clientEmailCreate').value.trim();
                 const telefono = document.getElementById('clientPhoneCreate').value.trim();
                 const idUser = document.getElementById('clientUserIdCreate').value.trim();
+                const empresa = document.getElementById('clientCompanyCreate').value.trim();
+                const sede = document.getElementById('clientBaseCreate').value.trim();
+                const salario = document.getElementById('clientSalaryCreate').value.trim();
+                const horas = document.getElementById('clientHoursCreate').value.trim();
 
                 // Validar campos obligatorios
-                if (!nombre || !email || !telefono || !idUser) {
+                if (!nombre || !email || !telefono || !idUser || !empresa || !sede || !salario || !horas) {
                     alert('Por favor, completa todos los campos obligatorios.');
                     return;
                 }
@@ -611,6 +737,10 @@
                         nombre,
                         email,
                         telefono,
+                        empresa,
+                        sede,
+                        salario,
+                        horas,
                         idUser,
                     }),
                 })
@@ -666,11 +796,11 @@
                         // Definir los roles según el idioma seleccionado
                         let roles;
                         if (currentLanguage === 'es') {
-                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico'];
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico'];
                         } else if (currentLanguage === 'en') {
-                            roles = ['Admin', 'User', 'Supervisor', 'IT Support'];
+                            roles = ['Admin', 'User', 'Supervisor', 'IT'];
                         } else {
-                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico']; // Fallback en español
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico']; // Fallback en español
                         }
 
                         data.forEach(user => {
@@ -777,6 +907,10 @@
                                     <td><input type="text" class="form-control" value="${client.nombre}" data-id="${client.id}" data-field="nombre"></td>
                                     <td><input type="email" class="form-control" value="${client.email}" data-id="${client.id}" data-field="email"></td>
                                     <td><input type="text" class="form-control" value="${client.telefono}" data-id="${client.id}" data-field="telefono"></td>
+                                    <td><input type="text" class="form-control" value="${client.empresa}" data-id="${client.id}" data-field="empresa"></td>
+                                    <td><input type="text" class="form-control" value="${client.sede}" data-id="${client.id}" data-field="sede"></td>
+                                    <td><input type="text" class="form-control" value="${client.salario}" data-id="${client.id}" data-field="salario"></td>
+                                    <td><input type="text" class="form-control" value="${client.horasSemanales}" data-id="${client.id}" data-field="horasSemanales"></td>
                                     <td><input type="checkbox" class="form-check-input" ${client.completado == 1 ? 'checked' : ''} data-id="${client.id}" data-field="completado"></td>
                                     <td><textarea rows="1" class="form-control" data-id="${client.id}" data-field="extraInfo">${client.extraInfo || ''}</textarea></td>
                                     <td><input type="number" class="form-control" value="${client.idUser}" data-id="${client.id}" data-field="idUser"></td>
@@ -865,9 +999,9 @@
                         // Definir los roles según el idioma seleccionado
                         let roles;
                         if (currentLanguage === 'es') {
-                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Soporte técnico'];
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico'];
                         } else if (currentLanguage === 'en') {
-                            roles = ['Admin', 'User', 'Supervisor', 'IT Support'];
+                            roles = ['Admin', 'User', 'Supervisor', 'IT'];
                         }
 
                         data.forEach(user => {
@@ -909,6 +1043,10 @@
                                     <td>${client.nombre}</td>
                                     <td>${client.email}</td>
                                     <td>${client.telefono}</td>
+                                    <td>${client.empresa}</td>
+                                    <td>${client.sede}</td>
+                                    <td>${client.salario}</td>
+                                    <td>${client.horasSemanales}</td>
                                     <td>
                                         <input type="checkbox" ${client.completado == 1 ? 'checked' : ''} disabled>
                                     </td>
@@ -989,6 +1127,77 @@
                     });
             });
 
+            document.getElementById("submitTicket").addEventListener("click", function () {
+                const titulo = document.getElementById("ticketTitle").value.trim();
+                const descripcion = document.getElementById("ticketDescription").value.trim();
+
+                if (!titulo || !descripcion) {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+
+                fetch('../src/home.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'crear_ticket',
+                        titulo: titulo,
+                        descripcion: descripcion
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Ticket enviado correctamente.");
+                        location.reload();
+                    } else {
+                        alert("Error al enviar el ticket: " + (data.error || "Desconocido"));
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+
+            document.querySelectorAll(".export-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    const type = this.dataset.type;  // "clientes" o "usuarios"
+                    const format = this.dataset.format;  // "excel" o "pdf"
+
+                    let formData = new FormData();
+                    formData.append("type", type);
+                    formData.append("format", format);
+
+                    fetch("../src/exportBBDD.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Error en la exportación.");
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        let url = window.URL.createObjectURL(blob);
+                        let a = document.createElement("a");
+                        a.href = url;
+                        a.download = `${type}.${format === "excel" ? "xlsx" : "pdf"}`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    })
+                    .catch(error => console.error("Error al exportar:", error));
+                });
+            });
+
+            
+            function updateIcons() {
+                const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+                themeIcon.src = isDarkMode ? "../src/img/darkTheme.png" : "../src/img/lightTheme.png";
+                languageIcon.src = isDarkMode ? "../src/img/darkLanguage.png" : "../src/img/lightLanguage.png";
+            }
+
+            // Aplicar los iconos correctos al cargar la página
+            updateIcons();
+
+            
         });
 
     </script>

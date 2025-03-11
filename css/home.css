@@ -13,7 +13,7 @@ body {
 }
 .navbar {
     background-color: #23272a;
-}
+} 
 .btn-primary { 
     background-color: #7289da;
     border-color: #7289da;
@@ -120,3 +120,59 @@ body {
     background-color: #f8f9fa !important;
 }
 
+canvas {
+    max-height: 300px; /* Altura general */
+}
+
+#chartSalario, #chartHoras {
+    max-height: 400px; /* Aumentamos solo las de barras */
+}
+
+#filtersPanel {
+    height: 300px; /* Altura fija */
+    max-height: 300px;
+    overflow: hidden; /* Evita que el contenido lo haga crecer */
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#filterForm {
+    flex-grow: 1; /* Asegura que el contenido no empuje el contenedor */
+    display: flex;
+    flex-direction: column;
+}
+
+#applyFiltersButton, #clearFiltersButton {
+    width: 100%; /* Que los botones ocupen todo el ancho */
+}
+
+/* 🔹 Evita que el panel de filtros se estire por la tabla */
+.container-fluid {
+    display: flex;
+    align-items: flex-start; /* Asegura que los paneles se alineen arriba */
+}
+
+/* 🔹 Si sigue creciendo, limita la altura máxima */
+.container {
+    min-height: 100px; /* Ajusta según lo que necesites */
+    max-height: 100vh; /* Que no crezca más que la pantalla */
+    overflow: hidden; /* Que no se desborde */
+}
+
+/* Iconos de idioma y tema en ajustes */
+.settings-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Asegurar que los iconos dentro de los botones sean visibles */
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    display: inline-block; /* Evitar que desaparezcan */
+    vertical-align: middle; /* Alinear con el texto */
+}

@@ -11,9 +11,13 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Inicio de sesión</a>
-            <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
-                <span id="settingsButton">Ajustes</span>
-            </button>
+            <div class="d-flex align-items-center">   
+                <!-- Botón Ajustes con icono -->
+                <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
+                    <img src="../src/img/settings.png" alt="Ajustes" class="btn-icon">
+                    <span id="settingsText">Ajustes</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -49,7 +53,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,21 +61,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label for="languageSelect" class="form-label" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    <!-- Selección de idioma con icono -->
+                    <div class="d-flex align-items-center">
+                        <img id="languageIcon" src="../src/img/darkLanguage.png" alt="Idioma" class="settings-icon">
+                        <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    </div>
                     <select id="languageSelect" class="form-select">
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
                     <div class="form-group mt-3">
-                        <label class="form-label d-block" id="themeLabel">Tema:</label>
+                        <div class="d-flex align-items-center">
+                            <img id="themeIcon" src="../src/img/darkTheme.png" alt="Tema" class="settings-icon">
+                            <label class="form-label ms-2" id="themeLabel">Tema:</label>
+                        </div>
                         <div class="d-flex align-items-center">
                             <span class="me-2" id="darkThemeLabel">Oscuro</span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="darkModeToggle">
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
@@ -80,18 +90,21 @@
         </div>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Verificar si hay un idioma guardado en localStorage al cargar la página
-        let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+            const themeIcon = document.getElementById("themeIcon");        
+            let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
+            const languageSelect = document.getElementById('languageSelect');
 
-        function loadLanguage(lang) {
-            const timestamp = new Date().getTime();
-            fetch(`idiomas/index/${lang}.txt?t=${timestamp}`)
+            function loadLanguage(lang) {
+                const timestamp = new Date().getTime();
+                fetch(`idiomas/index/${lang}.txt?t=${timestamp}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la carga del archivo de idioma: ' + response.status);
@@ -102,10 +115,10 @@
                     const lines = data.split('\n');
                     const ids = [
                         'navTitle', 'loginTitle', 'usernameLabel', 'passwordLabel', 'loginButton', 
-                        'settingsButton', 'settingsTitle', 'selectLanguageLabel', 'closeSettingsButton', 
+                        'settingsText', 'settingsTitle', 'selectLanguageLabel', 'closeSettingsButton', 
                         'incorrectCredentialsLabel', 'themeLabel', 'darkThemeLabel'
                     ];
-
+                      
                     ids.forEach((id, index) => {
                         const element = document.getElementById(id);
                         if (element) {
@@ -115,8 +128,6 @@
                         }
                     });
 
-                    // Actualizar las opciones del menú desplegable de idiomas
-                    const languageSelect = document.getElementById('languageSelect');
                     if (lang === 'es') {
                         languageSelect.innerHTML = `
                             <option value="es" ${lang === 'es' ? 'selected' : ''}>Español</option>
@@ -124,16 +135,15 @@
                         `;
                     } else if (lang === 'en') {
                         languageSelect.innerHTML = `
-                            <option value="es">Spanish</option>
+                            <option value="es">Español</option>
                             <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
                         `;
                     }
                 })
                 .catch(error => console.error('Error al cargar el idioma:', error));
-        }
+            }
 
-        // Cargar el idioma al iniciar
-        document.addEventListener('DOMContentLoaded', function () {
+
             // Si el idioma en localStorage es diferente al actual del HTML, recargar
             if (document.documentElement.lang !== currentLanguage) {
                 document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
@@ -143,61 +153,67 @@
 
             loadLanguage(currentLanguage); // Cargar idioma según localStorage
 
-        });
         
-        document.addEventListener('DOMContentLoaded', function () {
-        // Obtener el estado del modo oscuro desde localStorage
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-
-        // Aplicar el tema al cargar la página
-        if (!isDarkMode) {
-            document.body.classList.add('light-mode'); // Activar modo claro si no está en modo oscuro
-            darkModeToggle.checked = false;
-        } else {
-            darkModeToggle.checked = true;
-        }
-
-        // Cambiar el tema cuando el usuario activa/desactiva el toggle
-        darkModeToggle.addEventListener('change', function () {
-            if (this.checked) {
-                document.body.classList.remove('light-mode'); // Activar modo oscuro
-                localStorage.setItem('darkMode', 'enabled');
+            // Aplicar el tema al cargar la página
+            if (!isDarkMode) {
+                document.body.classList.add('light-mode'); // Activar modo claro si no está en modo oscuro
+                darkModeToggle.checked = false;
             } else {
-                document.body.classList.add('light-mode'); // Activar modo claro
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    });
-
-        // Cambiar idioma y recargar la página
-        document.getElementById('languageSelect').addEventListener('change', function () {
-            const selectedLanguage = this.value;
-
-            // Guardar el idioma seleccionado en localStorage
-            localStorage.setItem('language', selectedLanguage);
-
-            // Recargar la página solo si el idioma cambia
-            if (selectedLanguage !== currentLanguage) {
-                location.reload(); // Recargar la página para aplicar el idioma seleccionado
-            }
-        });
-
-
-        // Mostrar el modal de error si hay un error en el inicio de sesión
-        $(document).ready(function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('error') === 'true') {
-                $('#errorModal').modal('show');
+                darkModeToggle.checked = true;
             }
 
-            // Al cerrar el modal de error, eliminar el parámetro 'error' de la URL
-            $('#errorModal').on('hidden.bs.modal', function () {
-                urlParams.delete('error'); // Eliminar el parámetro 'error'
-                const newUrl = window.location.pathname + '?' + urlParams.toString();
-                window.history.replaceState({}, document.title, newUrl); // Actualizar la URL
+            // Cambiar el tema cuando el usuario activa/desactiva el toggle
+            darkModeToggle.addEventListener('change', function () {
+                if (this.checked) {
+                    document.body.classList.remove('light-mode'); // Activar modo oscuro
+                    localStorage.setItem('darkMode', 'enabled');
+                    location.reload();
+                } else {
+                    document.body.classList.add('light-mode'); // Activar modo claro
+                    localStorage.setItem('darkMode', 'disabled');
+                    location.reload();
+                }
             });
+
+            // Cambiar idioma y recargar la página
+            document.getElementById('languageSelect').addEventListener('change', function () {
+                const selectedLanguage = this.value;
+
+                // Guardar el idioma seleccionado en localStorage
+                localStorage.setItem('language', selectedLanguage);
+
+                // Recargar la página solo si el idioma cambia
+                if (selectedLanguage !== currentLanguage) {
+                    location.reload(); // Recargar la página para aplicar el idioma seleccionado
+                }
+            });
+
+
+            // Mostrar el modal de error si hay un error en el inicio de sesión
+            $(document).ready(function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('error') === 'true') {
+                    $('#errorModal').modal('show');
+                }
+
+                // Al cerrar el modal de error, eliminar el parámetro 'error' de la URL
+                $('#errorModal').on('hidden.bs.modal', function () {
+                    urlParams.delete('error'); // Eliminar el parámetro 'error'
+                    const newUrl = window.location.pathname + '?' + urlParams.toString();
+                    window.history.replaceState({}, document.title, newUrl); // Actualizar la URL
+                });
+            });
+
+            function updateIcons() {
+                const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+                themeIcon.src = isDarkMode ? "../src/img/darkTheme.png" : "../src/img/lightTheme.png";
+                languageIcon.src = isDarkMode ? "../src/img/darkLanguage.png" : "../src/img/lightLanguage.png";
+            }
+
+            // Aplicar los iconos correctos al cargar la página
+            updateIcons();
         });
+
     </script>
 </body>
 </html>

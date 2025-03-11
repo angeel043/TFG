@@ -12,35 +12,62 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de supervisión</a>
-            <button type="button" id="settingsButton" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#ajustesModal">
-                <span >Ajustes</span>
-            </button>
-            <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
-                <i class="bi bi-person-circle"></i>
-            </button>
+            <div class="d-flex align-items-center">
+                <!-- Botón Crear Ticket con icono -->
+                <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                    <img src="../src/img/ticket.png" alt="Ticket" class="btn-icon">
+                    <span id="createTicketText">Crear ticket</span>
+                </button>
+
+                <!-- Botón Ajustes con icono -->
+                <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
+                    <img src="../src/img/settings.png" alt="Ajustes" class="btn-icon">
+                    <span id="settingsText">Ajustes</span>
+                </button> 
+    
+                <!-- Botón Perfil Usuario -->
+                <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
+                    <i class="bi bi-person-circle"></i>
+                </button>
+            </div>
         </div>
     </nav>
-
-    <div class="container-fluid mt-5 d-flex justify-content-center" style="max-width: 1600px;">
-        <div class="container" id="filtersPanel" style="width: 30%; max-width: 300px;">
-            <h5 class="text-center" id="filterTitle">Filtros</h5>
-            <form id="filterForm" method="GET">
-                <div class="mb-3">
-                    <label for="filterBy" class="form-label" id="filterByLabel">Filtrar por:</label>
-                    <select class="form-select" id="filterBy" name="filterBy">
-                        <option value="client_id" id="clientIDFilterOption">ID Cliente</option>
-                        <option value="client_name" id="nameFilterOption">Nombre</option>
-                        <option value="client_email" id="mailFilterOption">Correo electrónico</option>
-                        <option value="client_phone" id="phoneFilterOption">Número de teléfono</option>
-                        <option value="user_id" id="userIDFilterOption">ID Usuario responsable</option>
-                    </select>
-                    <br>
-                    <input type="text" class="form-control" id="filterValue" name="filterValue">
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="applyFiltersButton">Aplicar Filtros</button>
-            </form>
+ 
+    <div class="container-fluid mt-5 d-flex justify-content-start" style="max-width: 1600px;">
+        <div class="d-flex flex-column" style="width: 20%; max-width: 250px;">
+            <!-- Panel de Filtros -->
+            <div class="container mb-3" id="filtersPanel">
+                <h5 class="text-center" id="filterTitle">Filtros</h5>
+                <form id="filterForm" method="GET">
+                    <div class="mb-3">
+                        <label for="filterBy" class="form-label" id="filterByLabel">Filtrar por:</label>
+                        <select class="form-select" id="filterBy" name="filterBy">
+                            <option value="client_id" id="clientIDFilterOption">ID Cliente</option>
+                            <option value="client_name" id="nameFilterOption">Nombre</option>
+                            <option value="client_email" id="mailFilterOption">Correo electrónico</option>
+                            <option value="client_phone" id="phoneFilterOption">Número de teléfono</option>
+                            <option value="client_company" id="companyFilterOption">Empresa</option>
+                            <option value="client_salaryLess" id="salaryLessFilterOption">Salario menor que</option>
+                            <option value="client_salaryMore" id="salaryMoreFilterOption">Salario mayor que</option>
+                            <option value="user_id" id="userIDFilterOption">ID Usuario responsable</option>
+                        </select>
+                        <br>
+                        <input type="text" class="form-control" id="filterValue" name="filterValue">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" id="applyFiltersButton">Aplicar filtros</button>
+                    <button type="button" class="btn btn-secondary w-100 mt-2" id="clearFiltersButton">Restablecer filtros</button>
+                </form>
+            </div>
+    
+            <!-- Panel de Exportación -->
+            <div class="container bg-dark p-4 rounded custom-container" id="exportOptionsPanel">
+                <h5 id="exportOptionsLabel" class="mb-3 text-center">Exportar datos</h5>
+                <button class="btn btn-primary w-100 mb-2 export-button" data-type="clientes" data-format="excel" id="exportClientsExcel">Exportar clientes (.xlsx)</button>
+                <button class="btn btn-primary w-100 export-button" data-type="clientes" data-format="pdf" id="exportClientsPDF">Exportar clientes (.pdf)</button>
+            </div>
         </div>
-
+    
+        <!-- Tabla de Clientes -->
         <div class="container" style="width: 100%; max-width: 1200px;">
             <h2 id="clientsTitle">Clientes completados</h2>
             <table class="table table-dark table-striped" id="completedClientsTable">
@@ -50,6 +77,10 @@
                         <th id="nameClientColumn">Nombre Completo</th>
                         <th id="mailClientColumn">Correo electrónico</th>
                         <th id="phoneClientColumn">Teléfono</th>
+                        <th id="companyColumn">Empresa</th>
+                        <th id="baseColumn">Sede</th>
+                        <th id="salaryColumn">Salario (bruto/anual)</th>
+                        <th id="hoursColumn">Horas semanales</th>
                         <th id="infoClientColumn">Información adicional</th>
                         <th id="idUserColumn">ID responsable</th>
                         <th id="mailUserColumn">Correo responsable</th>
@@ -60,6 +91,8 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    
 
     <!-- Modal con información del usuario -->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
@@ -86,8 +119,7 @@
         </div>
     </div>
 
-    <!-- Modal de ajustes -->
-    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,20 +127,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label for="languageSelect" class="form-label" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    <!-- Selección de idioma con icono -->
+                    <div class="d-flex align-items-center">
+                        <img id="languageIcon" src="../src/img/darkLanguage.png" alt="Idioma" class="settings-icon">
+                        <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
+                    </div>
                     <select id="languageSelect" class="form-select">
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
                     <div class="form-group mt-3">
-                        <label class="form-label d-block" id="themeLabel">Tema:</label>
+                        <div class="d-flex align-items-center">
+                            <img id="themeIcon" src="../src/img/darkTheme.png" alt="Tema" class="settings-icon">
+                            <label class="form-label ms-2" id="themeLabel">Tema:</label>
+                        </div>
                         <div class="d-flex align-items-center">
                             <span class="me-2" id="darkThemeLabel">Oscuro</span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="darkModeToggle">
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
@@ -116,6 +155,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para crear ticket -->
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel">Crear ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ticketForm">
+                        <div class="mb-3">
+                            <label for="ticketTitle" class="form-label" id="ticketTitleLabel">Título</label>
+                            <input type="text" class="form-control" id="ticketTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
+                            <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTicketModal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="submitTicket">Enviar ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal de confirmación de cierre de sesión -->
     <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
@@ -146,6 +214,9 @@
             const filterBySelect = document.getElementById("filterBy");
             const filterInput = document.getElementById("filterValue");
             const tableBody = document.querySelector("#completedClientsTable tbody");
+            const themeIcon = document.getElementById("themeIcon");
+            const filterBy = getQueryParam("filterBy");
+            const filterValue = getQueryParam("filterValue");
             
             // Configuración de idioma
             function loadLanguage(lang) {
@@ -160,7 +231,7 @@
                     .then(data => {
                         const lines = data.split("\n");
                         const ids = [
-                            "title", "navTitle", "settingsButton", "settingsTitle",
+                            "title", "navTitle", "settingsText", "settingsTitle",
                             "selectLanguageLabel", "closeSettingsButton", "logoutButton",
                             "confirmLogoutTitle", "confirmLogoutLabel", "yesLogoutButton",
                             "noLogoutButton", "clientsTitle", "idClientColumn", "nameClientColumn",
@@ -169,7 +240,12 @@
                             "userInfoName", "userInfoMail", "userInfoRole", "userInfoClose",
                             'themeLabel', 'darkThemeLabel', "filterTitle", "filterByLabel",
                             "clientIDFilterOption", "nameFilterOption", "mailFilterOption", 
-                            "phoneFilterOption", "userIDFilterOption", "applyFiltersButton"
+                            "phoneFilterOption", "userIDFilterOption", "applyFiltersButton",
+                            "companyFilterOption", "salaryLessFilterOption", "salaryMoreFilterOption",
+                            "companyColumn", "baseColumn", "salaryColumn", "hoursColumn", "createTicketText",
+                            "ticketModalLabel", "ticketTitleLabel", "ticketDescriptionLabel", "closeTicketModal",
+                            "submitTicket", "clearFiltersButton", "exportOptionsLabel", "exportClientsExcel",
+                            "exportClientsPDF"
                         ];
 
                         ids.forEach((id, index) => {
@@ -190,7 +266,7 @@
                             `;
                         } else if (lang === "en") {
                             languageSelect.innerHTML = `
-                                <option value="es">Spanish</option>
+                                <option value="es">Español</option>
                                 <option value="en" selected>English</option>
                             `;
                         }
@@ -213,6 +289,7 @@
                 document.body.classList.toggle("light-mode", !enableDarkMode);
                 table.classList.toggle("table-dark", enableDarkMode);
                 localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
+                location.reload();
             });
 
             // Obtener parámetros de la URL
@@ -221,15 +298,18 @@
                 return urlParams.get(param) || "";
             }
 
-            // Obtener valores del filtro desde la URL y aplicarlos a los campos
-            const filterBy = getQueryParam("filterBy");
-            const filterValue = getQueryParam("filterValue");
+            function fetchClients() {
+                const filterBy = getQueryParam("filterBy");
+                const filterValue = getQueryParam("filterValue");
 
-            if (filterBy) filterBySelect.value = filterBy;
-            if (filterValue) filterInput.value = filterValue;
+                // Si hay valores en la URL, los establecemos en el formulario
+                if (filterBy) {
+                    filterBySelect.value = filterBy;
+                }
+                if (filterValue) {
+                    filterInput.value = filterValue;
+                }
 
-            // Función para obtener clientes con el filtro aplicado
-            function fetchClients(filterBy = "", filterValue = "") {
                 let formData = new URLSearchParams();
                 formData.append("fetchClients", "true");
 
@@ -238,7 +318,6 @@
                     formData.append("filterValue", filterValue);
                 }
 
-                console.log("Enviando filtro:", filterBy, filterValue); // Depuración
 
                 fetch("../src/supervisor.php", {
                     method: "POST",
@@ -247,8 +326,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Respuesta del servidor:", data); // Depuración
-                    tableBody.innerHTML = "";
+
+                    tableBody.innerHTML = "";  
+
                     if (data.length > 0) {
                         data.forEach(client => {
                             tableBody.innerHTML += `
@@ -257,6 +337,10 @@
                                     <td>${client.client_name}</td>
                                     <td>${client.client_email}</td>
                                     <td>${client.client_phone}</td>
+                                    <td>${client.client_company}</td>
+                                    <td>${client.client_base}</td>
+                                    <td>${client.client_salary}</td>
+                                    <td>${client.client_hours}</td>
                                     <td>${client.client_info}</td>
                                     <td>${client.user_id}</td>
                                     <td>${client.user_email}</td>
@@ -269,18 +353,27 @@
                 .catch(error => console.error("Error al cargar los clientes:", error));
             }
 
-            // Aplicar filtros al enviar el formulario
+
+              
+
+            if (filterBy) filterBySelect.value = filterBy;
+            if (filterValue) filterInput.value = filterValue;
+
+            // Capturar el evento de filtros
             if (filterForm) {
                 filterForm.addEventListener("submit", function (event) {
                     event.preventDefault();
                     const filterBy = filterBySelect.value;
                     const filterValue = filterInput.value.trim();
+
+                    // Redirige con los filtros en la URL
                     window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
                 });
             }
 
-            // Cargar clientes filtrados si hay filtros en la URL
-            fetchClients(filterBy, filterValue);
+
+            // Llamar a fetchClients() al cargar la página con los filtros aplicados
+            fetchClients();
         
 
             // Cargar el idioma al iniciar
@@ -326,6 +419,9 @@
                             case 2:
                                 roleText = "Supervisor";
                                 break;
+                            case 3:
+                                roleText = "Equipo técnico";
+                                break;
                             default:
                                 roleText = "Desconocido";
                         }
@@ -340,6 +436,9 @@
                             case 2:
                                 roleText = "Supervisor";
                                 break;
+                            case 2:
+                                roleText = "IT";
+                                break;
                             default:
                                 roleText = "Unknown";
                         }
@@ -347,68 +446,6 @@
                     document.getElementById("userRolePlaceholder").innerText = roleText;
                 })
                 .catch(error => console.error("Error al obtener la información del usuario:", error));
-
-            
-            
-            // Cargar datos de clientes completados
-            fetch('../src/supervisor.php', { method: 'POST', body: 'fetchClients=true', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.querySelector('#completedClientsTable tbody');
-                    tableBody.innerHTML = '';
-
-                    if (data.error) {
-                        tableBody.innerHTML = `<tr><td colspan="7">${data.error}</td></tr>`;
-                    } else {
-                        data.forEach(client => {
-                            const row = `
-                                <tr>
-                                    <td>${client.client_id}</td>
-                                    <td>${client.client_name}</td>
-                                    <td>${client.client_email}</td>
-                                    <td>${client.client_phone}</td>
-                                    <td>${client.client_info}</td>
-                                    <td>${client.user_id}</td>
-                                    <td>${client.user_email}</td>
-                                </tr>
-                            `;
-                            tableBody.innerHTML += row;
-                        });
-                    }
-                })
-                .catch(error => console.error('Error al cargar los datos:', error));
-                
-                fetch('../src/supervisor.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'fetchUserInfo=true',
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('userIDPlaceholder').innerText = data.id;
-                        document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
-                        document.getElementById('userEmailPlaceholder').innerText = data.email;
-                        // Mostrar el rol basado en el idioma seleccionado
-                    let roleText = '';
-                    if (currentLanguage === 'es') {
-                        switch (data.rol) {
-                            case 0: roleText = "Administrador"; break;
-                            case 1: roleText = "Usuario"; break;
-                            case 2: roleText = "Supervisor"; break;
-                            default: roleText = "Desconocido";
-                        }
-                    } else if (currentLanguage === 'en') {
-                        switch (data.rol) {
-                            case 0: roleText = "Admin"; break;
-                            case 1: roleText = "User"; break;
-                            case 2: roleText = "Supervisor"; break;
-                            default: roleText = "Unknown";
-                        }
-                    }
-                        document.getElementById('userRolePlaceholder').innerText = roleText;
-                    })
-                    .catch(error => console.error('Error al obtener la información del usuario:', error));
-            
 
             // Abrir modal de confirmación de cierre de sesión
             document.getElementById('logoutButton').addEventListener('click', function () {
@@ -438,6 +475,82 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById("confirmLogoutModal"));
                 modal.hide();
             });
+
+            document.getElementById("submitTicket").addEventListener("click", function () {
+                const titulo = document.getElementById("ticketTitle").value.trim();
+                const descripcion = document.getElementById("ticketDescription").value.trim();
+
+                if (!titulo || !descripcion) {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+
+                fetch('../src/supervisor.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'crear_ticket',
+                        titulo: titulo,
+                        descripcion: descripcion
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Ticket enviado correctamente.");
+                        location.reload();
+                    } else {
+                        alert("Error al enviar el ticket: " + (data.error || "Desconocido"));
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+            
+            document.getElementById("clearFiltersButton").addEventListener("click", function () {
+                // Recarga la página con los valores predeterminados (filterBy=name y filterValue vacío)
+                window.location.href = "?filterBy=name&filterValue=";
+            });
+
+            document.querySelectorAll(".export-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    const type = this.dataset.type;  // "clientes" o "usuarios"
+                    const format = this.dataset.format;  // "excel" o "pdf"
+
+                    let formData = new FormData();
+                    formData.append("type", type);
+                    formData.append("format", format);
+
+                    fetch("../src/exportBBDD.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Error en la exportación.");
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        let url = window.URL.createObjectURL(blob);
+                        let a = document.createElement("a");
+                        a.href = url;
+                        a.download = `${type}.${format === "excel" ? "xlsx" : "pdf"}`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    })
+                    .catch(error => console.error("Error al exportar:", error));
+                });
+            });
+
+            function updateIcons() {
+                const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+                themeIcon.src = isDarkMode ? "../src/img/darkTheme.png" : "../src/img/lightTheme.png";
+                languageIcon.src = isDarkMode ? "../src/img/darkLanguage.png" : "../src/img/lightLanguage.png";
+            }
+
+            // Aplicar los iconos correctos al cargar la página
+            updateIcons();
+            
+
         });
     </script>
 </body>

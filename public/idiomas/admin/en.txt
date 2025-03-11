@@ -76,3 +76,28 @@ Role:
 Close
 Theme:
 Dark
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Create ticket
+Create ticket
+Title
+Description
+Cancel
+Submit ticket
+Export data
+Users
+Clients
+Export users (.xlsx)
+Export users (.pdf)
+Export clients (.xlsx)
+Export clients (.pdf)
