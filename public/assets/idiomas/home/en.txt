@@ -1,0 +1,46 @@
+SINOVA - Main page
+Settings
+Settings
+Change language
+Close
+Logout
+Confirm logout
+Are you sure you want to log out?
+Yes
+No
+Associated clients
+Name
+Mail
+Telephone
+Completed
+Extra information
+User information
+Name:
+Mail:
+Role:
+Close
+Theme:
+Dark
+Filters
+Filter by:
+Fullname
+Mail
+Telephone number
+Apply filters
+Company
+Salary less than
+Salary greater than
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Clients stats
+Create ticket
+Create ticket
+Title
+Description
+Cancel
+Submit ticket
+Clear filters
+Bases ubications
+Bases map

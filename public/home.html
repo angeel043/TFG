@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="assets/css/home.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -15,13 +15,13 @@
             <div class="d-flex align-items-center">
                 <!-- Botón Crear Ticket con icono -->
                 <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
-                    <img src="../src/img/ticket.png" alt="Ticket" class="btn-icon"> 
+                    <img src="assets/img/ticket.png" alt="Ticket" class="btn-icon"> 
                     <span id="createTicketText">Crear ticket</span>
                 </button>
 
                 <!-- Botón Ajustes con icono -->
                 <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
-                    <img src="../src/img/settings.png" alt="Ajustes" class="btn-icon"> 
+                    <img src="assets/img/settings.png" alt="Ajustes" class="btn-icon"> 
                     <span id="settingsText">Ajustes</span>
                 </button>
                     
@@ -33,11 +33,11 @@
         </div>
     </nav>
 
-    <div class="container-fluid mt-5 d-flex justify-content-center" style="max-width: 1600px;">
-        <!-- Contenedor para Filtros y Exportación -->
-        <div class="d-flex flex-column align-items-center" style="width: 20%; max-width: 220px;">
+    <div class="container-fluid mt-5 d-flex justify-content-center" style="max-width: 1800px;">
+        <!-- Contenedor para Filtros y Exportación (Más ancho) -->
+        <div class="d-flex flex-column align-items-center" style="width: 25%; max-width: 250px;">
             <!-- Panel de Filtros -->
-            <div class="container" id="filtersPanel">
+            <div class="container w-100" id="filtersPanel">
                 <h5 class="text-center" id="filtersTitle">Filtros</h5>
                 <form id="filterForm" method="GET">
                     <div class="mb-3">
@@ -59,42 +59,55 @@
             </div>
     
             <!-- Panel de Exportación -->
-            <div class="container bg p-4 rounded mt-3" id="exportOptionsPanel">
+            <div class="container bg p-4 rounded mt-3 w-100" id="exportOptionsPanel">
                 <h5 id="exportOptionsLabel" class="mb-3 text-center">Exportar gráficas</h5>
                 <button class="btn btn-primary w-100 mb-2 export-button" data-type="clientes" data-format="pdf" id="exportChart1">Horas semanales promedio por empresa</button>
                 <button class="btn btn-primary w-100 export-button" data-type="clientes" data-format="pdf" id="exportChart2">Salario promedio por sede</button>
             </div>
         </div>
     
-        <!-- Contenedor de Clientes -->
-        <div class="container" style="width: 100%; max-width: 1250px;">
+        <!-- Contenedor de Clientes (Ocupa todo el ancho) -->
+        <div class="container" style="width: 100%; max-width: 1300px;">
             <h2 id="clientsTitle">Clientes asociados</h2>
             <form id="clientsForm">
-                <table class="table table-dark table-striped" id="clientsTable">
-                    <thead>
-                        <tr>
-                            <th id="nameColumn">Nombre</th>
-                            <th id="mailColumn">Correo</th>
-                            <th id="phoneColumn">Teléfono</th>
-                            <th id="companyColumn">Empresa</th>
-                            <th id="baseColumn">Sede</th>
-                            <th id="salaryColumn">Salario (bruto/anual)</th>
-                            <th id="hoursColumn">Horas semanales</th>
-                            <th id="completedColumn">Completado</th>
-                            <th id="extraInfoColumn">Información extra</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Filas dinámicas cargadas con JavaScript -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped w-100" id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 90px;" id="nameColumn">Nombre</th>
+                                <th style="min-width: 140px;" id="mailColumn">Correo</th>
+                                <th style="min-width: 100px;" id="phoneColumn">Teléfono</th>
+                                <th style="min-width: 100px;" id="companyColumn">Empresa</th>
+                                <th style="min-width: 100px;" id="baseColumn">Sede</th>
+                                <th style="min-width: 180px;" id="salaryColumn">Salario (bruto/anual)</th>
+                                <th style="min-width: 150px;" id="hoursColumn">Horas semanales</th>
+                                <th style="min-width: 120px;" id="completedColumn">Completado</th>
+                                <th style="min-width: 100px;" id="extraInfoColumn">Información extra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas dinámicas cargadas con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </form>
         </div>
+        
+
     </div>
     
+    
 
-        <!-- Contenedor de Gráficas (Siempre Visible) -->
-        <div class="container mt-5" id="statsContainer">
+    <!-- Contenedor para la Geolocalización y Estadísticas -->
+    <div class="container-fluid mt-4 d-flex justify-content-center">
+        <!-- Panel de Geolocalización -->
+        <div class="container bg p-4 rounded text-center" id="geoPanel" style="width: 30%; max-width: 380px;">
+            <h5 id="geoTitle">Ubicación de sedes</h5>
+            <img src="assets/img/spainMap.jpg" id="mapImage" class="img-fluid" style="cursor: pointer;" alt="Mapa de España">
+        </div>
+
+        <!-- Contenedor de Gráficas -->
+        <div class="container" id="statsContainer" style="width: 73%;">
             <h2 class="text-center" id="statsTitle">Estadísticas de clientes</h2>
             <div class="row justify-content-center">
                 <div class="col-md-3 d-flex justify-content-center">
@@ -111,125 +124,142 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
-
-        <!-- Modal con información del usuario -->
-        <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="userProfileModalLabel">Información del usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="user-info-item"><strong>ID:</strong> <span id="userIDPlaceholder"></span></p>
-                        <p class="user-info-item"><strong id="userInfoName">Nombre:</strong> <span id="userNamePlaceholder"></span></p>
-                        <p class="user-info-item"><strong id="userInfoMail">Correo:</strong> <span id="userEmailPlaceholder"></span></p>
-                        <p class="user-info-item"><strong id="userInfoRole">Rol:</strong> <span id="userRolePlaceholder"></span></p>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- Botón de cerrar sesión -->
-                        <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
-                    </div>
+    <!-- Modal para mostrar el Mapa de Google -->
+    <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="geoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="geoModalLabel">Mapa de sedes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map" style="height: 500px; width: 100%;"></div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Modal de ajustes -->
-        <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="settingsTitle">Ajustes</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+    <!-- Modal con información del usuario -->
+    <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userProfileModalLabel">Información del usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="user-info-item"><strong>ID:</strong> <span id="userIDPlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoName">Nombre:</strong> <span id="userNamePlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoMail">Correo:</strong> <span id="userEmailPlaceholder"></span></p>
+                    <p class="user-info-item"><strong id="userInfoRole">Rol:</strong> <span id="userRolePlaceholder"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Botón de cerrar sesión -->
+                    <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de ajustes -->
+    <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsTitle">Ajustes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Selección de idioma con icono -->
+                    <div class="d-flex align-items-center">
+                        <img id="languageIcon" src="assets/img/darkLanguage.png" alt="Idioma" class="settings-icon">
+                        <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
                     </div>
-                    <div class="modal-body">
-                        <!-- Selección de idioma con icono -->
+                    <select id="languageSelect" class="form-select">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+
+                    <!-- Tema con icono -->
+                    <div class="form-group mt-3">
                         <div class="d-flex align-items-center">
-                            <img id="languageIcon" src="../src/img/darkLanguage.png" alt="Idioma" class="settings-icon">
-                            <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
+                            <img id="themeIcon" src="assets/img/darkTheme.png" alt="Tema" class="settings-icon">
+                            <label class="form-label ms-2" id="themeLabel">Tema:</label>
                         </div>
-                        <select id="languageSelect" class="form-select">
-                            <option value="es">Español</option>
-                            <option value="en">English</option>
-                        </select>
-
-                        <!-- Tema con icono -->
-                        <div class="form-group mt-3">
-                            <div class="d-flex align-items-center">
-                                <img id="themeIcon" src="../src/img/darkTheme.png" alt="Tema" class="settings-icon">
-                                <label class="form-label ms-2" id="themeLabel">Tema:</label>
+                        <div class="d-flex align-items-center">
+                            <span class="me-2" id="darkThemeLabel">Oscuro</span>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="darkModeToggle">
                             </div>
-                            <div class="d-flex align-items-center">
-                                <span class="me-2" id="darkThemeLabel">Oscuro</span>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                                </div>
-                            </div>
-                        </div>                    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
-                    </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSettingsButton">Cerrar</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <!-- Modal para crear ticket -->
-        <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ticketModalLabel">Crear ticket</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="ticketForm">
-                            <div class="mb-3">
-                                <label for="ticketTitle" class="form-label" id="ticketTitleLabel">Título</label>
-                                <input type="text" class="form-control" id="ticketTitle" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
-                                <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTicketModal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="submitTicket">Enviar ticket</button>
-                    </div>
+    <!-- Modal para crear ticket -->
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel">Crear ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ticketForm">
+                        <div class="mb-3">
+                            <label for="ticketTitle" class="form-label" id="ticketTitleLabel">Título</label>
+                            <input type="text" class="form-control" id="ticketTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
+                            <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeTicketModal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="submitTicket">Enviar ticket</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!-- Modal de confirmación de cierre de sesión -->
-        <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmLogoutTitle">Confirmar cierre de sesión</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="confirmLogoutLabel">
-                        ¿Está seguro de que desea cerrar sesión?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="yesLogoutButton">Sí</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="noLogoutButton">No</button>
-                    </div>
+    <!-- Modal de confirmación de cierre de sesión -->
+    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmLogoutTitle">Confirmar cierre de sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmLogoutLabel">
+                    ¿Está seguro de que desea cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="yesLogoutButton">Sí</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="noLogoutButton">No</button>
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6eEghOS9R0xwvI73JGnBcWFisoH2fQ0&callback=initMap"></script>
     <script>
         let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
 
@@ -244,9 +274,10 @@
             const languageIcon = document.getElementById("languageIcon");
             const themeIcon = document.getElementById("themeIcon");
 
+
             function loadLanguage(lang) {
                 const timestamp = new Date().getTime();
-                fetch(`idiomas/home/${lang}.txt?t=${timestamp}`)
+                fetch(`assets/idiomas/home/${lang}.txt?t=${timestamp}`)
                     .then(response => {
                         if (!response.ok) throw new Error("Error en la carga del archivo de idioma: " + response.status);
                         return response.text();
@@ -266,7 +297,7 @@
                             "salaryMoreFilterOption","companyColumn", "baseColumn", "salaryColumn", 
                             "hoursColumn", "statsTitle", "createTicketText", "ticketModalLabel", 
                             "ticketTitleLabel", "ticketDescriptionLabel", "closeTicketModal", "submitTicket",
-                            "clearFiltersButton"
+                            "clearFiltersButton", "geoTitle", "geoModalLabel"
                         ];
 
                         ids.forEach((id, index) => {
@@ -802,8 +833,8 @@
 
             function updateIcons() {
                 const isDarkMode = localStorage.getItem("darkMode") === "enabled";
-                themeIcon.src = isDarkMode ? "../src/img/darkTheme.png" : "../src/img/lightTheme.png";
-                languageIcon.src = isDarkMode ? "../src/img/darkLanguage.png" : "../src/img/lightLanguage.png";
+                themeIcon.src = isDarkMode ? "assets/img/darkTheme.png" : "assets/img/lightTheme.png";
+                languageIcon.src = isDarkMode ? "assets/img/darkLanguage.png" : "assets/img/lightLanguage.png";
             }
 
             // Aplicar los iconos correctos al cargar la página
@@ -876,10 +907,80 @@
                 pdf.addImage(imageURL, "PNG", posX, posY, imgSize, imgSize);
                 pdf.save("grafico.pdf"); // Guardar PDF
             }
+
+            function initMap() {
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 6,
+                    center: { lat: 40.4168, lng: -3.7038 } // España
+                });
+
+                const coordenadasCiudades = {
+                    "Madrid": { lat: 40.4168, lng: -3.7038 }, "Barcelona": { lat: 41.3851, lng: 2.1734 }, "Granada": { lat: 37.1773, lng: -3.5986 }, 
+                    "Valencia": { lat: 39.4699, lng: -0.3763 }, "Sevilla": { lat: 37.3886, lng: -5.9823 }, "A Coruña": { lat: 43.3623, lng: -8.4115 },
+                    "Álava": { lat: 42.8498, lng: -2.6726 }, "Albacete": { lat: 38.9959, lng: -1.8554 }, "Alicante": { lat: 38.3452, lng: -0.4810 }, 
+                    "Almería": { lat: 36.8340, lng: -2.4637 }, "Asturias": { lat: 43.3614, lng: -5.8494 }, "Ávila": { lat: 40.6560, lng: -4.7003 }, 
+                    "Badajoz": { lat: 38.8794, lng: -6.9706 }, "Baleares": { lat: 39.6953, lng: 3.0176 }, "Burgos": { lat: 42.3439, lng: -3.6969 },
+                    "Cáceres": { lat: 39.4710, lng: -6.3827 }, "Cádiz": { lat: 36.5271, lng: -6.2886 }, "Cantabria": { lat: 43.1828, lng: -3.9878 }, 
+                    "Castellón": { lat: 39.9864, lng: -0.0513 }, "Ciudad Real": { lat: 38.9862, lng: -3.9274 }, "Córdoba": { lat: 37.8882, lng: -4.7794 },
+                    "Cuenca": { lat: 40.0704, lng: -2.1374 }, "Girona": { lat: 41.9794, lng: 2.8214 }, "Guadalajara": { lat: 40.6330, lng: -3.1670 },
+                    "Guipúzcoa": { lat: 43.3183, lng: -1.9812 }, "Huelva": { lat: 37.2614, lng: -6.9447 }, "Huesca": { lat: 42.1362, lng: -0.4087 },
+                    "Jaén": { lat: 37.7796, lng: -3.7849 }, "La Rioja": { lat: 42.2871, lng: -2.5396 }, "Las Palmas": { lat: 28.1235, lng: -15.4363 },
+                    "León": { lat: 42.5987, lng: -5.5671 }, "Lleida": { lat: 41.6176, lng: 0.6200 }, "Lugo": { lat: 43.0121, lng: -7.5560 }, 
+                    "Málaga": { lat: 36.7213, lng: -4.4214 }, "Murcia": { lat: 37.9922, lng: -1.1307 }, "Navarra": { lat: 42.6954, lng: -1.6761 },
+                    "Ourense": { lat: 42.3351, lng: -7.8639 }, "Palencia": { lat: 42.0097, lng: -4.5282 }, "Pontevedra": { lat: 42.4308, lng: -8.6441 },
+                    "Salamanca": { lat: 40.9701, lng: -5.6635 }, "Santa Cruz de Tenerife": { lat: 28.4636, lng: -16.2518 }, "Segovia": { lat: 40.9429, lng: -4.1080 },
+                    "Soria": { lat: 41.7636, lng: -2.4651 }, "Tarragona": { lat: 41.1189, lng: 1.2445 }, "Teruel": { lat: 40.3456, lng: -1.1064 },
+                    "Toledo": { lat: 39.8628, lng: -4.0273 }, "Valladolid": { lat: 41.6522, lng: -4.7245 }, "Vizcaya": { lat: 43.2630, lng: -2.9350 },
+                    "Zamora": { lat: 41.5031, lng: -5.7435 }, "Zaragoza": { lat: 41.6488, lng: -0.8891 }
+                };
+
+
+                fetch("../src/get_sedes.php")
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Sedes recibidas:", data);
+
+                        Object.keys(data).forEach(ciudad => {
+                            if (coordenadasCiudades[ciudad]) {
+                                const marker = new google.maps.Marker({
+                                    map,
+                                    position: coordenadasCiudades[ciudad]
+                                });
+
+                                const infoWindow = new google.maps.InfoWindow({
+                                    content: `
+                                        <div style="color: black;">
+                                            <strong style="font-weight: bold;">${ciudad}</strong><br>
+                                            ${data[ciudad].join("<br>")}
+                                        </div>
+                                    `
+                                });
+
+                                marker.addListener("click", () => {
+                                    infoWindow.open(map, marker);
+                                });
+                            } else {
+                                console.warn(`No hay coordenadas definidas para: ${ciudad}`);
+                            }
+                        });
+                    })
+                    .catch(error => console.error("Error cargando ubicaciones:", error));
+            }
+
+
+
+
+            // 💡 Aseguramos que la función es accesible globalmente
+            window.initMap = initMap;
+
+
+
+            document.getElementById("mapImage").addEventListener("click", function() {
+                var mapModal = new bootstrap.Modal(document.getElementById('mapModal'));
+                mapModal.show();
+                initMap(); // Cargar el mapa cuando se abre el modal
+            });
         });
-
-
-
 
     </script>
 </body>

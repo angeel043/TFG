@@ -1,0 +1,105 @@
+SINOVA - Administration panel
+Settings
+Settings
+Select language
+Close
+Are you sure you want to log out?
+User options
+Create user
+Edit user
+Delete user
+Clients options
+Create client
+Edit client
+Delete client
+Create user
+Username
+Mail
+Password
+Select role
+Select role
+Administrator
+User
+Supervisor
+IT
+Cancel
+Create user
+Edit user
+Name
+Email
+Role
+Cancel
+Save changes
+Delete user
+Name
+Email
+Role
+Action
+Logout
+Confirm logout
+Yes
+No
+Create client
+Full name
+Email
+Telephone
+ID user responsible
+Cancel
+Save
+Edit client
+ID
+Name
+Email
+Telephone
+Completed
+Extra information
+ID user responsible
+Cancel
+Save changes
+Delete client
+ID
+Name
+Email
+Telephone
+Completed
+Extra information
+ID user responsible
+Action
+Confirm deletion
+¿Are you sure you want to delete this element?
+Yes, delete
+Cancel
+User information
+Name:
+Mail:
+Role:
+Close
+Theme:
+Dark
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Company
+Base
+Salary (gross/annual)
+Weekly hours
+Create ticket
+Create ticket
+Title
+Description
+Cancel
+Submit ticket
+Export data
+Users
+Clients
+Export users (.xlsx)
+Export users (.pdf)
+Export clients (.xlsx)
+Export clients (.pdf)
+Import users
+Import clients
