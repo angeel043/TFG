@@ -1,0 +1,58 @@
+El usuario angel con ID 2 ha iniciado sesión a las 18:17:14.
+El usuario angel con ID 2 ha cerrado sesión a las 18:18:32.
+El usuario angel con ID 2 ha iniciado sesión a las 18:21:33.
+El usuario angel con ID 2 ha marcado como completado el cliente con ID 1 a las 18:22:28.
+El usuario angel con ID 2 ha marcado como completado el cliente con ID 2 a las 18:22:30.
+El usuario angel con ID 2 ha marcado como completado el cliente con ID 5 a las 18:22:34.
+El usuario angel con ID 2 ha creado un ticket con ID 11 que se ha asignado al usuario de IT con ID 6 a las 18:40:07.
+El usuario angel con ID 2 ha cerrado sesión a las 18:44:57.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:45:01.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:45:19.
+El usuario natalia con ID 10 ha creado al usuario con ID 20 a las 18:59:53.
+El usuario natalia con ID 10 ha  con ID 20 a las 19:00:01.
+El usuario natalia con ID 10 ha eliminado al cliente con ID 2 a las 19:00:20.
+El usuario natalia con ID 10 ha eliminado al usuario con ID 8 a las 19:02:05.
+El usuario natalia con ID 10 ha creado al cliente con ID 19 a las 19:06:59.
+El usuario natalia con ID 10 ha creado al cliente con ID 20 a las 19:09:06.
+El usuario natalia con ID 10 ha creado al cliente con ID 21 a las 19:10:48.
+El usuario natalia con ID 10 ha creado al cliente con ID 22 a las 19:16:25.
+El usuario natalia con ID 10 ha modificado al cliente con ID 3 a las 19:16:45.
+El usuario natalia con ID 10 ha modificado al cliente con ID 4 a las 19:16:45.
+El usuario natalia con ID 10 ha modificado al cliente con ID 5 a las 19:16:45.
+El usuario natalia con ID 10 ha modificado al cliente con ID 16 a las 19:16:45.
+El usuario natalia con ID 10 ha modificado al cliente con ID 17 a las 19:16:45.
+El usuario natalia con ID 10 ha modificado al cliente con ID 22 a las 19:16:45.
+El usuario natalia con ID 10 ha eliminado al cliente con ID 22 a las 19:16:55.
+El usuario natalia con ID 10 ha modificado al cliente con ID 3 a las 19:18:06.
+El usuario natalia con ID 10 ha modificado al cliente con ID 16 a las 19:18:06.
+El usuario natalia con ID 10 ha exportado la tabla de clientes en formato PDF a las 19:25:17.
+El usuario natalia con ID 10 ha exportado la tabla de usuarios en formato XLSX a las 19:25:23.
+El usuario natalia con ID 10 ha importado 2 clientes a las 19:30:00.
+El usuario natalia con ID 10 ha cerrado sesión a las 19:30:24.
+El usuario angel con ID 2 ha iniciado sesión a las 19:30:28.
+El usuario angel con ID 2 ha iniciado sesión a las 19:30:34.
+El usuario angel con ID 2 ha cerrado sesión a las 19:31:47.
+El usuario diego con ID 3 ha iniciado sesión a las 19:31:52.
+El usuario diego con ID 3 ha iniciado sesión a las 19:31:56.
+El usuario diego con ID 3 ha exportado la tabla de clientes en formato PDF a las 19:32:10.
+El usuario diego con ID 3 ha cerrado sesión a las 19:32:28.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:32:33.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:32:49.
+El usuario carlos con ID 4 ha cerrado sesión a las 19:32:53.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:32:57.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:33:29.
+El usuario carlos con ID 4 ha cerrado sesión a las 19:36:33.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:36:38.
+El usuario carlos con ID 4 ha cerrado sesión a las 19:39:28.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:39:48.
+El usuario carlos con ID 4 ha marcado como completado el ticket con ID 9 a las 19:40:00.
+El usuario carlos con ID 4 ha cerrado sesión a las 19:40:00.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:40:04.
+El usuario carlos con ID 4 ha cerrado sesión a las 19:40:53.
+El usuario angel con ID 2 ha iniciado sesión a las 19:47:04.
+El usuario angel con ID 2 ha cerrado sesión a las 19:51:58.
+El usuario natalia con ID 10 ha iniciado sesión a las 19:52:03.
+El usuario natalia con ID 10 ha cerrado sesión a las 19:52:09.
+El usuario diego con ID 3 ha iniciado sesión a las 19:52:12.
+El usuario diego con ID 3 ha cerrado sesión a las 19:52:22.
+El usuario carlos con ID 4 ha iniciado sesión a las 19:52:27.

@@ -6,20 +6,25 @@
     <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/supervisor.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!--********************************************
+    * 
+    * Barra de navegacion
+    * 
+    *********************************************-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de supervisión</a>
             <div class="d-flex align-items-center">
-                <!-- Botón Crear Ticket con icono -->
+                <!-- Botón Crear Ticket -->
                 <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
                     <img src="assets/img/ticket.png" alt="Ticket" class="btn-icon">
                     <span id="createTicketText">Crear ticket</span>
                 </button>
 
-                <!-- Botón Ajustes con icono -->
+                <!-- Botón Ajustes -->
                 <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
                     <img src="assets/img/settings.png" alt="Ajustes" class="btn-icon">
                     <span id="settingsText">Ajustes</span>
@@ -33,8 +38,13 @@
         </div>
     </nav>
  
+    <!--********************************************
+    * 
+    * Paneles principales
+    * 
+    *********************************************-->
     <div class="container-fluid mt-5 d-flex justify-content-start" style="max-width: 1600px;">
-        <div class="d-flex flex-column" style="width: 20%; max-width: 250px;">
+        <div class="d-flex flex-column me-4" style="width: 20%; max-width: 300px;">
             <!-- Panel de Filtros -->
             <div class="container mb-3" id="filtersPanel">
                 <h5 class="text-center" id="filterTitle">Filtros</h5>
@@ -65,36 +75,85 @@
                 <button class="btn btn-primary w-100 mb-2 export-button" data-type="clientes" data-format="excel" id="exportClientsExcel">Exportar clientes (.xlsx)</button>
                 <button class="btn btn-primary w-100 export-button" data-type="clientes" data-format="pdf" id="exportClientsPDF">Exportar clientes (.pdf)</button>
             </div>
+            
+            
+            <!-- Panel de Estadísticas de Usuarios -->
+            <div class="container p-4 rounded custom-container mt-4" id="userStatsPanel">
+                <h5 class="text-center mb-3" id="userStatsTitle">Estadísticas de usuarios</h5>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-sm" id="tablaStatsUsuarios">
+                        <thead>
+                            <tr>
+                                <th id="idUserColumn">ID Usuario</th>
+                                <th id="completedClientsColumn">Clientes completados</th>
+                                <th id="activeClientsColumn">Clientes activos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas dinamicas -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    
-        <!-- Tabla de Clientes -->
-        <div class="container" style="width: 100%; max-width: 1200px;">
-            <h2 id="clientsTitle">Clientes completados</h2>
-            <table class="table table-dark table-striped" id="completedClientsTable">
-                <thead>
-                    <tr>
-                        <th id="idClientColumn">ID cliente</th>
-                        <th id="nameClientColumn">Nombre Completo</th>
-                        <th id="mailClientColumn">Correo electrónico</th>
-                        <th id="phoneClientColumn">Teléfono</th>
-                        <th id="companyColumn">Empresa</th>
-                        <th id="baseColumn">Sede</th>
-                        <th id="salaryColumn">Salario (bruto/anual)</th>
-                        <th id="hoursColumn">Horas semanales</th>
-                        <th id="infoClientColumn">Información adicional</th>
-                        <th id="idUserColumn">ID responsable</th>
-                        <th id="mailUserColumn">Correo responsable</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Filas dinámicas cargadas con JavaScript -->
-                </tbody>
-            </table>
+
+        <!-- Contenedor de Clientes + KPIs IT -->
+        <div class="d-flex flex-column" style="width: 80%; max-width: 1300px;">
+            <!-- Clientes completados -->
+            <div class="container mb-4">
+                <h2 id="clientsTitle">Clientes completados</h2>
+                <table class="table table-dark table-striped table-responsive" id="completedClientsTable">
+                    <thead>
+                        <tr>
+                            <th id="idClientColumn">ID cliente</th>
+                            <th id="nameClientColumn">Nombre Completo</th>
+                            <th id="mailClientColumn">Correo electrónico</th>
+                            <th id="phoneClientColumn">Teléfono</th>
+                            <th id="companyColumn">Empresa</th>
+                            <th id="baseColumn">Sede</th>
+                            <th id="salaryColumn">Salario (bruto/anual)</th>
+                            <th id="hoursColumn">Horas semanales</th>
+                            <th id="infoClientColumn">Información adicional</th>
+                            <th id="idUserColumn">ID responsable</th>
+                            <th id="mailUserColumn">Correo responsable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filas dinamicas -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Panel de Métricas de IT -->
+            <div class="container p-4 rounded custom-container mt-4" id="itKpiPanel">
+                <h5 class="text-center mb-4" id="itKpiTitle">Métricas de rendimiento - Equipo IT</h5>
+                <div class="d-flex flex-row justify-content-between align-items-start flex-wrap" style="gap: 20px;">
+                    <!-- Gráfica 1: Tickets Activos -->
+                    <div style="flex: 0 0 200px; text-align: center;">
+                        <canvas id="chartTicketsActivos" width="300" height="180"></canvas>
+                    </div>
+                    <!-- Gráfica 2: Tickets Completados -->
+                    <div style="flex: 0 0 200px; text-align: center;">
+                        <canvas id="chartTicketsCompletados" width="300" height="180"></canvas>
+                    </div>
+                    <!-- Gráfica 3: Tickets por Mes -->
+                    <div style="flex: 1; min-width: 500px;">
+                        <canvas id="ticketsPorMesChart" height="170"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
+    
+    
 
-    <!-- Modal con información del usuario -->
+    <!--********************************************
+    * 
+    * Modal con informacion del usuario iniciado
+    * sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -111,7 +170,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!-- Botón de cerrar sesión -->
                     <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
                 </div>
@@ -119,6 +177,11 @@
         </div>
     </div>
 
+    <!--********************************************
+    * 
+    * Modal de ajustes
+    * 
+    *********************************************-->
     <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -127,7 +190,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Selección de idioma con icono -->
                     <div class="d-flex align-items-center">
                         <img id="languageIcon" src="assets/img/darkLanguage.png" alt="Idioma" class="settings-icon">
                         <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
@@ -156,8 +218,12 @@
         </div>
     </div>
 
-    <!-- Modal para crear ticket -->
-    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+    <!--********************************************
+    * 
+    * Modal para crear ticket
+    * 
+    *********************************************-->
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -174,6 +240,15 @@
                             <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
                             <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="ticketPriority" class="form-label" id="ticketPriorityLabel">Prioridad</label>
+                            <select class="form-select" id="ticketPriority" required>
+                                <option id = "ticketPriorityDefault" value="" selected disabled>Seleccione prioridad</option>
+                                <option id = "ticketPriorityHigh" value="0">Alta</option>
+                                <option id = "ticketPriorityMedium" value="1">Media</option>
+                                <option id = "ticketPriorityLow" value="2">Baja</option>
+                            </select>
+                        </div>                                               
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -184,8 +259,11 @@
         </div>
     </div>
 
-
-    <!-- Modal de confirmación de cierre de sesión -->
+    <!--********************************************
+    * 
+    * Modal de confirmacion de cierre de sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -206,7 +284,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
         document.addEventListener("DOMContentLoaded", function () {
+
+            //Constantes y variables globales
             let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
             const darkModeToggle = document.getElementById("darkModeToggle");
             const table = document.getElementById("completedClientsTable");
@@ -217,8 +298,60 @@
             const themeIcon = document.getElementById("themeIcon");
             const filterBy = getQueryParam("filterBy");
             const filterValue = getQueryParam("filterValue");
-            
-            // Configuración de idioma
+            let chartActivos = null;
+            let chartCompletados = null;
+            const coloresPredefinidos = [
+                "#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f",
+                "#edc949", "#af7aa1", "#ff9da7", "#9c755f", "#bab0ab",
+                "#86bc86", "#f1ce63", "#d37295", "#8cd17d", "#b6992d",
+                "#d4a6c8", "#7b90d5", "#f18c8e", "#90d5d3", "#c85200"
+            ];
+            const coloresUsuariosIT = {}; 
+            let indiceColorActual = 0; 
+            const userStatsTable = document.getElementById("tablaStatsUsuarios");
+            const itChartTitles = {
+                es: {
+                    chart1: "Tickets activos por IT",
+                    chart2: "Tickets completados por IT",
+                    chart3: "Tickets completados por mes",
+                    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                },
+                en: {
+                    chart1: "Active tickets per IT",
+                    chart2: "Completed tickets per IT",
+                    chart3: "Tickets completed per month",
+                    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                }
+            };
+            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+
+
+            //Llamadas a funciones y demas funcionalidades
+            fetchClients();
+            userStats();
+            cargarGraficaActivos();
+            cargarGraficaCompletados();
+            selectFilter();
+            fetchUserInfo();
+            updateIcons();
+            cargarGraficaTicketsPorMes();
+            document.body.classList.toggle("light-mode", !isDarkMode);
+            table.classList.toggle("table-dark", isDarkMode);
+            darkModeToggle.checked = isDarkMode;
+            userStatsTable.classList.toggle("table-dark", isDarkMode);
+            if (document.documentElement.lang !== currentLanguage) {
+                document.documentElement.lang = currentLanguage; 
+            }
+            loadLanguage(currentLanguage); 
+
+
+            //Declaracion de funciones y listeners
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar el idioma
+             * 
+            ***********************************************/
             function loadLanguage(lang) {
                 const timestamp = new Date().getTime();
                 fetch(`assets/idiomas/supervisor/${lang}.txt?t=${timestamp}`)
@@ -245,19 +378,20 @@
                             "companyColumn", "baseColumn", "salaryColumn", "hoursColumn", "createTicketText",
                             "ticketModalLabel", "ticketTitleLabel", "ticketDescriptionLabel", "closeTicketModal",
                             "submitTicket", "clearFiltersButton", "exportOptionsLabel", "exportClientsExcel",
-                            "exportClientsPDF"
+                            "exportClientsPDF", "ticketPriorityLabel", "ticketPriorityDefault", "ticketPriorityHigh", 
+                            "ticketPriorityMedium", "ticketPriorityLow", "userStatsTitle", "idUserColumn", 
+                            "completedClientsColumn", "activeClientsColumn", "itKpiTitle"
                         ];
 
                         ids.forEach((id, index) => {
                             const element = document.getElementById(id);
                             if (element) {
-                                element.innerText = lines[index] || ""; // Asigna texto si existe
+                                element.innerText = lines[index] || ""; 
                             } else {
                                 console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
                             }
                         });
 
-                        // Actualizar las opciones del menú desplegable de idiomas
                         const languageSelect = document.getElementById("languageSelect");
                         if (lang === "es") {
                             languageSelect.innerHTML = `
@@ -274,35 +408,41 @@
                     .catch(error => console.error("Error al cargar el idioma:", error));
             }
 
-            if (!darkModeToggle) {
-                console.error("No se encontró el switch de modo oscuro en el DOM.");
-                return;
-            }
-
-            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
-            document.body.classList.toggle("light-mode", !isDarkMode);
-            table.classList.toggle("table-dark", isDarkMode);
-            darkModeToggle.checked = isDarkMode;
-
+            /***********************************************
+             * 
+             * Listener que cambia el tema cuando se active 
+             * el toggle
+             * 
+            ***********************************************/
             darkModeToggle.addEventListener("change", function () {
                 const enableDarkMode = this.checked;
                 document.body.classList.toggle("light-mode", !enableDarkMode);
                 table.classList.toggle("table-dark", enableDarkMode);
                 localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
+                userStatsTable.classList.toggle("table-dark", enableDarkMode);
                 location.reload();
             });
 
-            // Obtener parámetros de la URL
+            /***********************************************
+             * 
+             * Coge los parametros de los filtros de la url
+             * 
+            ***********************************************/
             function getQueryParam(param) {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get(param) || "";
             }
 
+            /***********************************************
+             * 
+             * Funcion que recoge los clientes completados
+             * aplicando los filtros activos
+             * 
+            ***********************************************/
             function fetchClients() {
                 const filterBy = getQueryParam("filterBy");
                 const filterValue = getQueryParam("filterValue");
 
-                // Si hay valores en la URL, los establecemos en el formulario
                 if (filterBy) {
                     filterBySelect.value = filterBy;
                 }
@@ -310,24 +450,18 @@
                     filterInput.value = filterValue;
                 }
 
-                let formData = new URLSearchParams();
-                formData.append("fetchClients", "true");
+                let apiUrl = `/TFG/src/routes/api.php/clientsDone`;
 
                 if (filterBy && filterValue) {
-                    formData.append("filterBy", filterBy);
-                    formData.append("filterValue", filterValue);
+                    apiUrl += `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
                 }
 
-
-                fetch("../src/supervisor.php", {
-                    method: "POST",
-                    body: formData,
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                fetch(apiUrl, {
+                    method: "GET"
                 })
                 .then(response => response.json())
                 .then(data => {
-
-                    tableBody.innerHTML = "";  
+                    tableBody.innerHTML = "";
 
                     if (data.length > 0) {
                         data.forEach(client => {
@@ -347,42 +481,39 @@
                                 </tr>`;
                         });
                     } else {
-                        tableBody.innerHTML = "<tr><td colspan='7'>No se encontraron clientes completados.</td></tr>";
+                        tableBody.innerHTML = "<tr><td colspan='11'>No se encontraron clientes completados.</td></tr>";
                     }
                 })
                 .catch(error => console.error("Error al cargar los clientes:", error));
             }
 
+            /***********************************************
+             * 
+             * Funcion que selecciona los filtros
+             * 
+            ***********************************************/
+            function selectFilter() {
+                if (filterBy) filterBySelect.value = filterBy;
+                if (filterValue) filterInput.value = filterValue;
+                // Capturar el evento de filtros
+                if (filterForm) {
+                    filterForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
+                        const filterBy = filterBySelect.value;
+                        const filterValue = filterInput.value.trim();
 
-              
+                        // Redirige con los filtros en la URL
+                        window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
+                    });
+                }
+            }    
 
-            if (filterBy) filterBySelect.value = filterBy;
-            if (filterValue) filterInput.value = filterValue;
-
-            // Capturar el evento de filtros
-            if (filterForm) {
-                filterForm.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const filterBy = filterBySelect.value;
-                    const filterValue = filterInput.value.trim();
-
-                    // Redirige con los filtros en la URL
-                    window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
-                });
-            }
-
-
-            // Llamar a fetchClients() al cargar la página con los filtros aplicados
-            fetchClients();
-        
-
-            // Cargar el idioma al iniciar
-            if (document.documentElement.lang !== currentLanguage) {
-                document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
-            }
-            loadLanguage(currentLanguage); // Cargar el idioma inicial
-
-            // Cambiar idioma y recargar la página
+            /***********************************************
+             * 
+             * Cambia el idioma una vez se seleccione otro que no 
+             * sea el actual
+             * 
+            ***********************************************/
             document.getElementById("languageSelect").addEventListener("change", function () {
                 const selectedLanguage = this.value;
 
@@ -395,103 +526,124 @@
                 }
             });
 
-            // Cargar datos dinámicos relacionados al idioma
-            fetch("../src/supervisor.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: "fetchUserInfo=true",
-            })
+            /***********************************************
+             * 
+             * Funcion que obtiene la informacion del usuario
+             * iniciado sesion
+             * 
+            ***********************************************/
+            function fetchUserInfo() {
+                fetch('/TFG/src/routes/api.php/userinfo', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("userIDPlaceholder").innerText = data.id;
-                    document.getElementById("userNamePlaceholder").innerText = data.nombre_usuario;
-                    document.getElementById("userEmailPlaceholder").innerText = data.email;
+                    if (data.error) {
+                        console.error('Error al obtener la información del usuario:', data.error);
+                        return;
+                    }
 
-                    let roleText = "";
-                    if (currentLanguage === "es") {
+                    document.getElementById('userIDPlaceholder').innerText = data.id;
+                    document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
+                    document.getElementById('userEmailPlaceholder').innerText = data.email;
+
+                    let roleText = '';
+                    if (currentLanguage === 'es') {
                         switch (data.rol) {
-                            case 0:
-                                roleText = "Administrador";
-                                break;
-                            case 1:
-                                roleText = "Usuario";
-                                break;
-                            case 2:
-                                roleText = "Supervisor";
-                                break;
-                            case 3:
-                                roleText = "Equipo técnico";
-                                break;
-                            default:
-                                roleText = "Desconocido";
+                            case 0: roleText = "Administrador"; break;
+                            case 1: roleText = "Usuario"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "Equipo técnico"; break;
+                            default: roleText = "Desconocido";
                         }
-                    } else if (currentLanguage === "en") {
+                    } else if (currentLanguage === 'en') {
                         switch (data.rol) {
-                            case 0:
-                                roleText = "Admin";
-                                break;
-                            case 1:
-                                roleText = "User";
-                                break;
-                            case 2:
-                                roleText = "Supervisor";
-                                break;
-                            case 2:
-                                roleText = "IT";
-                                break;
-                            default:
-                                roleText = "Unknown";
+                            case 0: roleText = "Admin"; break;
+                            case 1: roleText = "User"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "IT"; break;
+                            default: roleText = "Unknown";
                         }
                     }
-                    document.getElementById("userRolePlaceholder").innerText = roleText;
-                })
-                .catch(error => console.error("Error al obtener la información del usuario:", error));
 
-            // Abrir modal de confirmación de cierre de sesión
+                    document.getElementById('userRolePlaceholder').innerText = roleText;
+                })
+                .catch(error => console.error('Error al obtener la información del usuario:', error));
+            }
+            
+            /***********************************************
+             * 
+             * Listener que abre el modal de confirmacion de
+             * cierre de sesion
+             * 
+            ***********************************************/
             document.getElementById('logoutButton').addEventListener('click', function () {
                 const modal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
                 modal.show();
             });
+
+            /***********************************************
+             * 
+             * Listener que cierra sesion
+             * 
+            ***********************************************/
             document.getElementById("yesLogoutButton").addEventListener("click", function () {
-                fetch('../src/logout.php', {
+                fetch('/TFG/src/routes/api.php/logout', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json', 
                     }
                 })
-                .then(response => {
-                    if (response.ok) {
-                        // Redirigir a index.html tras cerrar sesión
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
                         window.location.href = '../public/index.html';
                     } else {
-                        console.error('Error al cerrar sesión');
+                        console.error('Error al cerrar sesión:', data.message || 'Error desconocido');
                     }
                 })
                 .catch(error => console.error('Error en la solicitud de cierre de sesión:', error));
             });
 
-            // Cerrar modal sin acción adicional
+            /***********************************************
+             * 
+             * Listener que cierra el modal de confirmacion
+             * de cierre de sesion
+             * 
+            ***********************************************/
             document.getElementById("noLogoutButton").addEventListener("click", function () {
                 const modal = bootstrap.Modal.getInstance(document.getElementById("confirmLogoutModal"));
                 modal.hide();
             });
 
+            /***********************************************
+             * 
+             * Listener que envia los datos del ticket que se quiere
+             * crear a la API para almacenarlo en la BBDD
+             * 
+            ***********************************************/
             document.getElementById("submitTicket").addEventListener("click", function () {
                 const titulo = document.getElementById("ticketTitle").value.trim();
                 const descripcion = document.getElementById("ticketDescription").value.trim();
+                const prioridadSeleccionada = document.getElementById("ticketPriority").value;
+                const idUser = document.getElementById('userIDPlaceholder').innerText.trim();
 
-                if (!titulo || !descripcion) {
-                    alert("Por favor, completa todos los campos.");
+                if (!titulo || !descripcion || prioridadSeleccionada === "") {
+                    alert("Por favor, completa todos los campos y selecciona una prioridad.");
                     return;
                 }
 
-                fetch('../src/supervisor.php', {
+                const prioridad = parseInt(prioridadSeleccionada);
+
+                fetch('/TFG/src/routes/api.php/create_ticket', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'crear_ticket',
+                        idUser: idUser,
                         titulo: titulo,
-                        descripcion: descripcion
+                        descripcion: descripcion,
+                        prioridad: prioridad
                     })
                 })
                 .then(response => response.json())
@@ -506,52 +658,215 @@
                 .catch(error => console.error("Error:", error));
             });
             
+            /***********************************************
+             * 
+             * Listener que recarga la pagina con los valores predeterminados
+             * de los filtros
+             * 
+            ***********************************************/
             document.getElementById("clearFiltersButton").addEventListener("click", function () {
-                // Recarga la página con los valores predeterminados (filterBy=name y filterValue vacío)
                 window.location.href = "?filterBy=name&filterValue=";
             });
 
+            /***********************************************
+             * 
+             * Listener que envia a la api los datos correspondientes
+             * para exportar los clientes en formato excel/PDF
+             * 
+            ***********************************************/
             document.querySelectorAll(".export-button").forEach(button => {
                 button.addEventListener("click", function () {
-                    const type = this.dataset.type;  // "clientes" o "usuarios"
+                    const type = this.dataset.type;  // "clientes" 
                     const format = this.dataset.format;  // "excel" o "pdf"
 
-                    let formData = new FormData();
-                    formData.append("type", type);
-                    formData.append("format", format);
-
-                    fetch("../src/exportBBDD.php", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error("Error en la exportación.");
-                        return response.blob();
-                    })
-                    .then(blob => {
-                        let url = window.URL.createObjectURL(blob);
-                        let a = document.createElement("a");
-                        a.href = url;
-                        a.download = `${type}.${format === "excel" ? "xlsx" : "pdf"}`;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                    })
-                    .catch(error => console.error("Error al exportar:", error));
+                    window.location.href = `/TFG/src/routes/api.php/export?type=${type}&format=${format}`;
                 });
             });
 
+            /***********************************************
+             * 
+             * Funcion que se encarga de actualizar los iconos
+             * en funcion del tema seleccionado
+             * 
+            ***********************************************/
             function updateIcons() {
                 const isDarkMode = localStorage.getItem("darkMode") === "enabled";
                 themeIcon.src = isDarkMode ? "assets/img/darkTheme.png" : "assets/img/lightTheme.png";
                 languageIcon.src = isDarkMode ? "assets/img/darkLanguage.png" : "assets/img/lightLanguage.png";
             }
-
-            // Aplicar los iconos correctos al cargar la página
-            updateIcons();
             
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar las estadisticas
+             * de los usuarios
+             * 
+            ***********************************************/
+            function userStats() {
+                fetch('/TFG/src/routes/api.php/userStats')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const tbody = document.querySelector('#tablaStatsUsuarios tbody');
+                        tbody.innerHTML = "";
 
+                        data.data.forEach(userStat => {
+                            const row = `
+                                <tr>
+                                    <td>${userStat.id_usuario}</td>
+                                    <td>${userStat.clientes_completados}</td>
+                                    <td>${userStat.clientes_activos}</td>
+                                </tr>
+                            `;
+                            tbody.innerHTML += row; 
+                        });
+                    } else {
+                        console.error("Error al cargar estadísticas:", data.error);
+                    }
+                })
+                .catch(error => console.error("Error en la solicitud:", error));
+            }
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar la grafica de tickets activos
+             * 
+            ***********************************************/
+            function cargarGraficaActivos() {
+            fetch("/TFG/src/routes/api.php/itActive")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const labels = data.data.map(item => item.nombre);
+                        const valores = data.data.map(item => parseInt(item.activos));
+
+                        labels.forEach(nombre => {
+                            if (!coloresUsuariosIT[nombre]) {
+                                coloresUsuariosIT[nombre] = coloresPredefinidos[indiceColorActual % coloresPredefinidos.length];
+                                indiceColorActual++;                                    }
+                        });
+
+                        const colores = labels.map(nombre => coloresUsuariosIT[nombre]);
+
+                        if (chartActivos) chartActivos.destroy();
+                        const ctx = document.getElementById("chartTicketsActivos").getContext("2d");
+                        chartActivos = new Chart(ctx, {
+                            type: "doughnut",
+                            data: {
+                                labels,
+                                datasets: [{
+                                    data: valores,
+                                    backgroundColor: colores
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: { position: "bottom" },
+                                    title: {
+                                        display: true,
+                                        text: itChartTitles[currentLanguage].chart1
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar la grafica de 
+             * tickets completados
+             * 
+            ***********************************************/
+            function cargarGraficaCompletados() {
+                fetch("/TFG/src/routes/api.php/itCompleted")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const labels = data.data.map(item => item.nombre);
+                            const valores = data.data.map(item => parseInt(item.completados));
+
+                            labels.forEach(nombre => {
+                                if (!coloresUsuariosIT[nombre]) {
+                                    coloresUsuariosIT[nombre] = coloresPredefinidos[indiceColorActual % coloresPredefinidos.length];
+                                    indiceColorActual++;
+                                }
+                            });
+
+                            const colores = labels.map(nombre => coloresUsuariosIT[nombre]);
+
+                            if (chartCompletados) chartCompletados.destroy();
+                            const ctx = document.getElementById("chartTicketsCompletados").getContext("2d");
+                            chartCompletados = new Chart(ctx, {
+                                type: "doughnut",
+                                data: {
+                                    labels,
+                                    datasets: [{
+                                        data: valores,
+                                        backgroundColor: colores
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { position: "bottom" },
+                                        title: {
+                                            display: true,
+                                            text: itChartTitles[currentLanguage].chart2
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+            }
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar la grafica de 
+             * tickets por mes
+             * 
+            ***********************************************/
+            function cargarGraficaTicketsPorMes() {
+                fetch('/TFG/src/routes/api.php/ticketsByMonth')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const mesesLabels = itChartTitles[currentLanguage].months;  
+                            const valores = Object.values(data.data);
+
+                            const ctx = document.getElementById('ticketsPorMesChart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: mesesLabels,
+                                    datasets: [{
+                                        label: 'Tickets',
+                                        data: valores,
+                                        borderWidth: 1,
+                                        backgroundColor: '#4e73df'
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: false },
+                                        title: {
+                                            display: true,
+                                            text: itChartTitles[currentLanguage].chart3
+                                        }
+                                    },
+                                    scales: {
+                                        y: { beginAtZero: true }
+                                    }
+                                }
+                            });
+                        }
+                    });
+            }
         });
+
     </script>
 </body>
 </html>

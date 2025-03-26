@@ -103,3 +103,8 @@ Export clients (.xlsx)
 Export clients (.pdf)
 Import users
 Import clients
+Priority
+Select priority
+High
+Medium
+Low

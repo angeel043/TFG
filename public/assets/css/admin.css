@@ -3,9 +3,11 @@ body {
     color: #ffffff;
     margin: 0;
 }
+
 .navbar {
     background-color: #23272a;
 }
+
 .container {
     background-color: #23272a;
     padding: 20px;
@@ -14,36 +16,46 @@ body {
     width: 800px;
     margin: 50px auto;
 }
+
 .form-label, .navbar-brand {
     color: #ffffff;
 }
+
 .btn-primary {
     background-color: #7289da;
     border-color: #7289da;
 }
+
 .btn-primary:hover {
     background-color: #5b6eae;
 }
+
 .modal-content {
     background-color: #2c2f33;
     color: #ffffff;
 }
+
 .modal-header {
     border-bottom: 1px solid #7289da;
 }
+
 .modal-footer {
     border-top: 1px solid #7289da;
 }
+
 .form-control {
     width: 100%;
 }
+
 h1 {
     text-align: center;
 }
+
 .custom-container {
-    max-width: 700px; /* Ajusta el ancho máximo según sea necesario */
-    margin: auto; /* Centra el contenido */
+    max-width: 700px; 
+    margin: auto; 
 }
+
 #userProfileButton {
     width: 35px;
     height: 35px;
@@ -53,27 +65,31 @@ h1 {
     font-size: 1.5rem;
     padding: 0;
     background-image: url('../img/profilePicture.png');
-    background-size: cover; /* Ajusta la imagen para que ocupe todo el botón */
-    background-position: center; /* Centra la imagen en el botón */
+    background-size: cover; 
+    background-position: center;
 }
+
 #settingsButton {
-    margin-right: 20px; /* Espacio adicional entre el botón de ajustes y el siguiente botón */
+    margin-right: 20px; 
 }
+
 .user-info-item {
     display: flex;
-    justify-content: space-between; /* Espacio entre las columnas */
+    justify-content: space-between; 
     align-items: center;
-    margin-bottom: 5px; /* Espaciado entre filas */
+    margin-bottom: 5px; 
 }
+
 .user-info-item span {
-    width: 70%; /* Tamaño fijo para los valores */
-    text-align: left; /* Alinea el texto a la izquierda */
+    width: 70%; 
+    text-align: left; 
 }
 
 .light-mode {
     background-color: #f8f9fa;
     color: #212529;
 }
+
 .light-mode .container {
     background-color: #ffffff;
     color: #000000;
@@ -81,9 +97,11 @@ h1 {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
+
 .light-mode .form-label, .light-mode .navbar-brand, .light-mode .navbar, .light-mode .modal-title, .light-mode .modal-body{
     color: #000000;
 }
+
 .light-mode .navbar {
     background-color: #e3e3e3;
     color: #000000;
@@ -97,16 +115,17 @@ h1 {
     background-color: #007bff;
     border-color: #007bff;
 }
+
 .light-mode .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
 }
+
 .light-mode .modal-content {
     background-color: #ffffff;
     color: #212529;
 }
 
-/* Estilos para modo oscuro (ya estaban) */
 .table-dark {
     background-color: #23272a;
     color: #ffffff;
@@ -117,13 +136,11 @@ h1 {
     border: 1px solid #444;
 }
 
-/* 🔹 Asegurar que en modo claro la tabla tenga fondo blanco y texto oscuro */
 .light-mode .table-dark {
     background-color: #ffffff !important;
     color: #000000 !important;
 }
 
-/* 🔹 Forzar fondo blanco en las celdas de la tabla */
 .light-mode .table-dark th, 
 .light-mode .table-dark td {
     background-color: #ffffff !important;
@@ -131,7 +148,6 @@ h1 {
     border: 1px solid #ddd !important;
 }
 
-/* 🔹 Asegurar que los campos de entrada mantengan su estilo */
 .light-mode .table-dark input[type="checkbox"], 
 .light-mode .table-dark textarea {
     background-color: #ffffff !important;
@@ -139,26 +155,23 @@ h1 {
     border: 1px solid #aaa !important;
 }
 
-/* 🔹 Corregir color de texto en filas alternas */
 .light-mode .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f8f9fa !important;
 }
 
-/* Ajustar tamaño y posición de los iconos dentro de los botones */
 .btn-icon, .settings-icon {
-    width: 18px; /* Tamaño adecuado */
+    width: 18px;
     height: 18px;
-    margin-right: 6px; /* Espacio entre el icono y el texto */
+    margin-right: 6px; 
     vertical-align: middle;
     display: inline-block;
 }
 
-/* Asegurar que los botones no se deformen */
 #settingsButton, #createTicketButton {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px; /* Espacio entre icono y texto */
-    padding: 6px 12px; /* Ajustar el padding */
-    min-width: 120px; /* Evitar que el botón se encoja demasiado */
+    gap: 5px; 
+    padding: 6px 12px;
+    min-width: 120px; 
 }

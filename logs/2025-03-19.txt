@@ -1,0 +1,29 @@
+El usuario diego con ID 3 ha iniciado sesión a las 16:37:52.
+El usuario diego con ID 3 ha cerrado sesión a las 16:47:55.
+El usuario ejemplo con ID 6 ha iniciado sesión a las 16:48:44.
+El usuario ejemplo con ID 6 ha marcado como completado el ticket con ID 3 a las 16:48:54.
+El usuario ejemplo con ID 6 ha marcado como completado el ticket con ID 11 a las 16:48:54.
+El usuario ejemplo con ID 6 ha cerrado sesión a las 16:48:54.
+El usuario usuario007 con ID 7 ha iniciado sesión a las 16:49:31.
+El usuario usuario007 con ID 7 ha marcado como completado el cliente con ID 24 a las 16:49:53.
+El usuario usuario007 con ID 7 ha cerrado sesión a las 16:49:53.
+El usuario diego con ID 3 ha iniciado sesión a las 16:49:57.
+El usuario diego con ID 3 ha cerrado sesión a las 16:50:29.
+El usuario carlos con ID 4 ha iniciado sesión a las 16:50:32.
+El usuario carlos con ID 4 ha cerrado sesión a las 16:53:37.
+El usuario diego con ID 3 ha iniciado sesión a las 16:53:40.
+El usuario diego con ID 3 ha cerrado sesión a las 17:05:35.
+El usuario natalia con ID 10 ha iniciado sesión a las 17:05:46.
+El usuario natalia con ID 10 ha cerrado sesión a las 17:06:05.
+El usuario carlos con ID 4 ha iniciado sesión a las 17:06:09.
+El usuario carlos con ID 4 ha cerrado sesión a las 17:17:51.
+El usuario angel con ID 2 ha iniciado sesión a las 17:17:55.
+El usuario angel con ID 2 ha creado un ticket con ID 12 que se ha asignado al usuario de IT con ID 6 a las 17:32:55.
+El usuario angel con ID 2 ha cerrado sesión a las 17:42:48.
+El usuario natalia con ID 10 ha iniciado sesión a las 17:42:52.
+El usuario natalia con ID 10 ha creado un ticket con ID 13 que se ha asignado al usuario de IT con ID 4 a las 17:45:20.
+El usuario natalia con ID 10 ha cerrado sesión a las 17:45:49.
+El usuario diego con ID 3 ha iniciado sesión a las 17:45:53.
+El usuario diego con ID 3 ha creado un ticket con ID 14 que se ha asignado al usuario de IT con ID 6 a las 18:02:46.
+El usuario diego con ID 3 ha cerrado sesión a las 18:02:58.
+El usuario carlos con ID 4 ha iniciado sesión a las 18:03:01.

@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">Sinova Call Center</title>
+    <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/admin.css">
     
 
 </head>
 <body>
+    <!--********************************************
+    * 
+    * Barra de navegacion
+    * 
+    *********************************************-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de administración</a>
@@ -25,7 +30,6 @@
                     <img src="assets/img/settings.png" alt="Ajustes" class="btn-icon">
                     <span id="settingsText">Ajustes</span>
                 </button>                
-
     
                 <!-- Botón Perfil Usuario -->
                 <button type="button" id="userProfileButton" class="btn btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#userProfileModal" title="Perfil del usuario">
@@ -35,7 +39,11 @@
         </div>
     </nav>
 
-    <!-- Modal para crear ticket -->
+    <!--********************************************
+    * 
+    * Modal para crear ticket
+    * 
+    *********************************************-->
     <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -53,6 +61,15 @@
                             <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
                             <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="ticketPriority" class="form-label" id="ticketPriorityLabel">Prioridad</label>
+                            <select class="form-select" id="ticketPriority" required>
+                                <option id = "ticketPriorityDefault" value="" selected disabled>Seleccione prioridad</option>
+                                <option id = "ticketPriorityHigh" value="0">Alta</option>
+                                <option id = "ticketPriorityMedium" value="1">Media</option>
+                                <option id = "ticketPriorityLow" value="2">Baja</option>
+                            </select>
+                        </div>                                               
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -63,8 +80,13 @@
         </div>
     </div>
 
+
+    <!--********************************************
+    * 
+    * Panel con las opciones de usuarios
+    * 
+    *********************************************-->
     <div class="row mt-5 justify-content-center">
-        <!-- Opciones de Usuarios -->
         <div class="col-md-6">
             <div class="container bg-dark p-4 rounded custom-container" id="userOptionsModal">
                 <h2 id="userOptionsLabel" class="mb-5 text-center">Opciones de usuarios</h2>
@@ -87,7 +109,11 @@
             </div>
         </div>
     
-        <!-- Opciones de Clientes -->
+        <!--********************************************
+        * 
+        * Panel con las opciones de clientes
+        * 
+        *********************************************-->
         <div class="col-md-6">
             <div class="container bg-dark p-4 rounded custom-container" id="clientOptionsModal">
                 <h2 id="clientOptionsLabel" class="mb-5 text-center">Opciones de clientes</h2>
@@ -113,7 +139,11 @@
         <input type="file" id="fileInputUsers" accept=".xlsx,.csv" style="display: none;">
         <input type="file" id="fileInputClients" accept=".xlsx,.csv" style="display: none;">
 
-        <!-- Opciones de exportacion -->
+        <!--********************************************
+        * 
+        * Panel con las diferentes opciones de exportacion
+        * 
+        *********************************************-->
         <div class="container mt-5 bg-dark p-4 rounded custom-container" id="exportOptionsModal">
             <h2 id="exportOptionsLabel" class="mb-5 text-center">Exportar datos</h2>
             <div class="row justify-content-center">              
@@ -129,12 +159,13 @@
                 </div>
             </div>
         </div>
-        
-        
     </div>
     
-
-    <!-- Modal Crear Usuario -->
+    <!--********************************************
+    * 
+    * Modal para crear un usuario
+    * 
+    *********************************************-->
     <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -176,62 +207,69 @@
         </div>
     </div>
 
-<!-- Modal Crear Cliente -->
-<div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createClientTitle">Crear cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="createClientForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="clientNameCreate" class="form-label" id="createClientNameColumn">Nombre completo</label>
-                            <input type="text" class="form-control" id="clientNameCreate" required>
+    <!--********************************************
+    * 
+    * Modal para crear un cliente
+    * 
+    *********************************************-->
+    <div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createClientTitle">Crear cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createClientForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="clientNameCreate" class="form-label" id="createClientNameColumn">Nombre completo</label>
+                                <input type="text" class="form-control" id="clientNameCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientEmailCreate" class="form-label" id="createClientMailColumn">Correo electrónico</label>
+                                <input type="email" class="form-control" id="clientEmailCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientPhoneCreate" class="form-label" id="createClientPhoneColumn">Teléfono</label>
+                                <input type="text" class="form-control" id="clientPhoneCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientCompanyCreate" class="form-label" id="createClientCompanyColumn">Empresa</label>
+                                <input type="text" class="form-control" id="clientCompanyCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientBaseCreate" class="form-label" id="createClientBaseColumn">Sede</label>
+                                <input type="text" class="form-control" id="clientBaseCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientSalaryCreate" class="form-label" id="createClientSalaryColumn">Salario (bruto/anual)</label>
+                                <input type="text" class="form-control" id="clientSalaryCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientHoursCreate" class="form-label" id="createClientHoursColumn">Horas semanales</label>
+                                <input type="text" class="form-control" id="clientHoursCreate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="clientUserIdCreate" class="form-label" id="createClientUserIdColumn">ID del usuario responsable</label>
+                                <input type="text" class="form-control" id="clientUserIdCreate" required>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientEmailCreate" class="form-label" id="createClientMailColumn">Correo electrónico</label>
-                            <input type="email" class="form-control" id="clientEmailCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientPhoneCreate" class="form-label" id="createClientPhoneColumn">Teléfono</label>
-                            <input type="text" class="form-control" id="clientPhoneCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientCompanyCreate" class="form-label" id="createClientCompanyColumn">Empresa</label>
-                            <input type="text" class="form-control" id="clientCompanyCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientBaseCreate" class="form-label" id="createClientBaseColumn">Sede</label>
-                            <input type="text" class="form-control" id="clientBaseCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientSalaryCreate" class="form-label" id="createClientSalaryColumn">Salario (bruto/anual)</label>
-                            <input type="text" class="form-control" id="clientSalaryCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientHoursCreate" class="form-label" id="createClientHoursColumn">Horas semanales</label>
-                            <input type="text" class="form-control" id="clientHoursCreate" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="clientUserIdCreate" class="form-label" id="createClientUserIdColumn">ID del usuario responsable</label>
-                            <input type="text" class="form-control" id="clientUserIdCreate" required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createClientCancelBtn">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="createClientSubmitBtn">Guardar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="createClientCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="createClientSubmitBtn">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-    <!-- Modal Modificar Usuario -->
+    <!--********************************************
+    * 
+    * Modal para modificar los usuarios
+    * 
+    *********************************************-->
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -250,7 +288,7 @@
                             </tr>
                         </thead>
                         <tbody id="editUserTableBody">
-                            <!-- Las filas se cargarán dinámicamente -->
+                            <!-- Filas dinamicas -->
                         </tbody>
                     </table>
                 </div>
@@ -262,8 +300,11 @@
         </div>
     </div>
 
-    
-    <!-- Modal Modificar Cliente -->
+    <!--********************************************
+    * 
+    * Modal para modificar los clientes
+    * 
+    *********************************************-->
     <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" >
         <div class="modal-dialog modal-xl" style="max-width: 1400px;">
             <div class="modal-content">
@@ -289,7 +330,7 @@
                             </tr>
                         </thead>
                         <tbody id="editClientTableBody">
-                            <!-- Filas dinámicas aquí -->
+                            <!-- Filas dinamicas -->
                         </tbody>
                     </table>
                 </div>
@@ -301,9 +342,11 @@
         </div>
     </div>
 
-
-
-    <!-- Modal Borrar Usuario -->
+    <!--********************************************
+    * 
+    * Modal para borrar usuarios
+    * 
+    *********************************************-->
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -323,7 +366,7 @@
                             </tr>
                         </thead>
                         <tbody id="deleteUserTableBody">
-                            <!-- Filas dinámicas aquí -->
+                            <!-- Filas dinamicas -->
                         </tbody>
                     </table>
                 </div>
@@ -331,7 +374,11 @@
         </div>
     </div>
 
-    <!-- Modal Borrar Cliente -->
+    <!--********************************************
+    * 
+    * Modal para borrar clientes
+    * 
+    *********************************************-->
     <div class="modal fade" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel" >
         <div class="modal-dialog modal-xl" style="max-width: 1400px;">
             <div class="modal-content">
@@ -358,7 +405,7 @@
                             </tr>
                         </thead>
                         <tbody id="deleteClientTableBody">
-                            <!-- Filas dinámicas aquí -->
+                            <!-- Filas dinamicas -->
                         </tbody>
                     </table>
                 </div>
@@ -366,7 +413,12 @@
         </div>
     </div>
 
-    <!-- Modal Confirmación de Borrado -->
+    <!--********************************************
+    * 
+    * Modal para confirmar el borrado de un usuario
+    * o cliente
+    * 
+    *********************************************-->
     <div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="confirmDeletionModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -385,7 +437,12 @@
         </div>
     </div>
 
-    <!-- Modal con información del usuario -->
+    <!--********************************************
+    * 
+    * Modal con la informacion del usuario que ha iniciado
+    * sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -400,7 +457,6 @@
                     <p class="user-info-item"><strong id="userInfoRole">Rol:</strong> <span id="userRolePlaceholder"></span></p>
                 </div>
                 <div class="modal-footer">
-                    <!-- Botón de cerrar sesión -->
                     <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
                 </div>
@@ -408,6 +464,11 @@
         </div>
     </div>
 
+    <!--********************************************
+    * 
+    * Modal de ajustes
+    * 
+    *********************************************-->
     <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -416,7 +477,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Selección de idioma con icono -->
                     <div class="d-flex align-items-center">
                         <img id="languageIcon" src="assets/img/darkLanguage.png" alt="Idioma" class="settings-icon">
                         <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
@@ -445,7 +505,11 @@
         </div>
     </div>
     
-
+    <!--********************************************
+    * 
+    * Modal de confirmacion de cerrado de sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -464,116 +528,13 @@
         </div>
     </div>
 
-   
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
-        
-
-        function loadLanguage(lang) {
-            const timestamp = new Date().getTime();
-            fetch(`assets/idiomas/admin/${lang}.txt?t=${timestamp}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la carga del archivo de idioma: ' + response.status);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const lines = data.split('\n');
-                    const ids = [
-                        'navTitle', 'settingsText', 'settingsTitle', 'selectLanguageLabel',
-                        'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel',
-                        'createUserBtn', 'editUserBtn', 'deleteUserBtn',
-                        'clientOptionsLabel', 'createClientBtn', 'editClientBtn',
-                        'deleteClientBtn', 'createUserTitle', 'createUserUsernameLabel',
-                        'createUserMailLabel', 'createUserPasswordLabel', 'createUserRoleLabel',
-                        'createUserRoleSelect', 'createUserRoleAdmin', 'createUserRoleUser',
-                        'createUserRoleSupervisor', 'createUserRoleIT', 'createUserCancelButton',
-                        'createUserSubmitButton', 'editUserModalTitle', 'editUserNameColumn',
-                        'editUserMailColumn', 'editUserRoleColumn', 'editUserCancelBtn',
-                        'editUserSaveBtn', 'deleteUserModalTitle', 'deleteUserNameColumn',
-                        'deleteUserMailColumn', 'deleteUserRoleColumn', 'deleteUserActionColumn',
-                        'logoutButton', 'confirmLogoutTitle', 'yesLogoutButton', 'noLogoutButton',
-                        'createClientTitle', 'createClientNameColumn', 'createClientMailColumn',
-                        'createClientPhoneColumn', 'createClientUserIdColumn', 'createClientCancelBtn',
-                        'createClientSubmitBtn', 'editClientTitle', 'editClientIdColumn',
-                        'editClientNameColumn', 'editClientMailColumn', 'editClientPhoneColumn',
-                        'editClientCompletedColumn', 'editClientExtraInfoColumn', 'editClientUserIdColumn', 
-                        'editClientCancelBtn', 'saveClientChangesBtn', 'deleteClientModalTitle',
-                        'deleteClientIdColumn', 'deleteClientNameColumn', 'deleteClientMailColumn',
-                        'deleteClientPhoneColumn', 'deleteClientCompletedColumn',
-                        'deleteClientExtraInfoColumn', 'deleteClientUserIdColumn', 'deleteClientActionColumn',
-                        'deleteCLientConfirmationTitle', 'deleteClientConfirmationText', 'deleteClientConfirmationYesBtn',
-                        'deleteClientConfirmationCancelBtn', 'userProfileModalLabel', 'userInfoName', 'userInfoMail', 
-                        'userInfoRole', 'userInfoClose', 'themeLabel', 'darkThemeLabel', "createClientCompanyColumn",
-                        "createClientBaseColumn", "createClientSalaryColumn", "createClientHoursColumn",
-                        "editClientCompanyColumn", "editClientBaseColumn", "editClientSalaryColumn", "editClientHoursColumn",
-                        "deleteClientCompanyColumn", "deleteClientBaseColumn", "deleteClientSalaryColumn",
-                        "deleteClientHoursColumn", "createTicketText", "ticketModalLabel", "ticketTitleLabel", 
-                        "ticketDescriptionLabel", "closeTicketModal", "submitTicket", "exportOptionsLabel",
-                        "exportUsersLabel", "exportClientsLabel", "exportUsersExcel", "exportUsersPDF", "exportClientsExcel",
-                        "exportClientsPDF", "importUserBtn", "importClientBtn"
-                    ];
-
-                    ids.forEach((id, index) => {
-                        const element = document.getElementById(id);
-                        if (element) {
-                            element.innerText = lines[index] || ""; // Asigna texto si existe
-                        } else {
-                            console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
-                        }
-                    });
-
-                    // Actualizar las opciones del menú desplegable de idiomas
-                    const languageSelect = document.getElementById('languageSelect');
-                    if (lang === 'es') {
-                        languageSelect.innerHTML = `
-                            <option value="es" ${lang === 'es' ? 'selected' : ''}>Español</option>
-                            <option value="en">English</option>
-                        `;
-                    } else if (lang === 'en') {
-                        languageSelect.innerHTML = `
-                            <option value="es">Español</option>
-                            <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
-                        `;
-                    }
-                })
-                .catch(error => console.error('Error al cargar el idioma:', error));
-        }
-        
-
-        // Cambiar idioma y recargar la página
-        document.getElementById('languageSelect').addEventListener('change', function () {
-            const selectedLanguage = this.value;
-
-            // Guardar el idioma seleccionado en localStorage
-            localStorage.setItem('language', selectedLanguage);
-
-            // Recargar la página solo si el idioma cambia
-            if (selectedLanguage !== currentLanguage) {
-                location.reload(); // Recargar la página para aplicar el idioma seleccionado
-            }
-        });
-
-
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.addEventListener("show.bs.modal", function () {
-                document.activeElement.blur();
-            });
 
-            document.addEventListener("hidden.bs.modal", function () {
-                setTimeout(() => {
-                    document.activeElement.blur();
-                }, 10);
-            });
-
-
-
+            //Constantes y variables globales
+            let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
             const darkModeToggle = document.getElementById("darkModeToggle");
             const userOptionsModal = document.getElementById("userOptionsModal");
             const createUserForm = document.getElementById("createUserForm");
@@ -584,15 +545,13 @@
             const editClientTable = document.getElementById("editClientTable"); 
             const deleteClientTable = document.getElementById("deleteClientTable");
             const themeIcon = document.getElementById("themeIcon");
-
-
-
-            if (!darkModeToggle) {
-                console.error("No se encontró el switch de modo oscuro en el DOM.");
-                return;
-            }
-
             const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+
+
+            //Llamadas a funciones y demas funcionalidades
+            loadLanguage(currentLanguage);
+            fetchUserInfo();
+            updateIcons();
             document.body.classList.toggle("light-mode", !isDarkMode);
             userOptionsModal.classList.toggle("bg-dark", isDarkMode);
             createUserForm.classList.toggle("table-dark", isDarkMode);
@@ -604,7 +563,126 @@
             deleteClientTable.classList.toggle("table-dark", isDarkMode);
             exportOptionsModal.classList.toggle("bg-dark", isDarkMode);
             darkModeToggle.checked = isDarkMode;
+            if (document.documentElement.lang !== currentLanguage) {
+                document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
+                loadLanguage(currentLanguage);
+            }
 
+
+            //Declaracion de funciones y listeners
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar el idioma
+             * 
+            ***********************************************/
+            function loadLanguage(lang) {
+                const timestamp = new Date().getTime();
+                fetch(`assets/idiomas/admin/${lang}.txt?t=${timestamp}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la carga del archivo de idioma: ' + response.status);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        const lines = data.split('\n');
+                        const ids = [
+                            'navTitle', 'settingsText', 'settingsTitle', 'selectLanguageLabel',
+                            'closeSettingsButton', 'confirmLogoutLabel', 'userOptionsLabel',
+                            'createUserBtn', 'editUserBtn', 'deleteUserBtn',
+                            'clientOptionsLabel', 'createClientBtn', 'editClientBtn',
+                            'deleteClientBtn', 'createUserTitle', 'createUserUsernameLabel',
+                            'createUserMailLabel', 'createUserPasswordLabel', 'createUserRoleLabel',
+                            'createUserRoleSelect', 'createUserRoleAdmin', 'createUserRoleUser',
+                            'createUserRoleSupervisor', 'createUserRoleIT', 'createUserCancelButton',
+                            'createUserSubmitButton', 'editUserModalTitle', 'editUserNameColumn',
+                            'editUserMailColumn', 'editUserRoleColumn', 'editUserCancelBtn',
+                            'editUserSaveBtn', 'deleteUserModalTitle', 'deleteUserNameColumn',
+                            'deleteUserMailColumn', 'deleteUserRoleColumn', 'deleteUserActionColumn',
+                            'logoutButton', 'confirmLogoutTitle', 'yesLogoutButton', 'noLogoutButton',
+                            'createClientTitle', 'createClientNameColumn', 'createClientMailColumn',
+                            'createClientPhoneColumn', 'createClientUserIdColumn', 'createClientCancelBtn',
+                            'createClientSubmitBtn', 'editClientTitle', 'editClientIdColumn',
+                            'editClientNameColumn', 'editClientMailColumn', 'editClientPhoneColumn',
+                            'editClientCompletedColumn', 'editClientExtraInfoColumn', 'editClientUserIdColumn', 
+                            'editClientCancelBtn', 'saveClientChangesBtn', 'deleteClientModalTitle',
+                            'deleteClientIdColumn', 'deleteClientNameColumn', 'deleteClientMailColumn',
+                            'deleteClientPhoneColumn', 'deleteClientCompletedColumn',
+                            'deleteClientExtraInfoColumn', 'deleteClientUserIdColumn', 'deleteClientActionColumn',
+                            'deleteCLientConfirmationTitle', 'deleteClientConfirmationText', 'deleteClientConfirmationYesBtn',
+                            'deleteClientConfirmationCancelBtn', 'userProfileModalLabel', 'userInfoName', 'userInfoMail', 
+                            'userInfoRole', 'userInfoClose', 'themeLabel', 'darkThemeLabel', "createClientCompanyColumn",
+                            "createClientBaseColumn", "createClientSalaryColumn", "createClientHoursColumn",
+                            "editClientCompanyColumn", "editClientBaseColumn", "editClientSalaryColumn", "editClientHoursColumn",
+                            "deleteClientCompanyColumn", "deleteClientBaseColumn", "deleteClientSalaryColumn",
+                            "deleteClientHoursColumn", "createTicketText", "ticketModalLabel", "ticketTitleLabel", 
+                            "ticketDescriptionLabel", "closeTicketModal", "submitTicket", "exportOptionsLabel",
+                            "exportUsersLabel", "exportClientsLabel", "exportUsersExcel", "exportUsersPDF", "exportClientsExcel",
+                            "exportClientsPDF", "importUserBtn", "importClientBtn", "ticketPriorityLabel",
+                            "ticketPriorityDefault", "ticketPriorityHigh", "ticketPriorityMedium", "ticketPriorityLow"
+                        ];
+
+                        ids.forEach((id, index) => {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                element.innerText = lines[index] || ""; // Asigna texto si existe
+                            } else {
+                                console.warn(`Elemento con ID '${id}' no encontrado en el DOM.`);
+                            }
+                        });
+
+                        // Actualizar las opciones del menú desplegable de idiomas
+                        const languageSelect = document.getElementById('languageSelect');
+                        if (lang === 'es') {
+                            languageSelect.innerHTML = `
+                                <option value="es" ${lang === 'es' ? 'selected' : ''}>Español</option>
+                                <option value="en">English</option>
+                            `;
+                        } else if (lang === 'en') {
+                            languageSelect.innerHTML = `
+                                <option value="es">Español</option>
+                                <option value="en" ${lang === 'en' ? 'selected' : ''}>English</option>
+                            `;
+                        }
+                    })
+                    .catch(error => console.error('Error al cargar el idioma:', error));
+            }
+        
+            /***********************************************
+             * 
+             * Cambia el idioma una vez se seleccione otro que no 
+             * sea el actual
+             * 
+            ***********************************************/
+            document.getElementById('languageSelect').addEventListener('change', function () {
+                const selectedLanguage = this.value;
+
+                // Guardar el idioma seleccionado en localStorage
+                localStorage.setItem('language', selectedLanguage);
+
+                // Recargar la página solo si el idioma cambia
+                if (selectedLanguage !== currentLanguage) {
+                    location.reload(); 
+                }
+            });
+
+            document.addEventListener("show.bs.modal", function () {
+                document.activeElement.blur();
+            });
+
+            document.addEventListener("hidden.bs.modal", function () {
+                setTimeout(() => {
+                    document.activeElement.blur();
+                }, 10);
+            });
+
+            /***********************************************
+             * 
+             * Se encarga de cambiar el tema Claro/Oscuro de tablas, 
+             * formularios, modales e iconos de manera satisfactoria
+             * 
+            ***********************************************/
             darkModeToggle.addEventListener("change", function () {
                 const enableDarkMode = this.checked;
                 document.body.classList.toggle("light-mode", !enableDarkMode);
@@ -622,55 +700,59 @@
                 location.reload();
             });
 
+            /***********************************************
+             * 
+             * Consulta a la API la informacion del usuario
+             * que ha iniciado sesion
+             * 
+            ***********************************************/
+            function fetchUserInfo() {
+                fetch('/TFG/src/routes/api.php/userinfo', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error al obtener la información del usuario:', data.error);
+                        return;
+                    }
 
-            // Si el idioma en localStorage es diferente al actual del HTML, recargar
-            if (document.documentElement.lang !== currentLanguage) {
-                document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
-                loadLanguage(currentLanguage); // Cargar el idioma
-            }
-            loadLanguage(currentLanguage); // Cargar idioma según localStorage
+                    document.getElementById('userIDPlaceholder').innerText = data.id;
+                    document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
+                    document.getElementById('userEmailPlaceholder').innerText = data.email;
 
+                    let roleText = '';
+                    if (currentLanguage === 'es') {
+                        switch (data.rol) {
+                            case 0: roleText = "Administrador"; break;
+                            case 1: roleText = "Usuario"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "Equipo técnico"; break;
+                            default: roleText = "Desconocido";
+                        }
+                    } else if (currentLanguage === 'en') {
+                        switch (data.rol) {
+                            case 0: roleText = "Admin"; break;
+                            case 1: roleText = "User"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "IT"; break;
+                            default: roleText = "Unknown";
+                        }
+                    }
 
-            fetch('../src/routes/api.php/userinfo', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-})
-.then(response => response.json())
-.then(data => {
-    if (data.error) {
-        console.error('Error al obtener la información del usuario:', data.error);
-        return;
-    }
+                    document.getElementById('userRolePlaceholder').innerText = roleText;
+                })
+                .catch(error => console.error('Error al obtener la información del usuario:', error));
+            }          
 
-    document.getElementById('userIDPlaceholder').innerText = data.id;
-    document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
-    document.getElementById('userEmailPlaceholder').innerText = data.email;
-
-    // Mostrar el rol basado en el idioma seleccionado
-    let roleText = '';
-    if (currentLanguage === 'es') {
-        switch (data.rol) {
-            case 0: roleText = "Administrador"; break;
-            case 1: roleText = "Usuario"; break;
-            case 2: roleText = "Supervisor"; break;
-            case 3: roleText = "Equipo técnico"; break;
-            default: roleText = "Desconocido";
-        }
-    } else if (currentLanguage === 'en') {
-        switch (data.rol) {
-            case 0: roleText = "Admin"; break;
-            case 1: roleText = "User"; break;
-            case 2: roleText = "Supervisor"; break;
-            case 3: roleText = "IT"; break;
-            default: roleText = "Unknown";
-        }
-    }
-
-    document.getElementById('userRolePlaceholder').innerText = roleText;
-})
-.catch(error => console.error('Error al obtener la información del usuario:', error));
-
-
+            /***********************************************
+             * 
+             * Cuando se clica en el boton de crear un usuario, se
+             * comprueba que los datos son válidos y se procede a
+             * la inserción en la BBDD
+             * 
+            ***********************************************/
             document.getElementById('createUserSubmitButton').addEventListener('click', function () {
                 // Recoge los valores de los campos del formulario
                 const username = document.getElementById('usernameCreate').value.trim();
@@ -684,14 +766,13 @@
                     return;
                 } 
 
-                // Enviar datos al backend
-                fetch('../src/admin.php', {
+                // Enviar datos al backend usando la API REST
+                fetch('/TFG/src/routes/api.php/create_user', { 
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        action: 'create_user',
                         username,
                         email,
                         password,
@@ -702,13 +783,11 @@
                     .then(data => {
                         if (data.success) {
                             alert('Usuario creado correctamente');
-                            // Cierra el modal después de crear el usuario
                             const createUserModal = document.getElementById('createUserModal');
                             const modalInstance = bootstrap.Modal.getInstance(createUserModal);
                             if (modalInstance) {
                                 modalInstance.hide();
                             }
-                            // Opcional: Limpiar el formulario
                             document.getElementById('createUserForm').reset();
                         } else {
                             alert('Error al crear usuario: ' + (data.error || 'Error desconocido'));
@@ -719,9 +798,14 @@
                         alert('Error al crear usuario. Inténtalo nuevamente.');
                     });
             });
-            
 
-
+            /***********************************************
+             * 
+             * Cuando se clica en el boton de crear un cliente, se
+             * comprueba que los datos son válidos y se procede a
+             * la inserción en la BBDD
+             * 
+            ***********************************************/
             document.getElementById('createClientSubmitBtn').addEventListener('click', function () {
                 // Recoger valores del formulario
                 const nombre = document.getElementById('clientNameCreate').value.trim();
@@ -739,14 +823,13 @@
                     return;
                 }
 
-                // Enviar datos al servidor
-                fetch('../src/admin.php', {
+                // Enviar datos al backend
+                fetch('/TFG/src/routes/api.php/create_client', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        action: 'create_client',
                         nombre,
                         email,
                         telefono,
@@ -761,13 +844,11 @@
                     .then(data => {
                         if (data.success) {
                             alert('Cliente creado correctamente');
-                            // Cerrar el modal después de guardar
                             const createClientModal = document.getElementById('createClientModal');
                             const modalInstance = bootstrap.Modal.getInstance(createClientModal);
                             if (modalInstance) {
                                 modalInstance.hide();
                             }
-                            // Limpiar el formulario
                             document.getElementById('createClientForm').reset();
                         } else {
                             alert('Error al crear cliente: ' + (data.error || 'Error desconocido'));
@@ -779,9 +860,15 @@
                     });
             });
 
-
+            /***********************************************
+            * 
+            * Cuando se clique en el boton de editar un usuario, se
+            * recogen los datos de la BBDD y se muestran en la tabla,
+            * para poder editarlos
+            * 
+            ***********************************************/
             document.getElementById('editUserBtn').addEventListener('click', () => {
-                fetch('../src/admin.php?type=users', {
+                fetch('/TFG/src/routes/api.php/usersAdmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -801,19 +888,17 @@
                         }
 
                         const tableBody = document.getElementById('editUserTableBody');
-                        tableBody.innerHTML = ''; // Limpia la tabla
+                        tableBody.innerHTML = '';
 
-                        // Obtener idioma seleccionado desde el localStorage
                         let currentLanguage = localStorage.getItem('language') || 'es';
 
-                        // Definir los roles según el idioma seleccionado
                         let roles;
                         if (currentLanguage === 'es') {
                             roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico'];
                         } else if (currentLanguage === 'en') {
                             roles = ['Admin', 'User', 'Supervisor', 'IT'];
                         } else {
-                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico']; // Fallback en español
+                            roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico']; 
                         }
 
                         data.forEach(user => {
@@ -841,6 +926,12 @@
 
             });
 
+            /***********************************************
+            * 
+            * Una vez se quieran actualizar los usuarios, se enviian
+            * los datos a la API y se actualiza la BBDD de todos los usuarios
+            * 
+            ***********************************************/
             document.getElementById('editUserSaveBtn').addEventListener('click', function () {
                 const inputs = document.querySelectorAll('#editUserTableBody input, #editUserTableBody select');
 
@@ -859,14 +950,13 @@
 
                 const updateArray = Object.values(updates);
 
-                // Enviar los datos al servidor
-                fetch('../src/admin.php', {
+                // Enviar los datos al backend
+                fetch('/TFG/src/routes/api.php/edit_user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        action: 'edit_user',
                         users: updateArray,
                     }),
                 })
@@ -889,9 +979,15 @@
                     });
             });
 
-            // Cargar clientes en el modal al abrirlo
+            /***********************************************
+            * 
+            * Cuando se clique en el boton de editar un cliente, se
+            * cargan los datos de la BBDD y se muestran en la tabla,
+            * para poder editarlos
+            * 
+            ***********************************************/
             document.getElementById('editClientBtn').addEventListener('click', () => {
-                fetch('../src/admin.php?type=clients', {
+                fetch('/TFG/src/routes/api.php/clientsAdmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -911,7 +1007,7 @@
                         }
 
                         const tableBody = document.getElementById('editClientTableBody');
-                        tableBody.innerHTML = ''; // Limpia la tabla
+                        tableBody.innerHTML = ''; 
 
                         data.forEach(client => {
                             const row = `
@@ -939,8 +1035,12 @@
                     });
             });
 
-
-            // Guardar cambios de clientes
+            /***********************************************
+            * 
+            * Una vez se quieran guardar los cambios de los clientes
+            * se envian a la BBDD y se actualizan todos los clientes
+            * 
+            ***********************************************/
             document.getElementById('saveClientChangesBtn').addEventListener('click', function () {
                 const inputs = document.querySelectorAll('#editClientTableBody input, #editClientTableBody textarea');
 
@@ -951,7 +1051,6 @@
 
                     if (!acc[id]) acc[id] = { id };
 
-                    // Asignar valores correctamente
                     if (input.type === 'checkbox') {
                         acc[id][field] = input.checked ? 1 : 0; // Convertir checkbox a 1 o 0
                     } else {
@@ -964,14 +1063,13 @@
                 const updateArray = Object.values(updates);
 
 
-                // Enviar los datos al servidor
-                fetch('../src/admin.php', {
+                // Enviar los datos al backend
+                fetch('/TFG/src/routes/api.php/edit_client', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        action: 'edit_client',
                         clients: updateArray,
                     }),
                 })
@@ -994,8 +1092,15 @@
                     });
             });
 
+            /***********************************************
+            * 
+            * Cuando se clique en el boton de eliminar un usuario
+            * se muestran todos los usuarios en una tabla con un
+            * boton para eliminarlos
+            * 
+            ***********************************************/
             document.getElementById('deleteUserBtn').addEventListener('click', function () {
-                fetch('../src/admin.php?type=users', {
+                fetch('/TFG/src/routes/api.php/usersAdmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1003,13 +1108,10 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data); // Verifica los datos que llegan
                         const tableBody = document.getElementById('deleteUserTableBody');
                         tableBody.innerHTML = '';
-                        // Obtener idioma seleccionado desde el localStorage
                         let currentLanguage = localStorage.getItem('language') || 'es';
 
-                        // Definir los roles según el idioma seleccionado
                         let roles;
                         if (currentLanguage === 'es') {
                             roles = ['Administrador', 'Usuario', 'Supervisor', 'Equipo técnico'];
@@ -1035,10 +1137,15 @@
                     .catch(error => console.error('Error al cargar los usuarios:', error));
                 });
 
-
-            // Cargar clientes en el modal de borrar
-            document.getElementById('deleteClientBtn').addEventListener('click', function () {
-                fetch('../src/admin.php?type=clients', {
+            /***********************************************
+            * 
+            * Cuando se clique en el boton de eliminar un cliente
+            * se muestran todos los clientes en una tabla con un
+            * boton para eliminarlos
+            * 
+            ***********************************************/            
+           document.getElementById('deleteClientBtn').addEventListener('click', function () {
+                fetch('/TFG/src/routes/api.php/clientsAdmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1076,86 +1183,111 @@
                     .catch(error => console.error('Error al cargar los clientes:', error));
             });
 
-            // Confirmar borrado
+            /***********************************************
+            * 
+            * Cuando se quiera borrar un usuario o un cliente, 
+            * se abre un modal para confirmar la accion
+            * 
+            ***********************************************/            
             window.confirmDeletion = function (type, id) {
                 const confirmDeletionModal = new bootstrap.Modal(document.getElementById('confirmDeletionModal'));
                 document.getElementById('deleteClientConfirmationYesBtn').onclick = function () {
-                    fetch('../src/admin.php', {
-                        method: 'POST',
+                    fetch('/TFG/src/routes/api.php/' + (type === 'user' ? 'delete_user' : 'delete_client'), { 
+                        method: 'DELETE',  
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({
-                            action: type === 'user' ? 'delete_user' : 'delete_client',
-                            id,
-                        }),
+                        body: JSON.stringify({ id }) // Enviamos solo el ID en el body
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert(`${type === 'user' ? 'Usuario' : 'Cliente'} borrado correctamente.`);
-                                confirmDeletionModal.hide();
-                                // Recargar los datos del modal correspondiente
-                                if (type === 'user') {
-                                    document.getElementById('deleteUserBtn').click();
-                                } else {
-                                    document.getElementById('deleteClientBtn').click();
-                                }
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(`${type === 'user' ? 'Usuario' : 'Cliente'} borrado correctamente.`);
+                            confirmDeletionModal.hide();
+                            
+                            // Recargar los datos del modal correspondiente
+                            if (type === 'user') {
+                                document.getElementById('deleteUserBtn').click();
                             } else {
-                                alert('Error al borrar: ' + (data.error || 'Error desconocido.'));
+                                document.getElementById('deleteClientBtn').click();
                             }
-                        })
-                        .catch(error => console.error('Error al borrar:', error));
+                        } else {
+                            alert('Error al borrar: ' + (data.error || 'Error desconocido.'));
+                        }
+                    })
+                    .catch(error => console.error('Error al borrar:', error));
                 };
+
                 confirmDeletionModal.show();
-            };
+            };           
 
-
-            
-
+            /***********************************************
+            * 
+            * Cuando se clique en el botón de cerrar sesion, se abrira
+            * un modal de confirmacion
+            * 
+            ***********************************************/
             document.getElementById('logoutButton').addEventListener('click', function () {
                 const confirmLogoutModal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
                 confirmLogoutModal.show(); // Abre el modal de confirmación de cierre de sesión
             });
 
-
+            /***********************************************
+            * 
+            * En caso de que se confirme la accion de cerrar sesion,
+            * se llama a la funcion de cerrar sesion de la api y se redirige
+            * a index.html
+            * 
+            ***********************************************/
             document.getElementById('yesLogoutButton').addEventListener('click', function () {
-                fetch('../src/logout.php', {
+                fetch('/TFG/src/routes/api.php/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                    },
+                    }
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            // Redirigir al usuario a la página de inicio de sesión
-                            window.location.href = 'index.html';
-                        } else {
-                            alert('Error al cerrar sesión. Intenta nuevamente.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error al cerrar sesión:', error);
-                        alert('Error al cerrar sesión. Intenta nuevamente.');
-                    });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'index.html';  // Redirige si todo fue bien
+                    } else {
+                        alert('Error al cerrar sesión: ' + (data.message || 'Intenta nuevamente.'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cerrar sesión:', error);
+                    alert('Error al cerrar sesión. Intenta nuevamente.');
+                });
             });
 
+            /***********************************************
+            * 
+            * Una vez rellenos los datos necesarios, se envia el ticket
+            * a la BBDD, donde se asigna un usuario de IT segun el numero
+            * de tickets que tengan activos
+            * 
+            ***********************************************/
             document.getElementById("submitTicket").addEventListener("click", function () {
                 const titulo = document.getElementById("ticketTitle").value.trim();
                 const descripcion = document.getElementById("ticketDescription").value.trim();
+                const prioridadSeleccionada = document.getElementById("ticketPriority").value;
+                const idUser = document.getElementById('userIDPlaceholder').innerText.trim();
 
-                if (!titulo || !descripcion) {
-                    alert("Por favor, completa todos los campos.");
+                if (!titulo || !descripcion || prioridadSeleccionada === "") {
+                    alert("Por favor, completa todos los campos y selecciona una prioridad.");
                     return;
                 }
 
-                fetch('../src/admin.php', {
+                const prioridad = parseInt(prioridadSeleccionada);
+
+                fetch('/TFG/src/routes/api.php/create_ticket', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'crear_ticket',
+                        idUser: idUser,
                         titulo: titulo,
-                        descripcion: descripcion
+                        descripcion: descripcion,
+                        prioridad: prioridad
                     })
                 })
                 .then(response => response.json())
@@ -1170,51 +1302,51 @@
                 .catch(error => console.error("Error:", error));
             });
 
+            /***********************************************
+            * 
+            * Una vez clicado un boton de exportar usuarios/clientes
+            * en formato excel/pdf, se llama a la API para proceder
+            * a la generacion y descarga del archivo
+            * 
+            ***********************************************/
             document.querySelectorAll(".export-button").forEach(button => {
                 button.addEventListener("click", function () {
                     const type = this.dataset.type;  // "clientes" o "usuarios"
                     const format = this.dataset.format;  // "excel" o "pdf"
 
-                    let formData = new FormData();
-                    formData.append("type", type);
-                    formData.append("format", format);
-
-                    fetch("../src/exportBBDD.php", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error("Error en la exportación.");
-                        return response.blob();
-                    })
-                    .then(blob => {
-                        let url = window.URL.createObjectURL(blob);
-                        let a = document.createElement("a");
-                        a.href = url;
-                        a.download = `${type}.${format === "excel" ? "xlsx" : "pdf"}`;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                    })
-                    .catch(error => console.error("Error al exportar:", error));
+                    window.location.href = `/TFG/src/routes/api.php/export?type=${type}&format=${format}`;
                 });
             });
 
-            
+            /***********************************************
+            * 
+            * Se actualizan los iconos dependiendo del tema
+            * seleccionado (Claro u Oscuro)
+            * 
+            ***********************************************/
             function updateIcons() {
                 const isDarkMode = localStorage.getItem("darkMode") === "enabled";
                 themeIcon.src = isDarkMode ? "assets/img/darkTheme.png" : "assets/img/lightTheme.png";
                 languageIcon.src = isDarkMode ? "assets/img/darkLanguage.png" : "assets/img/lightLanguage.png";
             }
 
-            // Aplicar los iconos correctos al cargar la página
-            updateIcons();
-
-
+            /***********************************************
+            * 
+            * Cuando se clique en el botón de importar usuarios, 
+            * se abre el input de archivos donde podremos seleccionar 
+            * el excel con los usuarios de nuestro PC
+            * 
+            ***********************************************/
             document.getElementById("importUserBtn").addEventListener("click", function () {
                 document.getElementById("fileInputUsers").click();
             });
 
+            /***********************************************
+            * 
+            * Una vez recibido el archivo de importacion de usuarios
+            * se llama a la API para proceder a la importacion
+            * 
+            ***********************************************/
             document.getElementById("fileInputUsers").addEventListener("change", function (event) {
                 const file = event.target.files[0];
                 if (!file) return;
@@ -1223,7 +1355,7 @@
                 formData.append("action", "import_users");
                 formData.append("file", file);
 
-                fetch("../src/importData.php", {
+                fetch("/TFG/src/routes/api.php/import_users", {
                     method: "POST",
                     body: formData,
                 })
@@ -1240,11 +1372,23 @@
                 });
             });
 
-            // Para clientes
+            /***********************************************
+            * 
+            * Cuando se clique en el botón de importar clientes, 
+            * se abre el input de archivos donde podremos seleccionar 
+            * el excel con los usuarios de nuestro PC
+            * 
+            ***********************************************/
             document.getElementById("importClientBtn").addEventListener("click", function () {
                 document.getElementById("fileInputClients").click();
             });
 
+            /***********************************************
+            * 
+            * Una vez recibido el archivo de importacion de clientes
+            * se llama a la API para proceder a la importacion
+            * 
+            ***********************************************/
             document.getElementById("fileInputClients").addEventListener("change", function (event) {
                 const file = event.target.files[0];
                 if (!file) return;
@@ -1253,7 +1397,7 @@
                 formData.append("action", "import_clients");
                 formData.append("file", file);
 
-                fetch("../src/importData.php", {
+                fetch("/TFG/src/routes/api.php/import_clients", {
                     method: "POST",
                     body: formData,
                 })
@@ -1269,10 +1413,6 @@
                     console.error("Error en la importación:", error);
                 });
             });
-
-
-
-            
         });
 
     </script>

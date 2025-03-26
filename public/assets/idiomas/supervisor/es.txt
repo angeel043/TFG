@@ -49,3 +49,13 @@ Restablecer filtros
 Exportar datos
 Exportar clientes (.xlsx)
 Exportar clientes (.pdf)
+Prioridad
+Seleccione prioridad
+Alta
+Media
+Baja
+Estadísticas de usuarios
+ID Usuario
+Clientes completados
+Clientes activos
+Métricas de rendimiento - Equipo IT

@@ -23,3 +23,29 @@ Title
 Description
 Creation date
 Completed
+Priority
+Expiration
+Filters
+Filter by priority:
+All
+High
+Medium
+Low
+Expired
+Order by:
+Priority
+Expiration
+Apply filters
+Clear filters
+Ticket metrics
+Ticket history
+View history
+Completed ticket history
+Ticket ID
+Title
+Description
+User mail
+Creation date
+Priority
+Expiration date
+Close

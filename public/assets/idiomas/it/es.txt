@@ -23,3 +23,29 @@ Título
 Descripción
 Fecha de creación
 Completado
+Prioridad
+Caducidad
+Filtros
+Filtrar por prioridad:
+Todas
+Alta
+Media
+Baja
+Caducado
+Ordenar por:
+Prioridad
+Caducidad
+Aplicar Filtros
+Restablecer filtros
+Métricas de tickets
+Historial de tickets
+Ver historial
+Historial de tickets completados
+ID ticket
+Titulo
+Descripción
+Correo usuario
+Fecha de creación
+Prioridad
+Caducidad
+Cerrar

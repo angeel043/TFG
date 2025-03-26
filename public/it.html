@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">Sinova Call Center</title>
+    <title id="title">Sinova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/it.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!--********************************************
+    * 
+    * Barra de navegacion
+    * 
+    *********************************************-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de Soporte Técnico</a>
             <div class="d-flex align-items-center">    
-                <!-- Botón Ajustes con icono -->
+                <!-- Botón Ajustes -->
                 <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
                     <img src="assets/img/settings.png" alt="Ajustes" class="btn-icon">
                     <span id="settingsText">Ajustes</span>
@@ -26,7 +32,12 @@
         </div>
     </nav>
 
-    <!-- Modal con información del usuario -->
+    <!--********************************************
+    * 
+    * Modal con informacion del usuario que ha iniciado
+    * sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -43,7 +54,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!-- Botón de cerrar sesión -->
                     <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
                 </div>
@@ -51,6 +61,11 @@
         </div>
     </div>
 
+    <!--********************************************
+    * 
+    * Modal de ajustes
+    * 
+    *********************************************-->
     <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -59,7 +74,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Selección de idioma con icono -->
                     <div class="d-flex align-items-center">
                         <img id="languageIcon" src="assets/img/darkLanguage.png" alt="Idioma" class="settings-icon">
                         <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
@@ -88,7 +102,11 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación de cierre de sesión -->
+    <!--********************************************
+    * 
+    * Modal de confirmacion de cierre de sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -107,25 +125,146 @@
         </div>
     </div>
 
-    <div class="container mt-5" style="width: 100%; max-width: 1200px;">
-        <h2 id="ticketsTitle">Tickets pendientes</h2>
-        <table class="table table-dark table-striped" id="ticketsTable">
-            <thead>
+    <!--********************************************
+    * 
+    * Contenedor principañ
+    * 
+    *********************************************-->
+    <div class="container-fluid mt-4 d-flex justify-content-start align-items-start gap-4" style="max-width: 1600px;">
+
+        <!-- Panel lateral -->
+        <div class="d-flex flex-column" style="width: 250px; gap: 30px;">
+
+            <!-- Filtros -->
+            <div class="bg p-4 rounded container" id="ticketFiltersPanel" style="width: 250px;">
+                <h5 class="text-center mb-3" id="ticketFiltersTitle">Filtros</h5>
+
+                <!-- Filtro por prioridad -->
+                <div class="mb-3">
+                    <label for="filterPrioritySelect" class="form-label" id="filterPriorityLabel">Filtrar por prioridad:</label>
+                    <select class="form-select" id="filterPrioritySelect">
+                        <option id="filterPriorityAll" value="">Todas</option>
+                        <option id="filterPriorityHigh" value="0">Alta</option>
+                        <option id="filterPriorityMedium" value="1">Media</option>
+                        <option id="filterPriorityLow" value="2">Baja</option>
+                        <option id="filterPriorityExpired" value="caducado">Caducado</option>
+                    </select>
+                </div>
+
+                <!-- Ordenar por -->
+                <div class="mb-3">
+                    <label for="orderBySelect" class="form-label" id="orderByLabel">Ordenar por:</label>
+                    <select class="form-select" id="orderBySelect">
+                        <option id="orderPriority" value="prioridad" selected>Prioridad</option>
+                        <option id="orderCaducity" value="caducidad">Caducidad</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary w-100" id="applyTicketFilters">Aplicar filtros</button>
+                <button type="button" class="btn btn-secondary w-100 mt-2" id="clearFiltersButton">Restablecer filtros</button>
+            </div>
+
+            <!-- Historial -->
+            <div class="bg p-4 rounded container" id="ticketHistoryPanel">
+                <h5 class="text-center mb-3" id="ticketHistoryTitle">Historial tickets</h5>
+                <button class="btn btn-primary w-100" id="viewTicketHistory">Ver historial</button>
+            </div>
+
+        </div>
+
+        <!-- Contenedor derecho -->
+        <div class="d-flex flex-column" style="flex-grow: 1; gap: 30px;">
+
+            <!-- Tabla de Tickets -->
+            <div class="container p-4 rounded container">
+                <h2 id="ticketsTitle">Tickets pendientes</h2>
+                <table class="table table-dark table-striped" id="ticketsTable">
+                    <thead>
+                        <tr>
+                            <th id="idTicketColumn">ID ticket</th>
+                            <th id="idUserColumn">ID usuario</th>
+                            <th id="mailUserColumn">Correo usuario</th>
+                            <th id="titleTicketColumn">Título</th>
+                            <th id="descTicketColumn">Descripción</th>
+                            <th id="dateTicketColumn">Fecha de creación</th>
+                            <th id="priorityTicketColumn">Prioridad</th>
+                            <th id="slaTicketColumn">Caducidad</th>
+                            <th id="completedTicketColumn">Completado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filas dinamicas -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Panel Métricas de Tickets IT -->
+            <div class="container p-4 rounded container" id="ticketMetricsPanel">
+                <h4 class="text-center mb-4" id="ticketMetricsTitle">Métricas de tickets</h4>
+                
+                <!-- Gráficas -->
+                <div class="d-flex justify-content-around flex-wrap gap-4">
+
+                    <!-- Gráfica: Tickets por Prioridad -->
+                    <div class="text-center">
+                        <h6 id="priorityChartTitle">Tickets por prioridad</h6>
+                        <canvas id="chartTicketsPorPrioridad" width="260" height="200"></canvas>
+                    </div>
+
+                    <!-- Gráfica: Tickets por Caducidad -->
+                    <div class="text-center">
+                        <h6 id="caducityChartTitle">Tickets por caducidad</h6>
+                        <canvas id="chartTicketsPorCaducidad" width="260" height="200"></canvas>
+                    </div>
+
+                    <!-- Gráfica: Tickets por tipo de usuario -->
+                    <div class="text-center">
+                        <h6 id="ticketsByRoleTitle">Tickets por tipo de usuario</h6>
+                        <canvas id="chartTicketsPorRol" width="300" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+
+
+    <!--********************************************
+    * 
+    * Modal con la tabla de tickets completados (Historial)
+    * 
+    *********************************************-->
+    <div class="modal fade" id="ticketHistoryModal" tabindex="-1" aria-labelledby="ticketHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="ticketHistoryModalLabel">Historial de tickets completados</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+            <table class="table table-dark table-hover table-striped mb-0" id="ticketHistoryTable">
+                <thead>
                 <tr>
-                    <th id="idTicketColumn">ID ticket</th>
-                    <th id="idUserColumn">ID usuario</th>
-                    <th id="mailUserColumn">Correo usuario</th>
-                    <th id="titleTicketColumn">Título</th>
-                    <th id="descTicketColumn">Descripción</th>
-                    <th id="dateTicketColumn">Fecha de creación</th>
-                    <th id="completedTicketColumn">Completado</th>
+                    <th id="idTicketHistoryColumn">ID ticket</th>
+                    <th id="titleTicketHistoryColumn">Título</th>
+                    <th id="descTicketHistoryColumn">Descripción</th>
+                    <th id="mailUserHistoryColumn">Correo usuario</th>
+                    <th id="dateTicketHistoryColumn">Fecha de creación</th>
+                    <th id="priorityTicketHistoryColumn">Prioridad</th>
+                    <th id="slaTicketHistoryColumn">Caducidad</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- Filas dinámicas cargadas con JavaScript -->
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody id="ticketHistoryTableBody">
+                <!-- Tickets completados -->
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeHistoryButton">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -134,14 +273,114 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", function () {
+
+            //Constantes y variables globales
             let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
             const darkModeToggle = document.getElementById("darkModeToggle");
             const table = document.getElementById("ticketsTable");
             const tableBody = document.querySelector("#ticketsTable tbody");
             const themeIcon = document.getElementById("themeIcon");
+            const params = new URLSearchParams(window.location.search);
+            const prio = params.get("prioridad") || "";
+            const orden = params.get("orden") || "prioridad";
+            const coloresPrioridadFijos = {
+                Alta: "#4B77BE",    // Azul
+                Media: "#5CDB95",   // Verde claro
+                Baja: "#B497BD",    // Morado
+                Caducado: "#dc3545", // Rojo
+                High: "#4B77BE",
+                Medium: "#5CDB95",
+                Low: "#B497BD",
+                Expired: "#dc3545"
+            };
+            const coloresCaducidadFijos = {
+                Caducado: "#dc3545",  // Rojo
+                "0-5 días": "#ff7300", 
+                "6-15 días": "#ffc107",
+                "16-30 días": "#28a745",
+                Expired: "#dc3545",
+                "0-5 days": "#ff7300",
+                "6-15 days": "#ffc107",
+                "16-30 days": "#28a745"
+            };
+            const chartTitles = {
+                es: {
+                    chart1: "Tickets por prioridad",
+                    chart2: "Tickets por caducidad",
+                    chart3: "Tickets por tipo de usuario"
+                },
+                en: {
+                    chart1: "Tickets by priority",
+                    chart2: "Tickets by expiration",
+                    chart3: "Tickets by user role"
+                }
+            };
+            const historyTable = document.getElementById("ticketHistoryTable");
+            const ticketTranslations = {
+                es: {
+                    high: "Alta",
+                    medium: "Media",
+                    low: "Baja",
+                    expired: "Caducado",
+                    daysSuffix: " días"
+                },
+                en: {
+                    high: "High",
+                    medium: "Medium",
+                    low: "Low",
+                    expired: "Expired",
+                    daysSuffix: " days"
+                }
+            };
+            const chartLabels = {
+                es: {
+                    high: "Alta",
+                    medium: "Media",
+                    low: "Baja",
+                    expired: "Caducado",
+                    daysSuffix: " días",
+                    expirationRanges: ["Caducado", "0-5 días", "6-15 días", "16-30 días"],
+                    roles: { 1: "Usuario", 2: "Administrador", 4: "Supervisor" },
+                    chartRoleLabels: ["Usuario", "Administrador", "Supervisor"]
+                },
+                en: {
+                    high: "High",
+                    medium: "Medium",
+                    low: "Low",
+                    expired: "Expired",
+                    daysSuffix: " days",
+                    expirationRanges: ["Expired", "0-5 days", "6-15 days", "16-30 days"],
+                    roles: { 1: "User", 2: "Admin", 4: "Supervisor" },
+                    chartRoleLabels: ["User", "Admin", "Supervisor"]
+                }
+            };
+            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            let chartPrioridad = null;
+            let chartCaducidad = null;
 
 
+            //Llamadas a funciones y demas funcionalidades
+            fetchUserInfo();
+            preselectForm();
+            cargarTickets(prio, orden);
+            updateIcons();
+            document.body.classList.toggle("light-mode", !isDarkMode);
+            table.classList.toggle("table-dark", isDarkMode);
+            darkModeToggle.checked = isDarkMode;
+            historyTable.classList.toggle("table-dark", isDarkMode);
+            if (document.documentElement.lang !== currentLanguage) {
+                 document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
+            }
+            loadLanguage(currentLanguage); // Cargar el idioma inicial
 
+
+            //Declaracion de funciones y listeners
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar el idioma
+             * 
+            ***********************************************/
             function loadLanguage(lang) {
                 const timestamp = new Date().getTime();
                 fetch(`assets/idiomas/it/${lang}.txt?t=${timestamp}`)
@@ -159,7 +398,14 @@
                             "confirmLogoutTitle", "yesLogoutButton", "noLogoutButton", "userProfileModalLabel", 
                             "userInfoName", "userInfoMail", "userInfoRole", "userInfoClose", "themeLabel",
                             "darkThemeLabel","ticketsTitle", "idTicketColumn", "idUserColumn", "mailUserColumn", 
-                            "titleTicketColumn", "descTicketColumn", "dateTicketColumn", "completedTicketColumn"
+                            "titleTicketColumn", "descTicketColumn", "dateTicketColumn", "completedTicketColumn",
+                            "priorityTicketColumn", "slaTicketColumn", "ticketFiltersTitle", "filterPriorityLabel",
+                            "filterPriorityAll", "filterPriorityHigh", "filterPriorityMedium", "filterPriorityLow",
+                            "filterPriorityExpired", "orderByLabel", "orderPriority", "orderCaducity", "applyTicketFilters",
+                            "clearFiltersButton", "ticketMetricsTitle", "ticketHistoryTitle", "viewTicketHistory",
+                            "ticketHistoryModalLabel", "idTicketHistoryColumn", "titleTicketHistoryColumn",
+                            "descTicketHistoryColumn", "mailUserHistoryColumn", "dateTicketHistoryColumn", 
+                            "priorityTicketHistoryColumn", "slaTicketHistoryColumn", "closeHistoryButton"
                         ];
 
                         ids.forEach((id, index) => {
@@ -186,157 +432,144 @@
                     })
                 .catch(error => console.error('Error al cargar el idioma:', error));
             }
-            
-            if (!darkModeToggle) {
-                    console.error("No se encontró el switch de modo oscuro en el DOM.");
-                    return;
-                }
 
-            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
-            document.body.classList.toggle("light-mode", !isDarkMode);
-            table.classList.toggle("table-dark", isDarkMode);
-            darkModeToggle.checked = isDarkMode;
-
+            /***********************************************
+             * 
+             * Listener que cambia correctamente el tema de la web
+             * 
+            ***********************************************/
             darkModeToggle.addEventListener("change", function () {
                 const enableDarkMode = this.checked;
                 document.body.classList.toggle("light-mode", !enableDarkMode);
                 table.classList.toggle("table-dark", enableDarkMode);
+                historyTable.classList.toggle("table-dark", enableDarkMode);
                 localStorage.setItem("darkMode", enableDarkMode ? "enabled" : "disabled");
                 location.reload();
             });
-        
 
-
-            if (document.documentElement.lang !== currentLanguage) {
-                 document.documentElement.lang = currentLanguage; // Actualizar el atributo lang del HTML
-            }
-            loadLanguage(currentLanguage); // Cargar el idioma inicial
-
-            // Cambiar idioma y recargar la página
+            /***********************************************
+             * 
+             * Listener que cambia correctamente el idioma
+             * 
+            ***********************************************/
             document.getElementById("languageSelect").addEventListener("change", function () {
                 const selectedLanguage = this.value;
 
-                // Guardar el idioma seleccionado en localStorage
                 localStorage.setItem("language", selectedLanguage);
 
-                // Recargar la página solo si el idioma cambia
                 if (selectedLanguage !== currentLanguage) {
                     location.reload(); // Recargar la página para aplicar el idioma seleccionado
                 }
             });
 
-            // Mostrar el modal de error si hay un error en el inicio de sesión
-            $(document).ready(function() {
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.get('error') === 'true') {
-                    $('#errorModal').modal('show');
-                }
-
-                // Al cerrar el modal de error, eliminar el parámetro 'error' de la URL
-                $('#errorModal').on('hidden.bs.modal', function () {
-                    urlParams.delete('error'); // Eliminar el parámetro 'error'
-                    const newUrl = window.location.pathname + '?' + urlParams.toString();
-                    window.history.replaceState({}, document.title, newUrl); // Actualizar la URL
-                });
-            });
-
-            // Cargar datos dinámicos relacionados al idioma
-            fetch("../src/supervisor.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: "fetchUserInfo=true",
-            })
+            /***********************************************
+             * 
+             * Funcion que obtiene los datos del usuario que ha 
+             * iniciado sesion
+             * 
+            ***********************************************/
+            function fetchUserInfo() {
+                fetch('/TFG/src/routes/api.php/userinfo', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("userIDPlaceholder").innerText = data.id;
-                    document.getElementById("userNamePlaceholder").innerText = data.nombre_usuario;
-                    document.getElementById("userEmailPlaceholder").innerText = data.email;
+                    if (data.error) {
+                        console.error('Error al obtener la información del usuario:', data.error);
+                        return;
+                    }
 
-                    let roleText = "";
-                    if (currentLanguage === "es") {
+                    document.getElementById('userIDPlaceholder').innerText = data.id;
+                    document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
+                    document.getElementById('userEmailPlaceholder').innerText = data.email;
+
+                    let roleText = '';
+                    if (currentLanguage === 'es') {
                         switch (data.rol) {
-                            case 0:
-                                roleText = "Administrador";
-                                break;
-                            case 1:
-                                roleText = "Usuario";
-                                break;
-                            case 2:
-                                roleText = "Supervisor";
-                                break;
-                            case 3:
-                                roleText = "Equipo técnico";
-                                break;
-                            default:
-                                roleText = "Desconocido";
+                            case 0: roleText = "Administrador"; break;
+                            case 1: roleText = "Usuario"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "Equipo técnico"; break;
+                            default: roleText = "Desconocido";
                         }
-                    } else if (currentLanguage === "en") {
+                    } else if (currentLanguage === 'en') {
                         switch (data.rol) {
-                            case 0:
-                                roleText = "Admin";
-                                break;
-                            case 1:
-                                roleText = "User";
-                                break;
-                            case 2:
-                                roleText = "Supervisor";
-                                break;
-                            case 2:
-                                roleText = "IT";
-                                break;
-                            default:
-                                roleText = "Unknown";
+                            case 0: roleText = "Admin"; break;
+                            case 1: roleText = "User"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "IT"; break;
+                            default: roleText = "Unknown";
                         }
                     }
-                    document.getElementById("userRolePlaceholder").innerText = roleText;
-                })
-                .catch(error => console.error("Error al obtener la información del usuario:", error));
 
-            // Abrir modal de confirmación de cierre de sesión
+                    document.getElementById('userRolePlaceholder').innerText = roleText;
+                })
+                .catch(error => console.error('Error al obtener la información del usuario:', error));
+            }
+
+            /***********************************************
+             * 
+             * Listener que abre el modal de confirmacion de cierre
+             * de sesion
+             * 
+            ***********************************************/
             document.getElementById('logoutButton').addEventListener('click', function () {
                 const modal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
                 modal.show();
             });
             
+            /***********************************************
+             * 
+             * Tramita el cierre de sesion actualizando la BBDD y
+             * redirigiendote a index.html
+             * 
+            ***********************************************/
             document.getElementById("yesLogoutButton").addEventListener("click", function () {
                 // Recoger todos los checkboxes de completado
                 const completedTickets = [];
                 document.querySelectorAll("#ticketsTable tbody input[type='checkbox']:checked").forEach(checkbox => {
-                    const ticketId = checkbox.dataset.id; // Asegúrate de que cada checkbox tiene un `data-id`
+                    const ticketId = checkbox.dataset.id; 
                     if (ticketId) {
                         completedTickets.push(ticketId);
                     }
                 });
 
                 if (completedTickets.length === 0) {
-                    fetch("../src/logout.php", { method: "POST" })
-                        .then(response => {
-                            if (response.ok) window.location.href = "../public/index.html";
-                            else throw new Error("Error al cerrar sesión.");
+                    fetch("/TFG/src/routes/api.php/logout", { method: "POST" })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = "../public/index.html";  // Redirige si todo OK
+                            } else {
+                                throw new Error("Error al cerrar sesión: " + (data.message || "Desconocido"));
+                            }
                         })
                         .catch(error => console.error("🔴 Error al cerrar sesión:", error));
                     return; // Salir de la función, no llamar a update_tickets.php
                 }
 
                 // Primero actualizar la BBDD con los cambios
-                fetch("../src/it.php", {
+                fetch("/TFG/src/routes/api.php/updateTickets", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ action: "update_tickets", tickets: completedTickets })
+                    body: JSON.stringify({ tickets: completedTickets })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Si la actualización fue exitosa, llamar a logout.php
-                        return fetch("../src/logout.php", { method: "POST" });
+                        // Logout tras actualizar tickets
+                        return fetch("/TFG/src/routes/api.php/logout", {
+                            method: "POST"
+                        });
                     } else {
                         throw new Error("Error al actualizar los tickets: " + data.error);
                     }
                 })
                 .then(response => {
                     if (response.ok) {
-                        // Redirigir a index.html tras cerrar sesión
-                        window.location.href = '../public/index.html';
+                        // Redirigir al login tras logout
+                        window.location.href = "/TFG/public/index.html";
                     } else {
                         throw new Error("Error al cerrar sesión.");
                     }
@@ -344,60 +577,404 @@
                 .catch(error => console.error("Error:", error));
             });
 
-            // Cerrar modal sin acción adicional
+            /***********************************************
+             * 
+             * Cerrar el modal de confirmacion de cierre de sesion
+             * 
+            ***********************************************/
             document.getElementById("noLogoutButton").addEventListener("click", function () {
                 const modal = bootstrap.Modal.getInstance(document.getElementById("confirmLogoutModal"));
                 modal.hide();
             });
 
-            function cargarTickets() {
-                fetch("../src/it.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "fetchTickets=true"
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (Array.isArray(data)) {
-                        const tableBody = document.querySelector("#ticketsTable tbody");
-                        tableBody.innerHTML = ""; // Limpiar tabla antes de cargar nuevos datos
-                        
-                        if (data.length > 0) {
-                            data.forEach(ticket => {
-                                const row = document.createElement("tr");
-                                row.innerHTML = `
-                                    <td>${ticket.id}</td>
-                                    <td>${ticket.idUsuario}</td>
-                                    <td>${ticket.correoUsuario}</td>
-                                    <td>${ticket.titulo}</td>
-                                    <td>${ticket.descripcion}</td>
-                                    <td>${ticket.fecha}</td>
-                                    <td><input type="checkbox" class="ticket-completado" data-id="${ticket.id}" ${ticket.completado ? "checked" : ""}></td>
-                                `;
-                                tableBody.appendChild(row);
-                            });
-                        } else {
-                            tableBody.innerHTML = `<tr><td colspan="7">No hay tickets pendientes.</td></tr>`;
+            /***********************************************
+             * 
+             * Funcion que carga los tickets con o sin filtros
+             * 
+            ***********************************************/
+            function cargarTickets(filtroPrioridad = "", orden = "prioridad") {
+                const idIT = document.getElementById("userIDPlaceholder").innerText.trim();
+
+                fetch(`/TFG/src/routes/api.php/ticketsIT?idIT=${idIT}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                            let tickets = data;
+
+                            // Filtrar por prioridad
+                            if (filtroPrioridad) {
+                                if (filtroPrioridad === "caducado") {
+                                    tickets = tickets.filter(t => t.prioridad === "Caducado");
+                                } else {
+                                    tickets = tickets.filter(t => parseInt(t.prioridad) === parseInt(filtroPrioridad));
+                                }
+                            }
+
+                            // Ordenar tickets
+                            if (orden === "caducidad") {
+                                tickets.sort((a, b) => {
+                                    const cadA = a.caducidad === "-" ? 0 : parseInt(a.caducidad);
+                                    const cadB = b.caducidad === "-" ? 0 : parseInt(b.caducidad);
+                                    return cadA - cadB;
+                                });
+                            } else {
+                                tickets.sort((a, b) => {
+                                    const prioA = prioridadValor(a.prioridad);
+                                    const prioB = prioridadValor(b.prioridad);
+                                    return prioA - prioB;
+                                });
+                            }
+
+                            const tableBody = document.querySelector("#ticketsTable tbody");
+                            tableBody.innerHTML = "";
+
+                            if (tickets.length > 0) {
+                                tickets.forEach(ticket => {
+                                    const row = document.createElement("tr");
+                                    row.innerHTML = `
+                                        <td>${ticket.id}</td>
+                                        <td>${ticket.idUsuario}</td>
+                                        <td>${ticket.correoUsuario}</td>
+                                        <td>${ticket.titulo}</td>
+                                        <td>${ticket.descripcion}</td>
+                                        <td>${ticket.fecha}</td>
+                                        <td>${formatearPrioridad(ticket.prioridad, ticket.caducidad)}</td>
+                                        <td>${formatearCaducidad(ticket.caducidad)}</td>
+                                        <td><input type="checkbox" class="ticket-completado" data-id="${ticket.id}" ${ticket.completado ? "checked" : ""}></td>
+                                    `;
+                                    tableBody.appendChild(row);
+                                });
+                                actualizarGraficas(tickets);
+                            } else {
+                                tableBody.innerHTML = `<tr><td colspan="9">No hay tickets pendientes.</td></tr>`;
+                            }
                         }
-                    } else {
-                        console.error("Error al cargar los tickets:", data.error);
-                    }
-                })
-                .catch(error => console.error("Error en la solicitud:", error));
+                    })
+                    .catch(err => console.error("Error al cargar tickets:", err));
             }
 
-            // Llamar a la función al cargar la página
-            cargarTickets();
+            /***********************************************
+             * 
+             * Funcion que preselecciona los formularios
+             * 
+            ***********************************************/
+            function preselectForm() {
+                document.getElementById("filterPrioritySelect").value = prio;
+                document.getElementById("orderBySelect").value = orden;
+                }            
 
+            /***********************************************
+             * 
+             * Funcion que actualiza los iconos dependiendo del
+             * tema seleccionado
+             * 
+            ***********************************************/
             function updateIcons() {
                 const isDarkMode = localStorage.getItem("darkMode") === "enabled";
                 themeIcon.src = isDarkMode ? "assets/img/darkTheme.png" : "assets/img/lightTheme.png";
                 languageIcon.src = isDarkMode ? "assets/img/darkLanguage.png" : "assets/img/lightLanguage.png";
             }
 
-            // Aplicar los iconos correctos al cargar la página
-            updateIcons();
+            /***********************************************
+             * 
+             * Listener que aplica los filtros de los tickets
+             * 
+            ***********************************************/
+            document.getElementById("applyTicketFilters").addEventListener("click", () => {
+                const prioridad = document.getElementById("filterPrioritySelect").value;
+                const orden = document.getElementById("orderBySelect").value;
+
+                // Guardar en URL para mantener filtros al recargar
+                const params = new URLSearchParams();
+                if (prioridad) params.set("prioridad", prioridad);
+                if (orden) params.set("orden", orden);
+                window.history.replaceState({}, "", `${location.pathname}?${params}`);
+
+                // Recargar tickets con filtros
+                cargarTickets(prioridad, orden);
+            });
+
+            /***********************************************
+             * 
+             * Limpia el panel de filtros y recarga la pagina sin
+             * aplicar ninguno
+             * 
+            ***********************************************/
+            document.getElementById("clearFiltersButton").addEventListener("click", () => {
+                document.getElementById("filterPrioritySelect").value = "";
+                document.getElementById("orderBySelect").value = "prioridad";
+
+                window.history.replaceState({}, "", location.pathname); // Limpiar URL
+                cargarTickets(); // Sin filtros
+            });
+
+            /***********************************************
+             * 
+             * Funcion que devuelve el texto de la prioridad
+             * 
+            ***********************************************/
+            function prioridadTexto(valor) {
+                return valor === 0 ? "Alta" : valor === 1 ? "Media" : "Baja";
+            }
+
+            /***********************************************
+             * 
+             * Funcion que devuelve el valor de la prioridad
+             * 
+            ***********************************************/
+            function prioridadValor(texto) {
+                switch (texto) {
+                    case "Alta": return 0;
+                    case "Media": return 1;
+                    case "Baja": return 2;
+                    case "Caducado": return -1;
+                    default: return 99; // Catch-all
+                }
+            }
+
+            /***********************************************
+             * 
+             * Funcion que devuelve el texto de la prioridad teniendo
+             * en cuenta el idioma seleccionado
+             * 
+            ***********************************************/
+            function formatearPrioridad(valor, caducidad) {
+                if (valor === "Caducado") {
+                    return ticketTranslations[currentLanguage].expired;
+                }
+                if (typeof valor === "number") {
+                    switch (valor) {
+                        case 0: return ticketTranslations[currentLanguage].high;
+                        case 1: return ticketTranslations[currentLanguage].medium;
+                        case 2: return ticketTranslations[currentLanguage].low;
+                        default: return valor;
+                    }
+                }
+                switch (valor.toLowerCase()) {
+                    case "alta": return ticketTranslations[currentLanguage].high;
+                    case "media": return ticketTranslations[currentLanguage].medium;
+                    case "baja": return ticketTranslations[currentLanguage].low;
+                    case "caducado": return ticketTranslations[currentLanguage].expired;
+                    default: return valor;
+                }
+            }
+
+
+            /***********************************************
+             * 
+             * Funcion que devuelve el texto de la caducidad teniendo
+             * en cuenta el idioma seleccionado
+             * 
+            ***********************************************/
+            function formatearCaducidad(valor) {
+                if (valor === "-") return "-";
+                return `${valor}${ticketTranslations[currentLanguage].daysSuffix}`;
+            }
+
+            /***********************************************
+             * 
+             * Funcion que actualiza las graficas
+             * 
+            ***********************************************/
+            function actualizarGraficas(tickets) {
+                const labels = chartLabels[currentLanguage];
+
+                const conteoPrioridad = {
+                    [labels.high]: 0,
+                    [labels.medium]: 0,
+                    [labels.low]: 0,
+                    [labels.expired]: 0
+                };
+
+                const conteoCaducidad = {
+                    [labels.expirationRanges[0]]: 0,
+                    [labels.expirationRanges[1]]: 0,
+                    [labels.expirationRanges[2]]: 0,
+                    [labels.expirationRanges[3]]: 0
+                };
+
+                tickets.forEach(ticket => {
+                    const prioridad = formatearPrioridad(ticket.prioridad, ticket.caducidad);
+                    conteoPrioridad[prioridad]++;
+
+                    if (ticket.caducidad === "-") {
+                        conteoCaducidad[labels.expirationRanges[0]]++;
+                    } else {
+                        const dias = parseInt(ticket.caducidad);
+                        if (dias <= 5) conteoCaducidad[labels.expirationRanges[1]]++;
+                        else if (dias <= 15) conteoCaducidad[labels.expirationRanges[2]]++;
+                        else conteoCaducidad[labels.expirationRanges[3]]++;
+                    }
+                });
+
+                
+                pintarGraficaPrioridad(conteoPrioridad);
+                pintarGraficaCaducidad(conteoCaducidad);
+                cargarGraficaTicketsPorRol();
+                actualizarTitulosGraficas(); 
+            }
+
+            /***********************************************
+             * 
+             * Funcion que renderiza la grafica de prioridad
+             * 
+            ***********************************************/
+            function pintarGraficaPrioridad(conteo) {
+                const ctx = document.getElementById("chartTicketsPorPrioridad").getContext("2d");
+                if (chartPrioridad) chartPrioridad.destroy();
+
+                const labels = Object.keys(conteo);
+                const data = Object.values(conteo);
+                const colores = labels.map(label => coloresPrioridadFijos[label]);
+
+                chartPrioridad = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels,
+                        datasets: [{
+                            data,
+                            backgroundColor: colores
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { position: 'bottom' } },
+                        responsive: true
+                    }
+                });
+            }
+
+            /***********************************************
+             * 
+             * Funcion que renderiza la grafica de caducidad
+             * 
+            ***********************************************/
+            function pintarGraficaCaducidad(conteo) {
+                const ctx = document.getElementById("chartTicketsPorCaducidad").getContext("2d");
+                if (chartCaducidad) chartCaducidad.destroy();
+
+                const labels = Object.keys(conteo);
+                const data = Object.values(conteo);
+                const colores = labels.map(label => coloresCaducidadFijos[label]);
+
+                chartCaducidad = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels,
+                        datasets: [{
+                            data,
+                            backgroundColor: colores
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { position: 'bottom' } },
+                        responsive: true
+                    }
+                });
+            }
+
+            /***********************************************
+             * 
+             * Funcion que renderiza la grafica de tickets por rol
+             * 
+            ***********************************************/
+            function cargarGraficaTicketsPorRol() {
+                fetch('/TFG/src/routes/api.php/ticketsByRole')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const labels = chartLabels[currentLanguage].chartRoleLabels;
+                            const valores = [data.data["Usuario"] || 0, data.data["Administrador"] || 0, data.data["Supervisor"] || 0];
+
+                            const colores = ["#4B77BE", "#4B77BE", "#4B77BE"];  // Azul
+
+                            const ctx = document.getElementById("chartTicketsPorRol").getContext("2d");
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels,
+                                    datasets: [{
+                                        label: "Tickets",
+                                        data: valores,
+                                        backgroundColor: colores,
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: false }
+                                    },
+                                    scales: {
+                                        y: { beginAtZero: true }
+                                    }
+                                }
+                            });
+                        } else {
+                            console.error("Error al cargar tickets por rol:", data.error);
+                        }
+                    })
+                    .catch(err => console.error("Error fetch tickets por rol:", err));
+            }
+
+            /***********************************************
+             * 
+             * Listener que abre el modal de tickets completados
+             * y obtiene los tickets completados de la BBDD
+             * 
+            ***********************************************/
+            document.getElementById("viewTicketHistory").addEventListener("click", function () {
+                const idIT = document.getElementById("userIDPlaceholder").innerText.trim();
+
+                fetch(`/TFG/src/routes/api.php/ticketHistory?idIT=${idIT}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.getElementById("ticketHistoryTableBody");
+                        tableBody.innerHTML = ""; // Limpiar tabla
+
+                        if (Array.isArray(data) && data.length > 0) {
+                            // Ordenar tickets por fecha (recientes primero)
+                            data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+                            data.forEach(ticket => {
+                                const row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <td>${ticket.id}</td>
+                                    <td>${ticket.titulo}</td>
+                                    <td>${ticket.descripcion}</td>
+                                    <td>${ticket.correoUsuario}</td>
+                                    <td>${ticket.fecha}</td>
+                                    <td>${formatearPrioridad(ticket.prioridad)}</td>
+                                    <td>${ticket.caducidad}</td>
+
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        } else {
+                            tableBody.innerHTML = `<tr><td colspan="7">No hay tickets completados.</td></tr>`;
+                        }
+
+                        const modal = new bootstrap.Modal(document.getElementById("ticketHistoryModal"));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener historial:", error);
+                        alert("Error al cargar el historial.");
+                    });
+            });
+
+            /***********************************************
+             * 
+             * Funcion que actualiza los titulos de las graficas
+             * teniendo en cuenta el idioma seleccionado
+             * 
+            ***********************************************/
+            function actualizarTitulosGraficas() {
+                document.getElementById("priorityChartTitle").innerText = chartTitles[currentLanguage].chart1;
+                document.getElementById("caducityChartTitle").innerText = chartTitles[currentLanguage].chart2;
+                document.getElementById("ticketsByRoleTitle").innerText = chartTitles[currentLanguage].chart3;
+            }
         });
+
     </script>
 </body>
 </html>

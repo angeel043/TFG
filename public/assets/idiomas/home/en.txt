@@ -44,3 +44,12 @@ Submit ticket
 Clear filters
 Bases ubications
 Bases map
+Filters
+Export charts
+Average weekly hours by company
+Average salary by base
+Priority
+Select priority
+High
+Medium
+Low

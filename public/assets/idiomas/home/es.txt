@@ -44,3 +44,12 @@ Enviar ticket
 Restablecer filtros
 Ubicación de sedes
 Mapa de sedes
+Filtros
+Exportar gráficas
+Horas semanales promedio por empresa
+Salario promedio por sede
+Prioridad
+Seleccione prioridad
+Alta
+Media
+Baja

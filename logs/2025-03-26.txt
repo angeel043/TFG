@@ -1,0 +1,6 @@
+El usuario angel con ID 2 ha iniciado sesión a las 16:13:18.
+El usuario angel con ID 2 ha cerrado sesión a las 16:13:24.
+El usuario diego con ID 3 ha iniciado sesión a las 16:13:27.
+El usuario diego con ID 3 ha cerrado sesión a las 16:13:36.
+El usuario carlos con ID 4 ha iniciado sesión a las 16:13:40.
+El usuario carlos con ID 4 ha cerrado sesión a las 16:13:57.

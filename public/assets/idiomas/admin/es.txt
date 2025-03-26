@@ -103,3 +103,8 @@ Exportar clientes (.xlsx)
 Exportar clientes (.pdf)
 Importar usuarios
 Importar clientes
+Prioridad
+Seleccione prioridad
+Alta
+Media
+Baja

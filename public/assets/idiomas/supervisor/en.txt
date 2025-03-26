@@ -49,3 +49,13 @@ Clear filters
 Export data
 Export clients (.xlsx)
 Export clients (.pdf)
+Priority
+Select priority
+High
+Medium
+Low
+Users stats
+User ID
+Completed clients
+Active clients
+Performance Metrics - IT Team

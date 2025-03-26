@@ -9,17 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!--********************************************
+    * 
+    * Barra de navegacion
+    * 
+    *********************************************-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Panel de supervisión</a>
+            <a class="navbar-brand" href="#" id="navTitle">SINOVA - Página prinipal</a>
             <div class="d-flex align-items-center">
-                <!-- Botón Crear Ticket con icono -->
+                <!-- Botón Crear Ticket -->
                 <button type="button" id="createTicketButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ticketModal">
                     <img src="assets/img/ticket.png" alt="Ticket" class="btn-icon"> 
                     <span id="createTicketText">Crear ticket</span>
                 </button>
 
-                <!-- Botón Ajustes con icono -->
+                <!-- Botón Ajustes -->
                 <button type="button" id="settingsButton" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#ajustesModal">
                     <img src="assets/img/settings.png" alt="Ajustes" class="btn-icon"> 
                     <span id="settingsText">Ajustes</span>
@@ -33,9 +38,14 @@
         </div>
     </nav>
 
+    <!--********************************************
+    * 
+    * Contenedor para Filtros y Exportación
+    * 
+    *********************************************-->
     <div class="container-fluid mt-5 d-flex justify-content-center" style="max-width: 1800px;">
-        <!-- Contenedor para Filtros y Exportación (Más ancho) -->
         <div class="d-flex flex-column align-items-center" style="width: 25%; max-width: 250px;">
+
             <!-- Panel de Filtros -->
             <div class="container w-100" id="filtersPanel">
                 <h5 class="text-center" id="filtersTitle">Filtros</h5>
@@ -66,12 +76,16 @@
             </div>
         </div>
     
-        <!-- Contenedor de Clientes (Ocupa todo el ancho) -->
+        <!--********************************************
+        * 
+        * Contenedor para la tabla de clientes asociados
+        * 
+        *********************************************-->
         <div class="container" style="width: 100%; max-width: 1300px;">
             <h2 id="clientsTitle">Clientes asociados</h2>
             <form id="clientsForm">
                 <div class="table-responsive">
-                    <table class="table table-dark table-striped w-100" id="clientsTable">
+                    <table class="table table-striped w-100" id="clientsTable">
                         <thead>
                             <tr>
                                 <th style="min-width: 90px;" id="nameColumn">Nombre</th>
@@ -86,27 +100,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Filas dinámicas cargadas con JavaScript -->
+                            <!-- Filas dinamicas -->
                         </tbody>
                     </table>
                 </div>
             </form>
         </div>
-        
-
     </div>
     
     
 
-    <!-- Contenedor para la Geolocalización y Estadísticas -->
+    <!--********************************************
+    * 
+    * Contenedor para Mapa de sedes y Estadisticas
+    * 
+    *********************************************-->
     <div class="container-fluid mt-4 d-flex justify-content-center">
-        <!-- Panel de Geolocalización -->
+
+        <!-- Panel de Mapa -->
         <div class="container bg p-4 rounded text-center" id="geoPanel" style="width: 30%; max-width: 380px;">
             <h5 id="geoTitle">Ubicación de sedes</h5>
             <img src="assets/img/spainMap.jpg" id="mapImage" class="img-fluid" style="cursor: pointer;" alt="Mapa de España">
         </div>
 
-        <!-- Contenedor de Gráficas -->
+        <!-- Panel de Graficas -->
         <div class="container" id="statsContainer" style="width: 73%;">
             <h2 class="text-center" id="statsTitle">Estadísticas de clientes</h2>
             <div class="row justify-content-center">
@@ -126,7 +143,11 @@
         </div>
     </div>
 
-    <!-- Modal para mostrar el Mapa de Google -->
+    <!--********************************************
+    * 
+    * Modal que muestra el mapa de Google Maps con las sedes
+    * 
+    *********************************************-->
     <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="geoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -141,9 +162,12 @@
         </div>
     </div>
 
-
-
-    <!-- Modal con información del usuario -->
+    <!--********************************************
+    * 
+    * Modal que muestra la información del usuario iniciado
+    * sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -158,7 +182,6 @@
                     <p class="user-info-item"><strong id="userInfoRole">Rol:</strong> <span id="userRolePlaceholder"></span></p>
                 </div>
                 <div class="modal-footer">
-                    <!-- Botón de cerrar sesión -->
                     <button type="button" class="btn btn-danger" id="logoutButton">Cerrar sesión</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userInfoClose">Cerrar</button>
                 </div>
@@ -166,7 +189,11 @@
         </div>
     </div>
 
-    <!-- Modal de ajustes -->
+    <!--********************************************
+    * 
+    * Modal de ajustes
+    * 
+    *********************************************-->
     <div class="modal fade" id="ajustesModal" tabindex="-1" aria-labelledby="ajustesModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -175,7 +202,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Selección de idioma con icono -->
                     <div class="d-flex align-items-center">
                         <img id="languageIcon" src="assets/img/darkLanguage.png" alt="Idioma" class="settings-icon">
                         <label for="languageSelect" class="form-label ms-2" id="selectLanguageLabel">Seleccionar idioma:</label>
@@ -184,8 +210,6 @@
                         <option value="es">Español</option>
                         <option value="en">English</option>
                     </select>
-
-                    <!-- Tema con icono -->
                     <div class="form-group mt-3">
                         <div class="d-flex align-items-center">
                             <img id="themeIcon" src="assets/img/darkTheme.png" alt="Tema" class="settings-icon">
@@ -206,9 +230,11 @@
         </div>
     </div>
 
-
-
-    <!-- Modal para crear ticket -->
+    <!--********************************************
+    * 
+    * Modal para crear un ticket
+    * 
+    *********************************************-->
     <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -226,6 +252,15 @@
                             <label for="ticketDescription" class="form-label" id="ticketDescriptionLabel">Descripción</label>
                             <textarea class="form-control" id="ticketDescription" rows="3" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="ticketPriority" class="form-label" id="ticketPriorityLabel">Prioridad</label>
+                            <select class="form-select" id="ticketPriority" required>
+                                <option id = "ticketPriorityDefault" value="" selected disabled>Seleccione prioridad</option>
+                                <option id = "ticketPriorityHigh" value="0">Alta</option>
+                                <option id = "ticketPriorityMedium" value="1">Media</option>
+                                <option id = "ticketPriorityLow" value="2">Baja</option>
+                            </select>
+                        </div>                                               
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -236,8 +271,11 @@
         </div>
     </div>
 
-
-    <!-- Modal de confirmación de cierre de sesión -->
+    <!--********************************************
+    * 
+    * Modal de confirmacion de cierre de sesion
+    * 
+    *********************************************-->
     <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -259,11 +297,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6eEghOS9R0xwvI73JGnBcWFisoH2fQ0&callback=initMap"></script>
     <script>
-        let currentLanguage = localStorage.getItem('language') || 'es'; // 'es' por defecto
 
         document.addEventListener("DOMContentLoaded", function () {
+
+            //Constantes y variables globales
             let currentLanguage = localStorage.getItem("language") || "es";
             const darkModeToggle = document.getElementById("darkModeToggle");
             const table = document.getElementById("clientsTable");
@@ -273,8 +311,110 @@
             const filterInput = document.getElementById("filterValue");
             const languageIcon = document.getElementById("languageIcon");
             const themeIcon = document.getElementById("themeIcon");
+            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            const urlParams = new URLSearchParams(window.location.search);
+            const filterBy = urlParams.get("filterBy") || "";
+            const filterValue = urlParams.get("filterValue") || "";
+            const chartTitles = {
+                es: {
+                    chart1: "Clientes por sede",
+                    chart2: "Clientes por empresa",
+                    chart3: "Salario promedio por sede",
+                    chart4: "Horas semanales promedio por empresa"
+                },
+                en: {
+                    chart1: "Clients by base",
+                    chart2: "Clients by company",
+                    chart3: "Average salary by base",
+                    chart4: "Average weekly hours by company"
+                }
+            };
+            const coloresSedesBase = ["#6A5ACD", "#20B2AA", "#FF8C00", "#DC143C", "#008000"];
+            const coloresEmpresasBase = ["#FF4500", "#32CD32", "#1E90FF", "#FFD700", "#8A2BE2"];
+            let coloresSedes = {};
+            let coloresEmpresas = {};
 
 
+            //Llamadas a funciones y demas funcionalidades   
+            fecthUserInfo();
+            loadLanguage(currentLanguage);
+            selectFilter();
+            updateIcons();
+            if (document.documentElement.lang !== currentLanguage) {
+                document.documentElement.lang = currentLanguage;
+                loadLanguage(currentLanguage);
+            }
+            document.body.classList.toggle("light-mode", !isDarkMode);
+            table.classList.toggle("table-dark", isDarkMode);
+            darkModeToggle.checked = isDarkMode;
+            if (filterForm) {
+                filterForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    const filterBy = filterBySelect.value;
+                    const filterValue = filterInput.value.trim();
+
+                    updateClientData(() => {
+                        window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
+                    });
+                });
+            }
+
+
+            //Declaracion de funciones y listeners
+
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar el idioma
+             * 
+            ***********************************************/
+            function fecthUserInfo(){
+                fetch('/TFG/src/routes/api.php/userinfo', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error al obtener la información del usuario:', data.error);
+                        return;
+                    }
+
+                    document.getElementById('userIDPlaceholder').innerText = data.id;
+                    document.getElementById('userNamePlaceholder').innerText = data.nombre_usuario;
+                    document.getElementById('userEmailPlaceholder').innerText = data.email;
+                    fetchClients(filterBy, filterValue);
+
+
+                    let roleText = '';
+                    if (currentLanguage === 'es') {
+                        switch (data.rol) {
+                            case 0: roleText = "Administrador"; break;
+                            case 1: roleText = "Usuario"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "Equipo técnico"; break;
+                            default: roleText = "Desconocido";
+                        }
+                    } else if (currentLanguage === 'en') {
+                        switch (data.rol) {
+                            case 0: roleText = "Admin"; break;
+                            case 1: roleText = "User"; break;
+                            case 2: roleText = "Supervisor"; break;
+                            case 3: roleText = "IT"; break;
+                            default: roleText = "Unknown";
+                        }
+                    }
+
+                    document.getElementById('userRolePlaceholder').innerText = roleText;
+                })
+                .catch(error => console.error('Error al obtener la información del usuario:', error));
+            }
+            
+            /***********************************************
+             * 
+             * Funcion que se encarga de cargar el idioma
+             * 
+            ***********************************************/
             function loadLanguage(lang) {
                 const timestamp = new Date().getTime();
                 fetch(`assets/idiomas/home/${lang}.txt?t=${timestamp}`)
@@ -297,7 +437,9 @@
                             "salaryMoreFilterOption","companyColumn", "baseColumn", "salaryColumn", 
                             "hoursColumn", "statsTitle", "createTicketText", "ticketModalLabel", 
                             "ticketTitleLabel", "ticketDescriptionLabel", "closeTicketModal", "submitTicket",
-                            "clearFiltersButton", "geoTitle", "geoModalLabel"
+                            "clearFiltersButton", "geoTitle", "geoModalLabel", "filtersTitle",
+                            "exportOptionsLabel", "exportChart1", "exportChart2", "ticketPriorityLabel",
+                            "ticketPriorityDefault", "ticketPriorityHigh", "ticketPriorityMedium", "ticketPriorityLow"
                         ];
 
                         ids.forEach((id, index) => {
@@ -313,22 +455,11 @@
                     .catch(error => console.error("Error al cargar el idioma:", error));
             }
 
-            if (document.documentElement.lang !== currentLanguage) {
-                document.documentElement.lang = currentLanguage;
-                loadLanguage(currentLanguage);
-            }
-            loadLanguage(currentLanguage);
-
-            if (!darkModeToggle) {
-                console.error("No se encontró el switch de modo oscuro en el DOM.");
-                return;
-            }
-
-            const isDarkMode = localStorage.getItem("darkMode") === "enabled";
-            document.body.classList.toggle("light-mode", !isDarkMode);
-            table.classList.toggle("table-dark", isDarkMode);
-            darkModeToggle.checked = isDarkMode;
-
+            /***********************************************
+             * 
+             * Listener que cambia el tema de la pagina
+             * 
+            ***********************************************/
             darkModeToggle.addEventListener("change", function () {
                 const enableDarkMode = this.checked;
                 document.body.classList.toggle("light-mode", !enableDarkMode);
@@ -338,35 +469,44 @@
                 location.reload();
             });
 
+            /***********************************************
+             * 
+             * Listener que cambia el idioma una vez se seleccione
+             * uno diferente al actual
+             * 
+            ***********************************************/
             document.getElementById("languageSelect").addEventListener("change", function () {
                 const selectedLanguage = this.value;
                 localStorage.setItem("language", selectedLanguage);
                 if (selectedLanguage !== currentLanguage) location.reload();
             });
 
+            /***********************************************
+             * 
+             * Funcion que recoge de la url los parametros
+             * 
+            ***********************************************/
             function getQueryParam(param) {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get(param) || "";
             }
 
-            if (!tableBody || !filterBySelect || !filterInput || !applyFiltersButton) {
-                console.error("No se encontró uno de los elementos necesarios en el DOM.");
-                return;
-            }
-
+            /***********************************************
+             * 
+             * Funcion que consulta a la API la informacion del
+             * usuario que ha iniciado sesion
+             * 
+            ***********************************************/
             function fetchClients(filterBy = "", filterValue = "") {
-                let formData = new URLSearchParams();
-                formData.append("fetchClients", "true");
+                const idUser = document.getElementById('userIDPlaceholder').innerText.trim();
+                let url = `/TFG/src/routes/api.php/clientsHome?idUser=${idUser}`;
 
                 if (filterBy && filterValue) {
-                    formData.append("filterBy", filterBy);
-                    formData.append("filterValue", filterValue);
+                    url += `&filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
                 }
 
-                fetch("../src/home.php", {
-                    method: "POST",
-                    body: formData,
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                fetch(url, {
+                    method: "GET",
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -386,33 +526,35 @@
                                     <td><textarea class="client-extrainfo" name="extrainfo[${client.id}]" data-id="${client.id}" rows="2" cols="50">${client.extrainfo}</textarea></td>
                                 </tr>`;
                         });
-                            generarGraficas(); 
+                        generarGraficas(); 
                     } else {
-                        tableBody.innerHTML = "<tr><td colspan='5'>No se encontraron clientes asociados.</td></tr>";
+                        tableBody.innerHTML = "<tr><td colspan='9'>No se encontraron clientes asociados.</td></tr>";
                     }
                 })
                 .catch(error => console.error("Error al cargar los clientes:", error));
-
             }
 
+            /***********************************************
+             * 
+             * Funcion que selecciona los filtros si los hubiera
+             * 
+            ***********************************************/
+            function selectFilter() {
+                if (filterBy && filterBySelect) {
+                    filterBySelect.value = filterBy;
+                }
 
-            // Leer parámetros de la URL y establecer en los campos de filtro
-            const urlParams = new URLSearchParams(window.location.search);
-            const filterBy = urlParams.get("filterBy") || "";
-            const filterValue = urlParams.get("filterValue") || "";
-
-            if (filterBy && filterBySelect) {
-                filterBySelect.value = filterBy;
+                if (filterValue && filterInput) {
+                    filterInput.value = filterValue;
+                }
             }
 
-            if (filterValue && filterInput) {
-                filterInput.value = filterValue;
-            }
-
-            // Cargar clientes con filtros si están en la URL
-            fetchClients(filterBy, filterValue);
-
-            // Función para actualizar la base de datos con los campos completado y extrainfo
+            /***********************************************
+             * 
+             * Funcion que llama a la API para actualizar los campos
+             * de Informacion extra y Completado de todos los clientes
+             * 
+            ***********************************************/
             function updateClientData(callback) {
                 const completedClients = [];
                 document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
@@ -425,7 +567,6 @@
                     }
                 });
 
-                // Recoger información adicional (extraInfo) de los clientes
                 const extrainfoUpdates = [];
                 document.querySelectorAll(".client-extrainfo").forEach(textarea => {
                     const clientId = textarea.dataset.id;
@@ -441,11 +582,11 @@
                 // Enviar la solicitud al backend solo si hay cambios
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
 
-                    fetch("../src/home.php", {
+                    fetch("/TFG/src/routes/api.php/update_clients", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
-                            action: "update_clients",
+                            id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
                             clients: completedClients,
                             extrainfo: extrainfoUpdates
                         })
@@ -453,52 +594,37 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            if (callback) callback();
+                            if (callback) callback();  // Si hay callback, lo ejecuta
                         } else {
                             console.error("Error al actualizar clientes:", data.error);
                         }
                     })
                     .catch(error => console.error("Error al actualizar los clientes:", error));
+
                 }
             }
 
-            // Aplicar filtros y actualizar clientes antes de recargar
-            if (filterForm) {
-                filterForm.addEventListener("submit", function (event) {
-                    event.preventDefault();
-
-                    const filterBy = filterBySelect.value;
-                    const filterValue = filterInput.value.trim();
-
-                    updateClientData(() => {
-                        window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
-                    });
-                });
-            } else {
-                console.error("No se encontró el formulario de filtros en el DOM.");
-            }
-
-            fetch("../src/home.php", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "fetchUserInfo=true" })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("userIDPlaceholder").innerText = data.id;
-                    document.getElementById("userNamePlaceholder").innerText = data.nombre_usuario;
-                    document.getElementById("userEmailPlaceholder").innerText = data.email;
-                    let roleText = currentLanguage === "es" ? ["Administrador", "Usuario", "Supervisor"][data.rol] || "Desconocido" :
-                        ["Admin", "User", "Supervisor"][data.rol] || "Unknown";
-                    document.getElementById("userRolePlaceholder").innerText = roleText;
-                })
-                .catch(error => console.error("Error al obtener la información del usuario:", error));
-
+            /***********************************************
+             * 
+             * Listener que abre el modal de confirmacion de cierre
+             * de sesion
+             * 
+            ***********************************************/
             document.getElementById("logoutButton").addEventListener("click", function () {
                 const modal = new bootstrap.Modal(document.getElementById("confirmLogoutModal"));
                 modal.show();
             });
 
+            /***********************************************
+             * 
+             * Se actualizan los clientes y se cierra sesion, redirigiendote
+             * a index.html
+             * 
+            ***********************************************/
             document.getElementById("yesLogoutButton").addEventListener("click", function () {
                 const completedClients = [];
                 document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
-                    const clientId = checkbox.dataset.id; // ID del cliente
+                    const clientId = checkbox.dataset.id; 
                     if (clientId) {
                         completedClients.push({
                             id: parseInt(clientId), // Convertir a número
@@ -521,11 +647,11 @@
 
                 // Enviar la solicitud al backend solo si hay cambios
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
-                    fetch("../src/home.php", {
+                    fetch("/TFG/src/routes/api.php/update_clients", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            action: "update_clients",
+                            id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
                             clients: completedClients,
                             extrainfo: extrainfoUpdates
                         })
@@ -533,22 +659,35 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Redirigir al logout después de la actualización
-                            return fetch("../src/logout.php", { method: "POST" });
+                            //  Logout después de la actualización
+                            return fetch('/TFG/src/routes/api.php/logout', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                }
+                            })
                         } else {
                             console.error("Error al actualizar clientes:", data.error);
                             return Promise.reject("Error al actualizar clientes");
                         }
                     })
                     .then(response => {
-                        if (response.ok) window.location.href = "index.html";
-                        else throw new Error("Error al cerrar sesión.");
+                        if (response.ok) {
+                            window.location.href = "index.html";
+                        } else {
+                            throw new Error("Error al cerrar sesión.");
+                        }
                     })
                     .catch(error => console.error("Error:", error));
+
                 } else {
                     // Si no hay cambios en la BBDD, ir directamente al logout
-                    fetch("../src/logout.php", { method: "POST" })
-                    .then(response => {
+                    fetch('/TFG/src/routes/api.php/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }).then(response => {
                         if (response.ok) window.location.href = "index.html";
                         else throw new Error("Error al cerrar sesión.");
                     })
@@ -556,17 +695,17 @@
                 }
             });
 
-
-
-
+            /***********************************************
+             * 
+             * Se recarga la tabla de clientes pero aplicando los
+             * filtros establecidos
+             * 
+            ***********************************************/
             document.getElementById("applyFiltersButton").addEventListener("click", function (event) {
                 event.preventDefault(); // Evita que el formulario se envíe directamente
 
                 const form = document.getElementById("clientsForm");
-                
                 const formData = new FormData(form);
-
-
                 const completedClients = [];
                 document.querySelectorAll("#clientsTable tbody input[type='checkbox']").forEach(checkbox => {
                     const clientId = checkbox.dataset.id; // ID del cliente
@@ -593,11 +732,11 @@
                 // Enviar la solicitud al backend solo si hay cambios
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
 
-                    fetch("../src/home.php", {
+                    fetch("/TFG/src/routes/api.php/update_clients", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
-                            action: "update_clients",
+                            id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
                             clients: completedClients,
                             extrainfo: extrainfoUpdates
                         })
@@ -605,7 +744,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Obtener los valores del filtro para mantenerlos en la URL
+                            // 🔹 Mantener filtros después de actualizar
                             const filterBy = document.getElementById("filterBy").value;
                             const filterValue = document.getElementById("filterValue").value.trim();
                             window.location.href = `?filterBy=${encodeURIComponent(filterBy)}&filterValue=${encodeURIComponent(filterValue)}`;
@@ -615,14 +754,13 @@
                     })
                     .catch(error => console.error("Error al actualizar los clientes:", error));
                 }
-
-
-
-
-
-
             });
 
+            /***********************************************
+             * 
+             * Recoge los datos de la tabla de clientes
+             * 
+            ***********************************************/
             function getFilteredData() {
                 let clientes = [];
                 document.querySelectorAll("#clientsTable tbody tr").forEach(row => {
@@ -643,24 +781,11 @@
                 return clientes;
             }
 
-
-            const chartTitles = {
-                es: {
-                    chart1: "Clientes por sede",
-                    chart2: "Clientes por empresa",
-                    chart3: "Salario promedio por sede",
-                    chart4: "Horas semanales promedio por empresa"
-                },
-                en: {
-                    chart1: "Clients by base",
-                    chart2: "Clients by company",
-                    chart3: "Average salary by base",
-                    chart4: "Average weekly hours by company"
-                }
-            };
-
-
-            // Función para generar las gráficas dinámicas
+            /***********************************************
+             * 
+             * Funcion que se encarga de generar las graficas
+             * 
+            ***********************************************/
             function generarGraficas() {
                 let clientes = getFilteredData();
 
@@ -670,17 +795,17 @@
                 let sedesUnicas = [...new Set(clientes.map(c => c.sede))];
                 let empresasUnicas = [...new Set(clientes.map(c => c.empresa))];
 
-                // 📊 1. Clientes por sede (GRÁFICO CIRCULAR)
+                // 1. Clientes por sede (GRÁFICO CIRCULAR)
                 let sedes = {};
                 clientes.forEach(c => sedes[c.sede] = (sedes[c.sede] || 0) + 1);
                 renderizarGrafico("chartSede", chartTitles[currentLanguage].chart1, sedes, "doughnut", "sede");
 
-                // 📊 2. Clientes por empresa (GRÁFICO CIRCULAR)
+                // 2. Clientes por empresa (GRÁFICO CIRCULAR)
                 let empresas = {};
                 clientes.forEach(c => empresas[c.empresa] = (empresas[c.empresa] || 0) + 1);
                 renderizarGrafico("chartEmpresa", chartTitles[currentLanguage].chart2, empresas, "doughnut", "empresa");
 
-                // 📊 3. Salario promedio por sede (GRÁFICO DE BARRAS)
+                // 3. Salario promedio por sede (GRÁFICO DE BARRAS)
                 let salarioPorSede = {}, cantidadPorSede = {};
                 clientes.forEach(c => {
                     salarioPorSede[c.sede] = (salarioPorSede[c.sede] || 0) + c.salario;
@@ -692,7 +817,7 @@
                 });
                 renderizarGrafico("chartSalario", chartTitles[currentLanguage].chart3, salarioPromedio, "bar", "sede");
 
-                // 📊 4. Horas semanales promedio por empresa (GRÁFICO DE BARRAS)
+                // 4. Horas semanales promedio por empresa (GRÁFICO DE BARRAS)
                 let horasPorEmpresa = {}, cantidadPorEmpresa = {};
                 clientes.forEach(c => {
                     horasPorEmpresa[c.empresa] = (horasPorEmpresa[c.empresa] || 0) + c.horas;
@@ -704,16 +829,12 @@
                 });
                 renderizarGrafico("chartHoras", chartTitles[currentLanguage].chart4, horasPromedio, "bar", "empresa");
             }
-            
-            // Paletas de colores predefinidas
-            const coloresSedesBase = ["#6A5ACD", "#20B2AA", "#FF8C00", "#DC143C", "#008000"];
-            const coloresEmpresasBase = ["#FF4500", "#32CD32", "#1E90FF", "#FFD700", "#8A2BE2"];
 
-            // Mapeos dinámicos
-            let coloresSedes = {};
-            let coloresEmpresas = {};
-
-            // Función para asignar colores dinámicamente
+            /***********************************************
+             * 
+             * Funcion que asigna los colores de las graficas
+             * 
+            ***********************************************/
             function obtenerColores(labels, tipo) {
                 if (tipo === "sede") {
                     return labels.map((sede, i) => {
@@ -733,7 +854,12 @@
                 }
             }
 
-
+            /***********************************************
+             * 
+             * Funcion que devuelve el color del que debe ser el
+             * texto de la web dependiendo del tema seleccionado
+             * 
+            ***********************************************/
             function getTextColor() {
                 if (isDarkMode){
                     return "#ffffff";
@@ -741,7 +867,11 @@
                     return "#000000";
             }
 
-            // Función para renderizar gráficos
+            /***********************************************
+             * 
+             * Funcion que renderiza el grafico pasado como argumento
+             * 
+            ***********************************************/
             function renderizarGrafico(id, titulo, datos, tipo = "bar", categoria = "") {
                 let ctx = document.getElementById(id)?.getContext("2d");
                 if (!ctx) return;
@@ -751,7 +881,7 @@
                 }
 
                 let backgroundColors = obtenerColores(Object.keys(datos), categoria);
-                let textColor = getTextColor(); // Detectar color correcto
+                let textColor = getTextColor();
 
 
                 window[id] = new Chart(ctx, {
@@ -792,22 +922,33 @@
                 });
             }
             
+            /***********************************************
+             * 
+             * Listener que envia los datos del ticket que se quiere
+             * crear a la API para almacenarlo en la BBDD
+             * 
+            ***********************************************/
             document.getElementById("submitTicket").addEventListener("click", function () {
                 const titulo = document.getElementById("ticketTitle").value.trim();
                 const descripcion = document.getElementById("ticketDescription").value.trim();
+                const prioridadSeleccionada = document.getElementById("ticketPriority").value;
+                const idUser = document.getElementById('userIDPlaceholder').innerText.trim();
 
-                if (!titulo || !descripcion) {
-                    alert("Por favor, completa todos los campos.");
+                if (!titulo || !descripcion || prioridadSeleccionada === "") {
+                    alert("Por favor, completa todos los campos y selecciona una prioridad.");
                     return;
                 }
 
-                fetch('../src/home.php', {
+                const prioridad = parseInt(prioridadSeleccionada);
+
+                fetch('/TFG/src/routes/api.php/create_ticket', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'crear_ticket',
+                        idUser: idUser,
                         titulo: titulo,
-                        descripcion: descripcion
+                        descripcion: descripcion,
+                        prioridad: prioridad
                     })
                 })
                 .then(response => response.json())
@@ -826,28 +967,47 @@
                 updateClientData();
             });
 
+            /***********************************************
+             * 
+             * Listener que limpia el panel de filtros y recarga la
+             * pagina para restablecer los filtros de la tabla
+             * 
+            ***********************************************/
             document.getElementById("clearFiltersButton").addEventListener("click", function () {
-                // Recarga la página con los valores predeterminados (filterBy=name y filterValue vacío)
                 window.location.href = "?filterBy=name&filterValue=";
             });
 
+            /***********************************************
+             * 
+             * Funcion que actualiza los iconos dependiendo del
+             * tema seleccionado
+             * 
+            ***********************************************/
             function updateIcons() {
                 const isDarkMode = localStorage.getItem("darkMode") === "enabled";
                 themeIcon.src = isDarkMode ? "assets/img/darkTheme.png" : "assets/img/lightTheme.png";
                 languageIcon.src = isDarkMode ? "assets/img/darkLanguage.png" : "assets/img/lightLanguage.png";
             }
 
-            // Aplicar los iconos correctos al cargar la página
-            updateIcons();
-
+            /***********************************************
+             * 
+             * Listeneres que llaman a la funcion correspondiente 
+             * para exportar los graficos
+             * 
+            ***********************************************/
             document.getElementById("exportChart1").addEventListener("click", function () {
                 exportarGrafico("chartHoras");
             });
-
             document.getElementById("exportChart2").addEventListener("click", function () {
                 exportarGrafico("chartSalario");
             });
 
+            /***********************************************
+             * 
+             * Funcion que exporta a PDF el grafico pasado como
+             * argumento
+             * 
+            ***********************************************/
             function exportarGrafico(idCanvas) {
                 // Obtener el contexto del canvas
                 const chartCanvas = document.getElementById(idCanvas);
@@ -885,10 +1045,14 @@
 
                     // Descargar la imagen como PDF
                     generarPDF(imageURL);
-                }, 1); // Esperar un momento para que se renderice el cambio
+                }, 1);
             }
 
-            // Función para generar el PDF
+            /***********************************************
+             * 
+             * Funcion que genera el PDF con la imagen del grafico
+             * 
+            ***********************************************/
             function generarPDF(imageURL) {
                 const { jsPDF } = window.jspdf; // Importar jsPDF correctamente
 
@@ -908,6 +1072,13 @@
                 pdf.save("grafico.pdf"); // Guardar PDF
             }
 
+            /***********************************************
+             * 
+             * Funcion para construir el mapa de Google Maps con
+             * las chinchetas correspondientes teniendo las coordenadas
+             * de las provinicias de España
+             * 
+            ***********************************************/
             function initMap() {
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 6,
@@ -935,10 +1106,12 @@
                 };
 
 
-                fetch("../src/get_sedes.php")
+                // Obtener el ID del usuario desde el DOM
+                const idUsuario = document.getElementById('userIDPlaceholder').innerText.trim();
+
+                fetch(`/TFG/src/routes/api.php/sedes?idUsuario=${idUsuario}`)
                     .then(response => response.json())
                     .then(data => {
-                        console.log("Sedes recibidas:", data);
 
                         Object.keys(data).forEach(ciudad => {
                             if (coordenadasCiudades[ciudad]) {
@@ -964,24 +1137,26 @@
                             }
                         });
                     })
-                    .catch(error => console.error("Error cargando ubicaciones:", error));
+                    .catch(error => {
+                        console.error("Error al cargar las sedes:", error);
+                    });
             }
-
-
-
-
-            // 💡 Aseguramos que la función es accesible globalmente
             window.initMap = initMap;
 
-
-
+            /***********************************************
+             * 
+             * Listener que abre el modal del mapa
+             * 
+            ***********************************************/
             document.getElementById("mapImage").addEventListener("click", function() {
                 var mapModal = new bootstrap.Modal(document.getElementById('mapModal'));
                 mapModal.show();
-                initMap(); // Cargar el mapa cuando se abre el modal
+                initMap(); 
             });
         });
 
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6eEghOS9R0xwvI73JGnBcWFisoH2fQ0&callback=initMap"></script>
+
 </body>
 </html>
