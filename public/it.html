@@ -357,10 +357,17 @@
             const isDarkMode = localStorage.getItem("darkMode") === "enabled";
             let chartPrioridad = null;
             let chartCaducidad = null;
+            const RUTAS_PERMITIDAS = {
+                0: "admin.html",
+                1: "home.html",
+                2: "supervisor.html",
+                3: "it.html"
+            };
 
 
             //Llamadas a funciones y demas funcionalidades
             fetchUserInfo();
+            checkRole();
             preselectForm();
             cargarTickets(prio, orden);
             updateIcons();
@@ -510,6 +517,34 @@
 
             /***********************************************
              * 
+             * Funcion que comprueba que el usuario que intenta 
+             * acceder a esta pagina tiene el rol adecuado
+             * 
+            ***********************************************/
+            function checkRole() {
+                fetch("/TFG/src/routes/api.php/check_role")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            window.location.href = "/TFG/public/index.html";
+                            return;
+                        }
+
+                        const rol = data.rol;
+                        const paginaActual = window.location.pathname.split("/").pop();
+
+                        if (RUTAS_PERMITIDAS[rol] !== paginaActual) {
+                            window.location.href = `/TFG/public/${RUTAS_PERMITIDAS[rol]}`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error al verificar sesión:", err);
+                        window.location.href = "/TFG/public/index.html";
+                    });
+            }
+
+            /***********************************************
+             * 
              * Listener que abre el modal de confirmacion de cierre
              * de sesion
              * 
@@ -551,7 +586,7 @@
 
                 // Primero actualizar la BBDD con los cambios
                 fetch("/TFG/src/routes/api.php/updateTickets", {
-                    method: "POST",
+                    method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ tickets: completedTickets })
                 })

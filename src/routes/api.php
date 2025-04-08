@@ -18,6 +18,7 @@ require_once '../import/importData.php';
 require_once '../export/exportBBDD.php';
 
 require_once '../auth/logout.php';
+require_once '../auth/check_role.php';
 
 header('Content-Type: application/json');
 
@@ -85,6 +86,9 @@ if ($method === 'GET') {
             $idIT = intval($_GET['idIT'] ?? 0);
             obtenerHistorialTickets($conn, $idIT);
             break;  
+        case 'check_role':
+            checkUserRole();
+            break;
         default:
             echo json_encode(['error' => 'Ruta no encontrada']);
             http_response_code(404);
@@ -98,23 +102,11 @@ if ($method === 'GET') {
                 
             iniciarSesion($conn, $username, $password);
             break;        
-        case 'update_clients':
-            $clients = $data['clients'] ?? null;
-            $extraInfo = $data['extrainfo'] ?? null;
-
-            actualizarClientes($conn, $idUser, $clients, $extraInfo);
-            break;
         case 'create_user':
             crearUsuario($conn, $data, $idUser);
             break;
         case 'create_client': 
             crearCliente($conn, $data, $idUser);
-            break;
-        case 'edit_user':
-            editarUsuario($conn, $data, $idUser);
-            break;
-        case 'edit_client':
-            editarCliente($conn, $data, $idUser);
             break;
         case 'import_users':
             importUsers($conn, $idUser);
@@ -129,12 +121,31 @@ if ($method === 'GET') {
         case 'import_clients':
             importClients($conn, $idUser);
             break;
-        case 'updateTickets':
-            actualizarTicketsCompletados($conn, $data['tickets'], $idUser);
-            break;
         case 'logout':
             cerrarSesion();
             break;      
+        default:
+            echo json_encode(['error' => 'Ruta no encontrada']);
+            http_response_code(404);
+    }
+} elseif ($method === 'PUT') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    switch ($request[0]) {
+        case 'update_clients':
+            $clients = $data['clients'] ?? null;
+            $extraInfo = $data['extrainfo'] ?? null;
+
+            actualizarClientes($conn, $idUser, $clients, $extraInfo);
+            break;
+        case 'edit_user':
+            editarUsuario($conn, $data, $idUser);
+            break;
+        case 'edit_client':
+            editarCliente($conn, $data, $idUser);
+            break;
+        case 'updateTickets':
+            actualizarTicketsCompletados($conn, $data['tickets'], $idUser);
+            break;
         default:
             echo json_encode(['error' => 'Ruta no encontrada']);
             http_response_code(404);

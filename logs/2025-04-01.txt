@@ -1,0 +1,23 @@
+El usuario natalia con ID 10 ha iniciado sesión a las 17:12:14.
+El usuario natalia con ID 10 ha modificado al cliente con ID 1 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 2 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 3 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 4 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 5 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 23 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 24 a las 17:16:19.
+El usuario natalia con ID 10 ha modificado al cliente con ID 23 a las 17:17:12.
+El usuario angel con ID 2 ha iniciado sesión a las 18:10:46.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:18:06.
+El usuario natalia con ID 10 ha cerrado sesión a las 18:18:56.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:19:01.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:25:12.
+El usuario angel con ID 2 ha iniciado sesión a las 18:25:54.
+El usuario angel con ID 2 ha iniciado sesión a las 18:26:16.
+El usuario angel con ID 2 ha iniciado sesión a las 18:26:48.
+El usuario natalia con ID 10 ha iniciado sesión a las 18:26:54.
+El usuario angel con ID 2 ha iniciado sesión a las 18:30:53.
+El usuario angel con ID 2 ha cerrado sesión a las 18:31:11.
+El usuario diego con ID 3 ha iniciado sesión a las 18:31:15.
+El usuario diego con ID 3 ha cerrado sesión a las 18:31:24.
+El usuario diego con ID 3 ha iniciado sesión a las 18:31:44.

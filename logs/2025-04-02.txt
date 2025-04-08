@@ -1,0 +1,9 @@
+El usuario natalia con ID 10 ha iniciado sesión a las 15:42:49.
+El usuario natalia con ID 10 ha exportado la tabla de usuarios en formato PDF a las 16:24:48.
+El usuario natalia con ID 10 ha exportado la tabla de clientes en formato XLSX a las 16:24:50.
+El usuario natalia con ID 10 ha modificado al usuario con ID 2 a las 16:27:56.
+El usuario natalia con ID 10 ha modificado al usuario con ID 3 a las 16:27:56.
+El usuario natalia con ID 10 ha exportado la tabla de usuarios en formato PDF a las 16:28:02.
+El usuario natalia con ID 10 ha modificado al usuario con ID 2 a las 16:28:56.
+El usuario natalia con ID 10 ha modificado al usuario con ID 3 a las 16:28:56.
+El usuario angel con ID 2 ha iniciado sesión a las 17:38:34.

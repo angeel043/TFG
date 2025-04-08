@@ -38,34 +38,34 @@ function registrarLog($datos) {
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha creado un ticket con ID $idEntidadAfectada que se ha asignado al usuario de IT con ID $idUsuarioIT a las $hora.";
             break;
 
-        case 7:
+        case 7: // Exportar usuarios en PDF
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha exportado la tabla de usuarios en formato PDF a las $hora.";
             break;
-        case 8:
+        case 8: // Exportar usuarios en XLSX
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha exportado la tabla de usuarios en formato XLSX a las $hora.";
             break;
-        case 9:
+        case 9: // Exportar clientes en PDF
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha exportado la tabla de clientes en formato PDF a las $hora.";
             break;
-        case 10:
+        case 10: // Exportar clientes en XLSX
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha exportado la tabla de clientes en formato XLSX a las $hora.";
             break;
-        case 11:
+        case 11: // Importar usuarios
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha importado $idEntidadAfectada usuarios a las $hora.";
             break;
-        case 12:
+        case 12: // Importar clientes
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha importado $idEntidadAfectada clientes a las $hora.";
             break;
-        case 13:
+        case 13: // Inicio de sesion
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha iniciado sesión a las $hora.";
             break;
-        case 14:
+        case 14: // Cierre de sesion
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha cerrado sesión a las $hora.";
             break;
-        case 16:
+        case 16: // Cliente marcado como completado
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha marcado como completado el cliente con ID $idEntidadAfectada a las $hora.";
             break;
-        case 17:
+        case 17: // Ticket marcado como completado
             $mensaje = "El usuario $userAccionador con ID $idUsuarioAccionador ha marcado como completado el ticket con ID $idEntidadAfectada a las $hora.";
             break;
         default:

@@ -324,15 +324,22 @@
                 }
             };
             const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            const RUTAS_PERMITIDAS = {
+                0: "admin.html",
+                1: "home.html",
+                2: "supervisor.html",
+                3: "it.html"
+            };
 
 
             //Llamadas a funciones y demas funcionalidades
+            fetchUserInfo();
+            checkRole();
             fetchClients();
             userStats();
             cargarGraficaActivos();
             cargarGraficaCompletados();
             selectFilter();
-            fetchUserInfo();
             updateIcons();
             cargarGraficaTicketsPorMes();
             document.body.classList.toggle("light-mode", !isDarkMode);
@@ -485,6 +492,34 @@
                     }
                 })
                 .catch(error => console.error("Error al cargar los clientes:", error));
+            }
+
+            /***********************************************
+             * 
+             * Funcion que comprueba que el usuario que intenta 
+             * acceder a esta pagina tiene el rol adecuado
+             * 
+            ***********************************************/
+            function checkRole() {
+                fetch("/TFG/src/routes/api.php/check_role")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            window.location.href = "/TFG/public/index.html";
+                            return;
+                        }
+
+                        const rol = data.rol;
+                        const paginaActual = window.location.pathname.split("/").pop();
+
+                        if (RUTAS_PERMITIDAS[rol] !== paginaActual) {
+                            window.location.href = `/TFG/public/${RUTAS_PERMITIDAS[rol]}`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error al verificar sesión:", err);
+                        window.location.href = "/TFG/public/index.html";
+                    });
             }
 
             /***********************************************

@@ -531,6 +531,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 
+
         document.addEventListener('DOMContentLoaded', function () {
 
             //Constantes y variables globales
@@ -546,11 +547,18 @@
             const deleteClientTable = document.getElementById("deleteClientTable");
             const themeIcon = document.getElementById("themeIcon");
             const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+            const RUTAS_PERMITIDAS = {
+                0: "admin.html",
+                1: "home.html",
+                2: "supervisor.html",
+                3: "it.html"
+            };
 
 
             //Llamadas a funciones y demas funcionalidades
             loadLanguage(currentLanguage);
             fetchUserInfo();
+            checkRole();
             updateIcons();
             document.body.classList.toggle("light-mode", !isDarkMode);
             userOptionsModal.classList.toggle("bg-dark", isDarkMode);
@@ -744,7 +752,35 @@
                     document.getElementById('userRolePlaceholder').innerText = roleText;
                 })
                 .catch(error => console.error('Error al obtener la información del usuario:', error));
-            }          
+            }    
+            
+            /***********************************************
+             * 
+             * Funcion que comprueba que el usuario que intenta 
+             * acceder a esta pagina tiene el rol adecuado
+             * 
+            ***********************************************/
+            function checkRole() {
+                fetch("/TFG/src/routes/api.php/check_role")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            window.location.href = "/TFG/public/index.html";
+                            return;
+                        }
+
+                        const rol = data.rol;
+                        const paginaActual = window.location.pathname.split("/").pop();
+
+                        if (RUTAS_PERMITIDAS[rol] !== paginaActual) {
+                            window.location.href = `/TFG/public/${RUTAS_PERMITIDAS[rol]}`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error al verificar sesión:", err);
+                        window.location.href = "/TFG/public/index.html";
+                    });
+            }
 
             /***********************************************
              * 
@@ -952,7 +988,7 @@
 
                 // Enviar los datos al backend
                 fetch('/TFG/src/routes/api.php/edit_user', {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1065,7 +1101,7 @@
 
                 // Enviar los datos al backend
                 fetch('/TFG/src/routes/api.php/edit_client', {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1196,7 +1232,7 @@
                         method: 'DELETE',  
                         headers: {
                             'Content-Type': 'application/json',
-                        },
+                        }, 
                         body: JSON.stringify({ id }) // Enviamos solo el ID en el body
                     })
                     .then(response => response.json())

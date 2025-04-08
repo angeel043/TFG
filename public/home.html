@@ -333,10 +333,17 @@
             const coloresEmpresasBase = ["#FF4500", "#32CD32", "#1E90FF", "#FFD700", "#8A2BE2"];
             let coloresSedes = {};
             let coloresEmpresas = {};
+            const RUTAS_PERMITIDAS = {
+                0: "admin.html",
+                1: "home.html",
+                2: "supervisor.html",
+                3: "it.html"
+            };
 
 
             //Llamadas a funciones y demas funcionalidades   
             fecthUserInfo();
+            checkRole();
             loadLanguage(currentLanguage);
             selectFilter();
             updateIcons();
@@ -409,6 +416,35 @@
                 })
                 .catch(error => console.error('Error al obtener la información del usuario:', error));
             }
+
+            /***********************************************
+             * 
+             * Funcion que comprueba que el usuario que intenta 
+             * acceder a esta pagina tiene el rol adecuado
+             * 
+            ***********************************************/
+            function checkRole() {
+                fetch("/TFG/src/routes/api.php/check_role")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            window.location.href = "/TFG/public/index.html";
+                            return;
+                        }
+
+                        const rol = data.rol;
+                        const paginaActual = window.location.pathname.split("/").pop();
+
+                        if (RUTAS_PERMITIDAS[rol] !== paginaActual) {
+                            window.location.href = `/TFG/public/${RUTAS_PERMITIDAS[rol]}`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error al verificar sesión:", err);
+                        window.location.href = "/TFG/public/index.html";
+                    });
+            }
+
             
             /***********************************************
              * 
@@ -583,7 +619,7 @@
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
 
                     fetch("/TFG/src/routes/api.php/update_clients", {
-                        method: "POST",
+                        method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
                             id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
@@ -648,7 +684,7 @@
                 // Enviar la solicitud al backend solo si hay cambios
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
                     fetch("/TFG/src/routes/api.php/update_clients", {
-                        method: "POST",
+                        method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
@@ -733,7 +769,7 @@
                 if (completedClients.length > 0 || extrainfoUpdates.length > 0) {
 
                     fetch("/TFG/src/routes/api.php/update_clients", {
-                        method: "POST",
+                        method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
                             id_usuario: document.getElementById('userIDPlaceholder').innerText.trim(),
@@ -1156,7 +1192,8 @@
         });
 
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6eEghOS9R0xwvI73JGnBcWFisoH2fQ0&callback=initMap"></script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6eEghOS9R0xwvI73JGnBcWFisoH2fQ0&callback=initMap"></script>
 
 </body>
 </html>

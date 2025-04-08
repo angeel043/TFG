@@ -1,0 +1,50 @@
+El usuario carlos con ID 4 ha iniciado sesión a las 16:28:38.
+El usuario carlos con ID 4 ha cerrado sesión a las 16:31:31.
+El usuario usuario007 con ID 7 ha iniciado sesión a las 16:31:40.
+El usuario usuario007 con ID 7 ha cerrado sesión a las 16:31:48.
+El usuario natalia con ID 10 ha iniciado sesión a las 16:31:52.
+El usuario natalia con ID 10 ha cerrado sesión a las 16:32:04.
+El usuario javier con ID 5 ha iniciado sesión a las 16:32:08.
+El usuario javier con ID 5 ha cerrado sesión a las 16:37:01.
+El usuario carlos con ID 4 ha iniciado sesión a las 16:37:06.
+El usuario carlos con ID 4 ha cerrado sesión a las 16:46:52.
+El usuario diego con ID 3 ha iniciado sesión a las 16:46:58.
+El usuario diego con ID 3 ha cerrado sesión a las 16:53:00.
+El usuario natalia con ID 10 ha iniciado sesión a las 16:53:06.
+El usuario natalia con ID 10 ha modificado al usuario con ID 4 a las 16:53:20.
+El usuario natalia con ID 10 ha modificado al usuario con ID 5 a las 16:53:20.
+El usuario natalia con ID 10 ha modificado al usuario con ID 6 a las 16:53:20.
+El usuario natalia con ID 10 ha cerrado sesión a las 16:53:27.
+El usuario diego con ID 3 ha iniciado sesión a las 16:53:32.
+El usuario diego con ID 3 ha cerrado sesión a las 16:54:01.
+El usuario natalia con ID 10 ha iniciado sesión a las 16:54:05.
+El usuario natalia con ID 10 ha modificado al usuario con ID 4 a las 16:54:15.
+El usuario natalia con ID 10 ha modificado al usuario con ID 5 a las 16:54:15.
+El usuario natalia con ID 10 ha modificado al usuario con ID 6 a las 16:54:15.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+El usuario natalia con ID 10 ha cerrado sesión a las 18:46:45.
