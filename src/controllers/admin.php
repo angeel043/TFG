@@ -108,7 +108,7 @@ function editarCliente($conn, $data, $idUser) {
 
     foreach ($data['clients'] as $client) {
         $stmt = $conn->prepare("UPDATE clientes SET nombre = ?, email = ?, telefono = ?, empresa = ?, sede = ?, salario = ?, horasSemanales = ?, completado = ?, extraInfo = ?, idUser = ? WHERE id = ?");
-        $stmt->bind_param("ssissiiisii", $client['nombre'], $client['email'], $client['telefono'], $client['empresa'], $client['sede'], $client['salario'], $client['horas'], $client['completado'], $client['extraInfo'], $client['idUser'], $client['id']);
+        $stmt->bind_param("ssissiiisii", $client['nombre'], $client['email'], $client['telefono'], $client['empresa'], $client['sede'], $client['salario'], $client['horasSemanales'], $client['completado'], $client['extraInfo'], $client['idUser'], $client['id']);
         if (!$stmt->execute()) {
             echo json_encode(['success' => false, 'error' => $stmt->error]);
             exit();
