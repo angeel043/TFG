@@ -1087,11 +1087,11 @@
 
                     if (!acc[id]) acc[id] = { id };
 
-                    console.log(input);
-
-                   
-                        acc[id][field] = input.value;
-                    
+                    if (input.type === 'checkbox') {
+                        acc[id][field] = input.checked ? 1 : 0;
+                    }   else {
+                        acc[id][field] = input.value;   
+                    }                    
 
                     return acc;
                 }, {});
