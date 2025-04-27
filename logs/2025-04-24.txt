@@ -9,3 +9,17 @@ El usuario usuario7 con ID 10 ha iniciado sesión a las 16:06:21.
 El usuario usuario7 con ID 10 ha modificado al cliente con ID 3 a las 16:14:20.
 El usuario usuario7 con ID 10 ha modificado al cliente con ID 1 a las 16:15:38.
 El usuario usuario7 con ID 10 ha modificado al cliente con ID 1 a las 16:16:32.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 2 a las 16:18:29.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 1 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 2 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 3 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 4 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 5 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 23 a las 16:18:49.
+El usuario usuario7 con ID 10 ha modificado al cliente con ID 3 a las 16:19:10.
+El usuario usuario7 con ID 10 ha cerrado sesión a las 16:21:39.
+El usuario usuario1 con ID 2 ha iniciado sesión a las 16:21:44.
+El usuario usuario1 con ID 2 ha cerrado sesión a las 16:25:12.
+El usuario usuario2 con ID 3 ha iniciado sesión a las 16:25:36.
+El usuario usuario2 con ID 3 ha cerrado sesión a las 16:27:28.
+El usuario usuario3 con ID 4 ha iniciado sesión a las 16:27:33.
